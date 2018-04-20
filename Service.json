@@ -1,0 +1,19 @@
+{
+  "kind": "Service",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "sys",
+    "namespace": "unit-test"
+  },
+  "spec": {
+      "ports": [{
+          "port": 5204,
+          "targetPort": 5204,
+          "nodePort": 31204
+      }],
+      "selector": {
+           "app": "sys-pod"
+      },
+      "type":"NodePort"
+  }
+}
