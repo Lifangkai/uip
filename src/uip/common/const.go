@@ -10,13 +10,13 @@ const (
 	ErrorOKSelectMsg = "查询成功"
 	ErrorOKGetMsg    = "数据查询成功"
 
-	ComErrorId ="200001"
-	ComErrorMsg="com参数错误"
+	ComErrorId  = "200001"
+	ComErrorMsg = "com参数错误"
 
-	InsertErrorId = "200002"
+	InsertErrorId  = "200002"
 	InsertErrorMsg = "插入失败"
 
-	CheckErrorId = "200003"
+	CheckErrorId  = "200003"
 	CheckErrorMsg = "数据未通过校验"
 
 	//Json格式错误
@@ -42,14 +42,19 @@ const (
 	//数据不存在
 	ErrorDataNotExistsErrId = "20009"
 	ErrorDataNotExistsMsg   = "数据不存在"
-	
-	ErrorDiscoverCheckId = "200010"
+
+	ErrorDiscoverCheckId  = "200010"
 	ErrorDiscoverCheckMsg = "sns服务发现失败"
 
-	ErrorAddInfoId="200011"
-	ErrorAddInfoMsg="添加错误"
+	ErrorAddInfoId  = "200011"
+	ErrorAddInfoMsg = "添加错误"
 
-	ErrorUpdataInfoFailedId="200012"
-	ErrorUpdataInfoFailedMsg="修改失败"
+	ErrorUpdataInfoFailedId  = "200012"
+	ErrorUpdataInfoFailedMsg = "修改失败"
 
+	ErrorRequestBadWayId  = "200013"
+	ErrorRequestBadWayMsg = "请求方式错误"
+
+	ErrorParameterIsErrId  = "200014"
+	ErrorParameterIsErrMsg = "参数错误"
 )

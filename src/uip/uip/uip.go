@@ -6,69 +6,132 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"fmt"
+
+	"uip/rsf/rsf"
+	"uip/common"
+	"uip/attached"
 )
 
-/** 姑且作为示例方法，开发完成删除
-*
- */
-func misposHandler(w http.ResponseWriter, r *http.Request) {
-	Logger.Info("in misposHandler")
+var (
+	//定义全局变量指针Rsf
+	frame *rsf.Rsf
+	//定义响应结构体
+	response *attached.Response
+)
+
+/*
+	author:jcx
+	date:180424
+	describe:接口数据格式信息总表/主表
+*/
+func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("***in dfmtMainHandler!!!***")
+
+	//实例化给前段的状态的对象
+	response = attached.NewResponse()
+
+	//如果没有对应的请求方式则请求错误,同时执行对应的响应信息
+	defer response.Answer(w)
+
+	//设置请求方法
 	setHeader(w)
 
+	//POST逻辑
 	if r.Method == "POST" {
-		var request server.MisPosInfoRequestJson
-		var response server.MisPosInfoRespJson
-		var responseStr []byte
-		requestStr := GetDataString(r)
-		Logger.Info("requestStr:%s", requestStr)
-		err := json.Unmarshal([]byte(requestStr), &request)
+		//用于接受前段给的值
+		var request attached.MainRequestJson
 
-		if err != nil {
-			response.Code = "10001"
-			response.Msg = "json格式错误"
-			Logger.Error("err:%v", err.Error())
-			responseStr, _ = json.Marshal(response)
-			w.Write([]byte(responseStr))
+		//接受并解析数据
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			response.Code = common.ErrorJsonErrId
+			response.Msg = common.ErrorJsonErrMsg
 			return
 		}
 
-		command := request.Com
-		data := request.Data
-		switch {
-		case command == "POST":
-			//TODO: 调用增加逻辑
-			//      请求参数有： data,是一个字符串形式的json格式数据，内容是多条完整的主表记录。
-			//     修改操作需要记录操作日志
-			Logger.Info("data:%v", data)
-			server.MisPosPostRequest(w, data)
-		case command == "DELETE":
-			//TODO: 根据字典编码删除对应的数据并且 保存对应的操作日志
-			//      请求参数有: groupId,是字典的机构标识数据，dictCode,是字典编码
-			//   bHandleDelRequest(w, r, data)
-		case command == "PUT":
-			//TODO: 调用修改逻辑
-			//      请求参数有：data,是一个字符串形式的json格式数据，内容是一条完整的主表记录。
-			//     修改操作需要记录操作日志
-			//    bHandlePutRequest(w, r, data)
-
-			//  case command == "GETALL":
-			// mALLHandleGetRequest(w, r)
+		//根据传入的对应状态值执行相应的方法
+		switch request.Com {
+		case "POST":
+			mainInsertValueMethod(w, r, request.Data)
+		case "PUT":
+			mainUpdateValueMethod(w, r, request.Data)
+		case "DELETE":
+			mainDeleteValueMethod(w, r, request.Data)
+		default:
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
 		}
-	} else if r.Method == "GET" {
-		r.ParseForm()
-		com := r.Form["com"][0]
-		Logger.Info("----%v----", com)
-		switch {
-		case com == "ID":
-			//TODO: 查询指定模块
-			//	bIDHandleGetRequest(w, r)
-		case com == "ALL":
-			//TODO: 查询所有模块
-			//     bALLHandleGetRequest(w, r)
+	}
+	//GET逻辑
+	if r.Method == "GET" {
+		//解析
+		if err := r.ParseForm(); err != nil {
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
 		}
-	} else {
-		Logger.Info("No method or Command!")
 
+		//判断参数是否正确
+		comWay := r.Form["com"]
+		if len(comWay) != 1 || comWay[0] == "" {
+			response.Code = common.ErrorParameterIsErrId
+			response.Msg = common.ErrorParameterIsErrMsg
+		}
+
+		//根据传入的参数执行对应的方法
+		switch comWay[0] {
+		case "search":
+			mainQueryValueMethod(w, r)
+		default:
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
+	}
+}
+
+/*
+	author:jcx
+	date:180424
+	describe:接口数据格式信息子表
+*/
+func dfmtSubHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("***in dfmtSubHandler!!!***")
+
+	//实例化给前段的状态的对象
+	response = attached.NewResponse()
+
+	//如果没有对应的请求方式则请求错误,同时执行对应的响应信息
+	defer response.Answer(w)
+
+	//设置请求方法
+	setHeader(w)
+
+	//POST逻辑
+	if r.Method == "POST" {
+		//用于接受前段给的值
+		var request attached.SubRequestJson
+
+		//接受并解析数据
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			response.Code = common.ErrorJsonErrId
+			response.Msg = common.ErrorJsonErrMsg
+			return
+		}
+
+		//根据传入的对应状态值执行相应的方法
+		switch request.Com {
+		case "POST":
+			subInsertValueMethod(w, r, request.Data)
+		case "PUT":
+			subUpdateValueMethod(w, r, request.Data)
+		case "DELETE":
+			subDeleteValueMethod(w, r, request.Data)
+		default:
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
 	}
 }
 
@@ -93,6 +156,7 @@ func GetDataString(req *http.Request) string {
 		return bytes.NewBuffer(result).String()
 	}
 }
+
 /*
 	请求头条
 */
@@ -115,8 +179,14 @@ func main() {
 	http.Handle("/js/", http.FileServer(http.Dir("./webRoot")))
 
 	//dynamic route
-	http.HandleFunc("/", defaultHandler)
-	//示例
-	http.HandleFunc("/mispos", misposHandler)
+	frame = rsf.NewRsf()
+	//默认路由
+	frame.SetPathHandlerPair("/", defaultHandler)
+	//接口数据格式信息总表/主表 uip_dfmt_main
+	frame.SetPathHandlerPair("/dfmtMain", dfmtMainHandler)
+	//接口数据格式信息子表 uip_dfmt_sub
+	frame.SetPathHandlerPair("/dfmtSub", dfmtSubHandler)
+
+	frame.Run()
 
 }
