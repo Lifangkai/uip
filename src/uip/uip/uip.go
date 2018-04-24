@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"uip/rsf/rsf"
+	"rsf/rsf"
 	"uip/common"
 	"uip/attached"
 )
