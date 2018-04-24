@@ -135,6 +135,272 @@ func dfmtSubHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+/*
+	author:quasimodo
+	date:180424
+	describe:源接口管理表格基本方法
+*/
+func uipSrcInterfaceHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("***in uipSrcInterfaceHandler!!!***")
+
+	//实例化给前段的状态的对象
+	response = attached.NewResponse()
+
+	//如果没有对应的请求方式则请求错误,同时执行对应的响应信息
+	defer response.Answer(w)
+
+	//设置请求方法
+	setHeader(w)
+
+	//POST逻辑
+	if r.Method == "POST" {
+		//用于接受前段给的值
+		var request attached.UipSrcInteRequestJson
+
+		//接受并解析数据
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			response.Code = common.ErrorJsonErrId
+			response.Msg = common.ErrorJsonErrMsg
+			return
+		}
+
+		//根据传入的对应状态值执行相应的方法
+		switch request.Com {
+		case "POST":
+			UipSrcInterfaceHandlePostRequest(w, r, request.Data)
+		case "PUT":
+			UipSrcInterfaceHandlePutRequest(w, r, request.Data)
+		case "DELETE":
+			UipSrcInterfaceDelRequest(w, r, request.Data)
+		default:
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
+	}
+
+	//GET逻辑
+	if r.Method == "GET" {
+		//解析
+		if err := r.ParseForm(); err != nil {
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
+
+		//判断参数是否正确
+		comWay := r.Form["com"]
+		if len(comWay) != 1 || comWay[0] == "" {
+			response.Code = common.ErrorParameterIsErrId
+			response.Msg = common.ErrorParameterIsErrMsg
+		}
+
+		//根据传入的参数执行对应的方法
+		switch comWay[0] {
+		case "key":
+			UipSrcInterfaceGetRequest(w, r)
+		default:
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
+	}
+}
+/*
+	author:quasimodo
+	date:180424
+	describe:源接口管理全文搜索方法
+*/
+func uipSrcInterfaceFtsearchHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("***in uipSrcInterfaceFtsearchHandler!!!***")
+
+	//实例化给前段的状态的对象
+	response = attached.NewResponse()
+
+	//如果没有对应的请求方式则请求错误,同时执行对应的响应信息
+	defer response.Answer(w)
+
+	//设置请求方法
+	setHeader(w)
+
+	//POST逻辑
+	if r.Method == "POST" {
+		//用于接受前段给的值
+		var request attached.SrcIntePseRequest
+
+		//接受并解析数据
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			response.Code = common.ErrorJsonErrId
+			response.Msg = common.ErrorJsonErrMsg
+			return
+		}
+		UipSrcInterfacePseHandlePutRequest(w, r, request)
+	}
+}
+/*
+	author:quasimodo
+	date:180424
+	describe:接口功能表格基本方法
+*/
+func uipInterFuncHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("***in uipInterFuncHandler!!!***")
+
+	//实例化给前段的状态的对象
+	response = attached.NewResponse()
+
+	//如果没有对应的请求方式则请求错误,同时执行对应的响应信息
+	defer response.Answer(w)
+
+	//设置请求方法
+	setHeader(w)
+
+	//POST逻辑
+	if r.Method == "POST" {
+		//用于接受前段给的值
+		var request attached.UipInterFuncRequestJson
+
+		//接受并解析数据
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			response.Code = common.ErrorJsonErrId
+			response.Msg = common.ErrorJsonErrMsg
+			return
+		}
+
+		//根据传入的对应状态值执行相应的方法
+		switch request.Com {
+		case "POST":
+			UipInterFuncHandlePostRequest(w, r, request.Data)
+		case "PUT":
+			UipInterFuncHandlePutRequest(w, r, request.Data)
+		case "DELETE":
+			UipInterFuncvDelRequest(w, r, request.Data)
+		default:
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
+	}
+
+	//GET逻辑
+	if r.Method == "GET" {
+		//解析
+		if err := r.ParseForm(); err != nil {
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
+
+		//判断参数是否正确
+		comWay := r.Form["com"]
+		if len(comWay) != 1 || comWay[0] == "" {
+			response.Code = common.ErrorParameterIsErrId
+			response.Msg = common.ErrorParameterIsErrMsg
+		}
+
+		//根据传入的参数执行对应的方法
+		switch comWay[0] {
+		case "key":
+			UipInterFuncGetRequest(w, r)
+		default:
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
+	}
+}
+
+/*
+	author:quasimodo
+	date:180424
+	describe:接口功能管理全文搜索方法
+*/
+func uipInterFuncFtsearchHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("***in uipInterFuncFtsearchHandler!!!***")
+
+	//实例化给前段的状态的对象
+	response = attached.NewResponse()
+
+	//如果没有对应的请求方式则请求错误,同时执行对应的响应信息
+	defer response.Answer(w)
+
+	//设置请求方法
+	setHeader(w)
+
+	//POST逻辑
+	if r.Method == "POST" {
+		//用于接受前段给的值
+		var request attached.SrcIntePseRequest
+		//接受并解析数据
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			response.Code = common.ErrorJsonErrId
+			response.Msg = common.ErrorJsonErrMsg
+			return
+		}
+		UipInterFuncPseHandlePutRequest(w, r, request)
+	}
+}
+/*
+	author:quasimodo
+	date:180424
+	describe:接口功能管理批量增加方法
+*/
+func uipInterFuncBatchCreateHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("***in uipInterFuncBatchCreateHandler!!!***")
+
+	//实例化给前段的状态的对象
+	response = attached.NewResponse()
+
+	//如果没有对应的请求方式则请求错误,同时执行对应的响应信息
+	defer response.Answer(w)
+
+	//设置请求方法
+	setHeader(w)
+
+	//POST逻辑
+	if r.Method == "POST" {
+		//用于接受前段给的值
+		var request attached.UipInterFuncsRequestJson
+		//接受并解析数据
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			response.Code = common.ErrorJsonErrId
+			response.Msg = common.ErrorJsonErrMsg
+			return
+		}
+		UipInterFuncsHandlePostRequest(w, r, request.Data)
+	}
+}
+
+/*
+	author:quasimodo
+	date:180424
+	describe:接口功能管理批量搜索方法
+*/
+func uipInterFuncBSearchHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("***in uipInterFuncFtsearchHandler!!!***")
+
+	//实例化给前段的状态的对象
+	response = attached.NewResponse()
+
+	//如果没有对应的请求方式则请求错误,同时执行对应的响应信息
+	defer response.Answer(w)
+
+	//设置请求方法
+	setHeader(w)
+
+	//POST逻辑
+	if r.Method == "POST" {
+		//用于接受前段给的值
+		var request attached.BatchResQuest
+		//接受并解析数据
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			response.Code = common.ErrorJsonErrId
+			response.Msg = common.ErrorJsonErrMsg
+			return
+		}
+		UipInterFuncvBatchQueryRequest(w, r, request)
+	}
+}
+
 /**
 * Default Request Handler
  */
@@ -186,6 +452,14 @@ func main() {
 	frame.SetPathHandlerPair("/dfmtMain", dfmtMainHandler)
 	//接口数据格式信息子表 uip_dfmt_sub
 	frame.SetPathHandlerPair("/dfmtSub", dfmtSubHandler)
+	//uipSrcInteface源接口管理
+	frame.SetPathHandlerPair("/group/manage", uipSrcInterfaceHandler)
+	frame.SetPathHandlerPair("/group/manage/ftsearch", uipSrcInterfaceFtsearchHandler)
+	//uipInterFunc接口功能管理表
+	frame.SetPathHandlerPair("/func/manage", uipInterFuncHandler)
+	frame.SetPathHandlerPair("/func/manage/ftsearch", uipInterFuncFtsearchHandler)
+	frame.SetPathHandlerPair(" /func/manage/batchCreate ", uipInterFuncBatchCreateHandler)
+	frame.SetPathHandlerPair(" /func/manage/bSearch ", uipInterFuncBSearchHandler)
 
 	frame.Run()
 

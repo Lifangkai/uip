@@ -69,4 +69,10 @@ const (
 
 	ErrorInterLenId = "2000018"
 	ErrorInterLenMsg = "接口编码长度大于32位！"
+
+	ErrorFuncLenId = "2000019"
+	ErrorFuncLenMsg = "接口功能编码长度大于32位！"
+
+	ErrorQueryId = "2000020"
+	ErrorQueryMsg = "一条或者多条数据查询失败！"
 )

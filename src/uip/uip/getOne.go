@@ -1,7 +1,7 @@
 package main
 
 import (
-	"uip/src/uip/common"
+	"uip/common"
 	"fmt"
 )
 
@@ -25,7 +25,7 @@ func getlistOne(keyword string) (responsesChild responJson) {
 	key := keyword
 	fmt.Println("key = [", key, "]")
 	//根据key查询所有数据dictCode + itemCode搜索
-	result, err := aRsf.DB.RetriveOne(key)
+	result, err := frame.DB.RetriveOne(key)
 
 	fmt.Println("result = [", result, "]")
 	//异常处理
@@ -34,8 +34,8 @@ func getlistOne(keyword string) (responsesChild responJson) {
 		responsesChild.Msg = common.ErrorDataNotExistsMsg
 		return responsesChild
 	} else if result == "" && err != nil {
-		responsesChild.Code = common.ErrorSystemSelectErrId
-		responsesChild.Msg = common.ErrorSystemSelectErrMsg
+		responsesChild.Code = common.ErrorSystemErrId
+		responsesChild.Msg = common.ErrorSystemErrMsg
 		return responsesChild
 	} else {
 		responsesChild.Data = result

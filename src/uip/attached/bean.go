@@ -35,3 +35,52 @@ type SubRequestJson struct {
 	Com  string     `json:"com"`
 	Data UipDfmtSub `json:"data"`
 }
+
+type  UipSrcInterface struct {
+	Cmt	string	`json:"cmt"`
+	Ctime	string	`json:"ctime"`
+	UserCode	string	`json:"userCode"`
+	FuncList	string	`json:"funcList"`
+	OpenList	string	`json:"openList"`
+	ConnConf	string	`json:"connConf"`
+	InteType	string	`json:"inteType"`
+	InteCode	string	`json:"inteCode"`
+	InteName	string	`json:"inteName"`
+	GroupId	string	`json:"groupId"`
+}
+type UipSrcInteRequestJson struct {
+	Com  string     `json:"com"`
+	Data UipSrcInterface `json:"data"`
+}
+type  UipInterFunc struct {
+	Cmt			string	`json:"cmt"`
+	OperCode	string	`json:"operCode"`
+	Ctime		string	`json:"ctime"`
+	ResFmtCode	string	`json:"resFmtCode"`
+	ReqFtmCode	string	`json:"reqFtmCode"`
+	ResDataProp	string	`json:"resDataProp"`
+	ReqDataProp	string	`json:"reqDataProp"`
+	ResExample	string	`json:"resExample"`
+	ReqExample	string	`json:"reqExample"`
+	FuncCode	string	`json:"funcCode"`
+	FuncName	string	`json:"funcName"`
+	GroupId	string	`json:"groupId"`
+}
+type  UipInterFuncRequestJson struct {
+	Com  string     `json:"com"`
+	Data  UipInterFunc `json:"data"`
+}
+type  UipInterFuncsRequestJson struct {
+	Com  string     `json:"com"`
+	Data  []UipInterFunc `json:"data"`
+}
+type SrcIntePseRequest struct {
+	GroupId		string `json:"groupId"`
+	Fttext			string `json:"fttext"`
+	Settext			string `json:"settext"`
+}
+
+type BatchResQuest struct {
+	GroupId		string `json:"groupId"`
+	Data		[]string `json:"data"`
+}
