@@ -42,7 +42,7 @@ const (
 	//数据不存在
 	ErrorDataNotExistsErrId = "20009"
 	ErrorDataNotExistsMsg   = "数据不存在"
-	
+
 	ErrorDiscoverCheckId = "200010"
 	ErrorDiscoverCheckMsg = "sns服务发现失败"
 
