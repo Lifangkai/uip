@@ -1,55 +1,78 @@
 {
-"apiVersion": "v1",
-"kind": "ReplicationController",
-"metadata":{
-    "name": "sys-rc",
+  "apiVersion": "v1",
+  "kind": "ReplicationController",
+  "metadata": {
+    "name": "uip-rc",
     "namespace": "unit-test"
-},
-"spec":{
-  "replicas": 1,
-  "selector":{
-        "app": "sys-pod"
+  },
+  "spec": {
+    "replicas": 1,
+    "selector": {
+      "app": "uip-pod"
     },
-  "template":{
-    "metadata":{
-          "name": "sys",
-          "labels":{
-                "app": "sys-pod"
-            }
-     },
-    "spec":{
-      "containers":[{
-        "name": "sys",
-        "image": "172.16.0.11:5001/sys:v1.0",
-        "imagePullPolicy": "IfNotPresent",
-        "ports":[{
-             "containerPort": 5204
-          }],
-         "env":[{
-             "name": "SSDB_IP",
-             "value":"172.16.0.14"
-         },{
-             "name": "SSDB_PORT",
-             "value":"6100"
-         },{
-             "name": "SERVICE_PORT",
-             "value":"5204"
-         },{
-              "name":"ETCD_IP",
-               "value":"172.16.0.11"
-                
-            },{
-               "name":"ETCD_PORT",
-                "value":"2379"
-            },{
-               "name":"LOG_IP",
-                "value":"172.16.0.13"
-            },{
-               "name":"LOG_PORT",
-                "value":"38080"
-            }]
-        }]
+    "template": {
+      "metadata": {
+        "name": "uip",
+        "labels": {
+          "app": "uip-pod"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "uip",
+            "image": "172.16.0.11:5001/uip:v1.0",
+            "imagePullPolicy": "IfNotPresent",
+            "ports": [
+              {
+                "containerPort": 5523
+              }
+            ],
+            "env": [
+              {
+                "name": "SSDB_IP",
+                "value": "172.16.0.14"
+              },
+              {
+                "name": "SSDB_PORT",
+                "value": "6100"
+              },
+              {
+                "name": "SERVICE_PORT",
+                "value": "5523"
+              },
+              {
+                "name": "ETCD_IP",
+                "value": "172.16.0.11"
+              },
+              {
+                "name": "ETCD_PORT",
+                "value": "2379"
+              },
+              {
+                "name": "LOG_IP",
+                "value": "172.16.0.14"
+              },
+              {
+                "name": "LOG_PORT",
+                "value": "38080"
+              },
+              {
+                "name": "PSE_IP",
+                "value": "172.16.0.14"
+              },
+              {
+                "name": "PSE_PORT",
+                "value": "31007"
+              },
+              {
+                "name": "CONN_MINUTES",
+                "value": "5"
+              }
+            ]
+          }
+        ]
       }
     }
-}
+  }
 }

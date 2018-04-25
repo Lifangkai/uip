@@ -1,27 +1,27 @@
 #!/bin/sh
 
-echo "create rest service on k8s cluster...."
+echo "create uip rest service on k8s cluster...."
 
-exist=`kubectl get svc --namespace=unit-test | grep sys | grep -v grep`
+exist=`kubectl get svc --namespace=unit-test | grep uip | grep -v grep`
 if [ "$exist" = "" ]
 then
-  echo "sys service not exist! NOT need delete "
+  echo "uip service not exist! NOT need delete "
 else
-  kubectl delete svc sys --namespace=unit-test
+  kubectl delete svc uip --namespace=unit-test
 fi
 
 kubectl create -f ./Service.json
-echo "sys service done"
+echo "uip service done"
 
-echo "create sys ReplicationController on k8s cluster...."
-exist=`kubectl get ReplicationController --namespace=unit-test | grep sys |grep -v grep`
+echo "create uip ReplicationController on k8s cluster...."
+exist=`kubectl get ReplicationController --namespace=unit-test | grep uip-rc |grep -v grep`
 if [ "$exist" = "" ]
 then
-  echo "sys ReplicationController not exist! NOT need delete"
+  echo "uip ReplicationController not exist! NOT need delete"
 else
-  kubectl delete ReplicationController sys-rc --namespace=unit-test
+  kubectl delete ReplicationController uip-rc --namespace=unit-test
 fi
 
 kubectl create -f ./ReplicationController.json
-echo "sys ReplicationController done"
+echo "uip ReplicationController done"
 

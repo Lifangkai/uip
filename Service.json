@@ -2,17 +2,17 @@
   "kind": "Service",
   "apiVersion": "v1",
   "metadata": {
-    "name": "sys",
+    "name": "uip",
     "namespace": "unit-test"
   },
   "spec": {
       "ports": [{
-          "port": 5204,
-          "targetPort": 5204,
-          "nodePort": 31204
+          "port": 5523,
+          "targetPort": 5523,
+          "nodePort": 31424
       }],
       "selector": {
-           "app": "sys-pod"
+           "app": "uip-pod"
       },
       "type":"NodePort"
   }
