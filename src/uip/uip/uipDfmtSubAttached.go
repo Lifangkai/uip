@@ -135,11 +135,11 @@ func querySubCount(data attached.UipDfmtSub) (count int, err error) {
 }
 
 //子表查询所有
-func querySubAllCondtion(key string) (subArray []attached.UipDfmtSub,err error) {
+func querySubAllCondtion(key string) ([]attached.UipDfmtSub,error) {
 	fmt.Println("***querySubAllCondtion***")
 
 	//返回的实体
-	//var subArray []attached.UipDfmtSub
+	var subArray []attached.UipDfmtSub
 
 	//key条件
 	Key := "uipDfmtSub" + key
@@ -150,14 +150,14 @@ func querySubAllCondtion(key string) (subArray []attached.UipDfmtSub,err error) 
 	if err != nil {
 		response.Code = common.ErrorSystemErrId
 		response.Msg = common.ErrorSystemErrMsg
-		return subArray, errors.New("查询所有错误:" + err.Error())
+		return nil, errors.New("查询所有错误:" + err.Error())
 	}
 
 	//成功但是并没有数据
 	if len(results) == 1 && results[0] == "ok" {
 		response.Code = common.ErrorDataNotExistsErrId
 		response.Msg = common.ErrorDataNotExistsMsg
-		return subArray, errors.New("数据为空:" + err.Error())
+		return nil, errors.New("数据为空:" + err.Error())
 	} else {
 		//反序列化的实体
 		var subBean attached.UipDfmtSub
@@ -167,7 +167,7 @@ func querySubAllCondtion(key string) (subArray []attached.UipDfmtSub,err error) 
 			if err := json.Unmarshal([]byte(results[i]), &subBean); err != nil {
 				response.Code = common.ErrorJsonErrId
 				response.Msg = common.ErrorJsonErrMsg
-				return subArray, errors.New("json反序列化错误:" + err.Error())
+				return nil, errors.New("json反序列化错误:" + err.Error())
 			}
 			//当前序列化成功的对象追加
 			subArray = append(subArray, subBean)
@@ -176,7 +176,7 @@ func querySubAllCondtion(key string) (subArray []attached.UipDfmtSub,err error) 
 		if subArray == nil {
 			response.Code = common.ErrorDataNotExistsErrId
 			response.Msg = common.ErrorDataNotExistsMsg
-			return subArray, errors.New("数据为空:" + err.Error())
+			return nil, errors.New("数据为空:" + err.Error())
 		}
 		return subArray, nil
 	}
