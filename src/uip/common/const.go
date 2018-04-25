@@ -57,4 +57,7 @@ const (
 
 	ErrorParameterIsErrId  = "200014"
 	ErrorParameterIsErrMsg = "参数错误"
+
+	ErrorDelErrId="200015"
+	ErrorDelErrMsg="删除错误"
 )

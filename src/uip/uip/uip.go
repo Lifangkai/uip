@@ -51,11 +51,11 @@ func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
 		//根据传入的对应状态值执行相应的方法
 		switch request.Com {
 		case "POST":
-			mainInsertValueMethod(w, r, request.Data)
+			mainInsertValueMethod(w, request.Data)
 		case "PUT":
-			mainUpdateValueMethod(w, r, request.Data)
+			mainUpdateValueMethod(w, request.Data)
 		case "DELETE":
-			mainDeleteValueMethod(w, r, request.Data)
+			mainDeleteValueMethod(w, request.Data)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
@@ -81,7 +81,7 @@ func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
 		//根据传入的参数执行对应的方法
 		switch comWay[0] {
 		case "search":
-			mainQueryValueMethod(w, r)
+			mainQueryValueMethod(w)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
