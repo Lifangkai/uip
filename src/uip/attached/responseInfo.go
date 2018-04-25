@@ -15,7 +15,7 @@ type Response struct {
 func NewResponse() *Response {
 	return &Response{
 		Code: common.ErrorSystemErrId,
-		Data: common.ErrorSystemErrMsg,
+		Msg: common.ErrorSystemErrMsg,
 	}
 }
 
