@@ -61,9 +61,6 @@ const (
 	ErrorDelErrId="200015"
 	ErrorDelErrMsg="删除错误"
 
-	ErrorJsonFmtErrId = "2000018"
-	ErrorJsonFmtErrMsg = "json格式错误!"
-
 	ErrorDataNullId = "2000016"
 	ErrorDataNullMsg = "请求参数为空!"
 
@@ -78,4 +75,7 @@ const (
 
 	ErrorQueryId = "2000020"
 	ErrorQueryMsg = "一条或者多条数据查询失败！"
+
+	ErrorJsonFmtErrId = "2000021"
+	ErrorJsonFmtErrMsg = "json格式错误!"
 )
