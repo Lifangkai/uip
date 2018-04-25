@@ -135,11 +135,11 @@ func querySubCount(data attached.UipDfmtSub) (count int, err error) {
 }
 
 //子表查询所有
-func querySubAllCondtion(key string) ([]attached.UipDfmtSub, error) {
+func querySubAllCondtion(key string) (subArray []attached.UipDfmtSub,err error) {
 	fmt.Println("***querySubAllCondtion***")
 
 	//返回的实体
-	var subArray []attached.UipDfmtSub
+	//var subArray []attached.UipDfmtSub
 
 	//key条件
 	Key := "uipDfmtSub" + key
