@@ -1,7 +1,6 @@
 package attached
 
 import (
-	"net/http"
 	"fmt"
 )
 
@@ -29,6 +28,14 @@ func MainFilter(uipMain UipDfmtMain) bool {
 		fmt.Println("长度不符合！")
 		return boo
 	}
+
+	//默认值判断
+	if uipMain.FmtType != "json-json" && uipMain.FmtType != "file-file" && uipMain.FmtType != "ws-web" && uipMain.FmtType != "service" {
+		boo = false
+		fmt.Println("默认值不合法！")
+		return boo
+	}
+
 	return boo
 }
 

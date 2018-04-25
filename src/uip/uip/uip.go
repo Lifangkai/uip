@@ -81,7 +81,7 @@ func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
 		//根据传入的参数执行对应的方法
 		switch comWay[0] {
 		case "search":
-			mainQueryValueMethod(w)
+			mainQueryValueMethod(w,r)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
@@ -122,11 +122,11 @@ func dfmtSubHandler(w http.ResponseWriter, r *http.Request) {
 		//根据传入的对应状态值执行相应的方法
 		switch request.Com {
 		case "POST":
-			subInsertValueMethod(w, r, request.Data)
+			subInsertValueMethod(w, request.Data)
 		case "PUT":
-			subUpdateValueMethod(w, r, request.Data)
+			subUpdateValueMethod(w, request.Data)
 		case "DELETE":
-			subDeleteValueMethod(w, r, request.Data)
+			subDeleteValueMethod(w, request.Data)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
@@ -449,9 +449,9 @@ func main() {
 	//默认路由
 	frame.SetPathHandlerPair("/", defaultHandler)
 	//接口数据格式信息总表/主表 uip_dfmt_main
-	frame.SetPathHandlerPair("/dfmtMain", dfmtMainHandler)
+	frame.SetPathHandlerPair("/fmt/manage/main", dfmtMainHandler)
 	//接口数据格式信息子表 uip_dfmt_sub
-	frame.SetPathHandlerPair("/dfmtSub", dfmtSubHandler)
+	frame.SetPathHandlerPair("/fmt/manage/sub", dfmtSubHandler)
 	//uipSrcInteface源接口管理
 	frame.SetPathHandlerPair("/group/manage", uipSrcInterfaceHandler)
 	frame.SetPathHandlerPair("/group/manage/ftsearch", uipSrcInterfaceFtsearchHandler)

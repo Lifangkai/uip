@@ -78,4 +78,7 @@ const (
 
 	ErrorQueryId = "2000020"
 	ErrorQueryMsg = "一条或者多条数据查询失败！"
+
+	ErrorQueryErrId="200021"
+	ErrorQueryErrMsg="查询错误"
 )
