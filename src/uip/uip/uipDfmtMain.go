@@ -125,7 +125,7 @@ func mainQueryValueMethod(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//查询的条件
-	key := r.Form["groupID"][0] + r.Form["fmtCode"][0]
+	key := r.Form["groupId"][0] + r.Form["fmtCode"][0]
 
 	//查询主表
 	resultUipDfmtMain, err := mainQueryOneMethod(key)
