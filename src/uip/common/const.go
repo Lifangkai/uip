@@ -60,4 +60,22 @@ const (
 
 	ErrorDelErrId="200015"
 	ErrorDelErrMsg="删除错误"
+
+	ErrorJsonFmtErrId = "2000018"
+	ErrorJsonFmtErrMsg = "json格式错误!"
+
+	ErrorDataNullId = "2000016"
+	ErrorDataNullMsg = "请求参数为空!"
+
+	ErrorGroupIdLenId = "2000017"
+	ErrorGroupIdLenMsg ="机构表示长度不为8位！"
+
+	ErrorInterLenId = "2000018"
+	ErrorInterLenMsg = "接口编码长度大于32位！"
+
+	ErrorFuncLenId = "2000019"
+	ErrorFuncLenMsg = "接口功能编码长度大于32位！"
+
+	ErrorQueryId = "2000020"
+	ErrorQueryMsg = "一条或者多条数据查询失败！"
 )
