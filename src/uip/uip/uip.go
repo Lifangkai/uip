@@ -32,6 +32,7 @@ func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
 
 	//如果没有对应的请求方式则请求错误,同时执行对应的响应信息
 	defer response.Answer(w)
+	defer w.Write([]byte("test!"))
 
 	//设置请求方法
 	setHeader(w)
