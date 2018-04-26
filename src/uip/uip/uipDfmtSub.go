@@ -34,6 +34,11 @@ func subInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 	//添加数据
 	if err := subAddMehod(data); err != nil {
 		fmt.Println(err.Error())
+		if err.Error()=="数据已存在"{
+			response.Code = common.ErrorDataExistsErrId
+			response.Msg = common.ErrorDataExistsErrMsg
+			return
+		}
 		response.Code = common.ErrorAddInfoId
 		response.Msg = common.ErrorAddInfoMsg
 		return
@@ -61,6 +66,11 @@ func subUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 	//修改
 	if err := subUpdateMehod(data); err != nil {
 		fmt.Println(err.Error())
+		if err.Error()=="数据不存在"{
+			response.Code = common.ErrorDataNotExistsErrId
+			response.Msg = common.ErrorDataNotExistsMsg
+			return
+		}
 		response.Code = common.ErrorUpdataInfoFailedId
 		response.Msg = common.ErrorUpdataInfoFailedMsg
 		return
@@ -88,6 +98,11 @@ func subDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 	count, err := querySubCount(data)
 	if err != nil {
 		fmt.Println(err.Error())
+		if err.Error()=="数据为空"{
+			response.Code = common.ErrorDataNotExistsErrId
+			response.Msg = common.ErrorDataNotExistsMsg
+			return
+		}
 		response.Code = common.ErrorSystemErrId
 		response.Msg = common.ErrorSystemErrMsg
 		return
@@ -103,6 +118,11 @@ func subDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 	//删除数据
 	if err := subDelMethod(data); err != nil {
 		fmt.Println(err.Error())
+		if err.Error()=="数据不存在"{
+			response.Code = common.ErrorDataNotExistsErrId
+			response.Msg = common.ErrorDataNotExistsMsg
+			return
+		}
 		response.Code = common.ErrorDelErrId
 		response.Msg = common.ErrorDelErrMsg
 		return

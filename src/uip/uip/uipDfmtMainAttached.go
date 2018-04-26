@@ -71,7 +71,7 @@ func mainUpdateMethod(data attached.UipDfmtMain) error {
 		return nil
 	} else {
 		//其他错误
-		return errors.New("异常" )
+		return errors.New("数据不存在" )
 	}
 	return nil
 }
@@ -132,6 +132,6 @@ func mainQueryOneMethod(str string) (attached.UipDfmtMain, error) {
 		return mainFmt, nil
 	} else {
 		//其他错误
-		return mainFmt, errors.New("异常")
+		return mainFmt, errors.New("数据不存在")
 	}
 }

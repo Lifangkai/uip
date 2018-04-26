@@ -71,7 +71,7 @@ func subUpdateMehod(data attached.UipDfmtSub) error {
 		return nil
 	} else {
 		//其他错误
-		return errors.New("异常")
+		return errors.New("数据不存在")
 	}
 	return nil
 }

@@ -34,6 +34,11 @@ func mainInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 	//添加数据
 	if err := mainAddMehod(data); err != nil {
 		fmt.Println(err.Error())
+		if err.Error()=="数据已存在"{
+			response.Code = common.ErrorDataExistsErrId
+			response.Msg = common.ErrorDataExistsErrMsg
+			return
+		}
 		response.Code = common.ErrorAddInfoId
 		response.Msg = common.ErrorAddInfoMsg
 		return
@@ -60,6 +65,11 @@ func mainUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 	//修改
 	if err := mainUpdateMethod(data); err != nil {
 		fmt.Println(err.Error())
+		if err.Error()=="数据不存在"{
+			response.Code = common.ErrorDataNotExistsErrId
+			response.Msg = common.ErrorDataNotExistsMsg
+			return
+		}
 		response.Code = common.ErrorUpdataInfoFailedId
 		response.Msg = common.ErrorUpdataInfoFailedMsg
 		return
@@ -86,6 +96,11 @@ func mainDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 	//删除数据
 	if err := mainDelMethod(data); err != nil {
 		fmt.Println(err)
+		if err.Error()=="数据不存在"{
+			response.Code = common.ErrorDataNotExistsErrId
+			response.Msg = common.ErrorDataNotExistsMsg
+			return
+		}
 		response.Code = common.ErrorDelErrId
 		response.Msg = common.ErrorDelErrMsg
 		return
@@ -121,6 +136,12 @@ func mainQueryValueMethod(w http.ResponseWriter, r *http.Request) {
 	//查询主表
 	resultUipDfmtMain, err := mainQueryOneMethod(key)
 	if err != nil {
+		fmt.Println(err.Error())
+		if err.Error()=="数据不存在"{
+			response.Code = common.ErrorDataNotExistsErrId
+			response.Msg = common.ErrorDataNotExistsMsg
+			return
+		}
 		response.Code = common.ErrorQueryErrId
 		response.Msg = common.ErrorQueryErrMsg
 		return
@@ -129,7 +150,12 @@ func mainQueryValueMethod(w http.ResponseWriter, r *http.Request) {
 	//查询子表
 	resultUipDfmtSub, err1 := querySubAllCondtion(key)
 	if err1 != nil {
-		fmt.Println(err1)
+		fmt.Println(err1.Error())
+		if err.Error()=="数据为空"{
+			response.Code = common.ErrorDataNotExistsErrId
+			response.Msg = common.ErrorDataNotExistsMsg
+			return
+		}
 		response.Code = common.ErrorQueryErrId
 		response.Msg = common.ErrorQueryErrMsg
 		return
