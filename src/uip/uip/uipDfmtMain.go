@@ -14,9 +14,6 @@ import (
 func mainInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 	fmt.Println("***mainInsertValueMethod***")
 
-	//响应状态
-	defer response.Answer(w)
-
 	//校验数据
 	if ok := attached.MainFilter(data); !ok {
 		response.Code = common.CheckErrorId
@@ -53,9 +50,6 @@ func mainInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 func mainUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 	fmt.Println("***mainUpdateValueMethod***")
 
-	//响应状态
-	defer response.Answer(w)
-
 	//校验数据
 	if ok := attached.MainFilter(data); !ok {
 		response.Code = common.CheckErrorId
@@ -82,9 +76,6 @@ func mainUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 func mainDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 	fmt.Println("***mainDeleteValueMethod***")
 
-	//响应状态
-	defer response.Answer(w)
-
 	//数据过滤
 	if data.GroupId == "" || data.FmtCode == "" || len(data.GroupId) != 8 || len(data.FmtCode) > 32 {
 		response.Code = common.CheckErrorId
@@ -110,10 +101,6 @@ func mainDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 */
 func mainQueryValueMethod(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("***mainQueryValueMethod***")
-
-	//响应状态
-	defer response.Answer(w)
-	defer w.Write([]byte("测试输出"))
 
 	//接受数据并校验
 	if r.Form["groupId"][0] == "" || len(r.Form["groupId"]) != 1 {

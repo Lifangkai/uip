@@ -14,9 +14,6 @@ import (
 func subInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 	fmt.Println("***mainInsertValueMethod***")
 
-	//响应状态
-	defer response.Answer(w)
-
 	//校验数据
 	if ok := attached.SubFilter(data); !ok {
 		response.Code = common.CheckErrorId
@@ -82,9 +79,6 @@ func subUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 */
 func subDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 	fmt.Println("***mainDeleteValueMethod***")
-
-	//响应状态
-	defer response.Answer(w)
 
 	//数据过滤
 	if data.GroupId == "" || data.FmtCode == "" || data.DtlCode == "" || len(data.GroupId) != 8 || len(data.FmtCode) > 32 || len(data.DtlCode) > 32 {
