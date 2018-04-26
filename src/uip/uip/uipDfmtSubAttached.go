@@ -22,7 +22,7 @@ func subAddMehod(data attached.UipDfmtSub) error {
 		return errors.New("判断是否存在出错:" + err.Error())
 	} else {
 		if isExists[0] == "ok" && isExists[1] == "1" {
-			return errors.New("数据已存在:" + err.Error())
+			return errors.New("数据已存在")
 		}
 	}
 
@@ -71,7 +71,7 @@ func subUpdateMehod(data attached.UipDfmtSub) error {
 		return nil
 	} else {
 		//其他错误
-		return errors.New("异常:" + err.Error())
+		return errors.New("异常")
 	}
 	return nil
 }
@@ -93,12 +93,12 @@ func subDelMethod(data attached.UipDfmtSub) error {
 		fmt.Println("converdata:", string(convertJsonData))
 		//向数据库插入数据
 		if err := frame.DB.Delete("uipDfmtSub", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode); err != nil {
-			return errors.New("删除错误:" + err.Error())
+			return errors.New("删除错误")
 		}
 		return nil
 	} else {
 		//不存在的状态
-		return errors.New("数据不存在:" + err.Error())
+		return errors.New("数据不存在")
 	}
 	return nil
 }
@@ -122,7 +122,7 @@ func querySubCount(data attached.UipDfmtSub) (count int, err error) {
 	if len(results) == 1 && results[0] == "ok" {
 		response.Code = common.ErrorDataNotExistsErrId
 		response.Msg = common.ErrorDataNotExistsMsg
-		return 0, errors.New("数据为空:" + err.Error())
+		return 0, errors.New("数据为空")
 	} else {
 		long := len(results)
 		//计次
@@ -176,7 +176,7 @@ func querySubAllCondtion(key string) ([]attached.UipDfmtSub,error) {
 		if subArray == nil {
 			response.Code = common.ErrorDataNotExistsErrId
 			response.Msg = common.ErrorDataNotExistsMsg
-			return nil, errors.New("数据为空:" + err.Error())
+			return nil, errors.New("数据为空")
 		}
 		return subArray, nil
 	}

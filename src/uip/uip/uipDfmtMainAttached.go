@@ -22,7 +22,7 @@ func mainAddMehod(data attached.UipDfmtMain) error {
 		return errors.New("判断是否存在出错:" + err.Error())
 	} else {
 		if isExists[0] == "ok" && isExists[1] == "1" {
-			return errors.New("数据已存在:" + err.Error())
+			return errors.New("数据已存在" )
 		}
 	}
 
@@ -71,7 +71,7 @@ func mainUpdateMethod(data attached.UipDfmtMain) error {
 		return nil
 	} else {
 		//其他错误
-		return errors.New("异常:" + err.Error())
+		return errors.New("异常" )
 	}
 	return nil
 }
@@ -98,7 +98,7 @@ func mainDelMethod(data attached.UipDfmtMain) error {
 		return nil
 	} else {
 		//不存在的状态
-		return errors.New("数据不存在:" + err.Error())
+		return errors.New("数据不存在")
 	}
 	return nil
 }
@@ -132,6 +132,6 @@ func mainQueryOneMethod(str string) (attached.UipDfmtMain, error) {
 		return mainFmt, nil
 	} else {
 		//其他错误
-		return mainFmt, errors.New("异常:" + err.Error())
+		return mainFmt, errors.New("异常")
 	}
 }

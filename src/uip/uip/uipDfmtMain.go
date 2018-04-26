@@ -110,6 +110,7 @@ func mainQueryValueMethod(w http.ResponseWriter, r *http.Request) {
 
 	//响应状态
 	defer response.Answer(w)
+	defer fmt.Println("repeat!!!")
 
 	//接受数据并校验
 	if r.Form["groupId"][0] == "" || len(r.Form["groupId"]) != 1 {
@@ -138,6 +139,7 @@ func mainQueryValueMethod(w http.ResponseWriter, r *http.Request) {
 	//查询子表
 	resultUipDfmtSub, err1 := querySubAllCondtion(key)
 	if err1 != nil {
+		fmt.Println(err1)
 		response.Code = common.ErrorQueryErrId
 		response.Msg = common.ErrorQueryErrMsg
 		return

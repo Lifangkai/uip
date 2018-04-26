@@ -28,6 +28,7 @@ func subInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 	var errs error
 	data.FmtCode, errs = getSnsNew("fmtCode")
 	if errs != nil {
+		fmt.Println(errs.Error())
 		response.Code = common.ErrorDiscoverCheckId
 		response.Msg = common.ErrorDiscoverCheckMsg
 		return
@@ -65,6 +66,7 @@ func subUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 
 	//修改
 	if err := subUpdateMehod(data); err != nil {
+		fmt.Println(err.Error())
 		response.Code = common.ErrorUpdataInfoFailedId
 		response.Msg = common.ErrorUpdataInfoFailedMsg
 		return
@@ -94,6 +96,7 @@ func subDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 	//统计主表对应子表中有多少条数据
 	count, err := querySubCount(data)
 	if err != nil {
+		fmt.Println(err.Error())
 		response.Code = common.ErrorSystemErrId
 		response.Msg = common.ErrorSystemErrMsg
 		return
@@ -108,6 +111,7 @@ func subDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 
 	//删除数据
 	if err := subDelMethod(data); err != nil {
+		fmt.Println(err.Error())
 		response.Code = common.ErrorDelErrId
 		response.Msg = common.ErrorDelErrMsg
 		return
