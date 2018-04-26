@@ -31,7 +31,7 @@ func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
 	response = attached.NewResponse()
 
 	//如果没有对应的请求方式则请求错误,同时执行对应的响应信息
-	response.Answer(w)
+	defer response.Answer(w)
 
 	//设置请求方法
 	setHeader(w)
