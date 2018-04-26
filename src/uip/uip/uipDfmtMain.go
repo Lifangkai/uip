@@ -28,6 +28,7 @@ func mainInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 	var errs error
 	data.FmtCode, errs = getSnsNew("fmtCode")
 	if errs != nil {
+		fmt.Println(errs.Error())
 		response.Code = common.ErrorDiscoverCheckId
 		response.Msg = common.ErrorDiscoverCheckMsg
 		return
@@ -64,6 +65,7 @@ func mainUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 
 	//修改
 	if err := mainUpdateMethod(data); err != nil {
+		fmt.Println(err.Error())
 		response.Code = common.ErrorUpdataInfoFailedId
 		response.Msg = common.ErrorUpdataInfoFailedMsg
 		return
@@ -92,6 +94,7 @@ func mainDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 
 	//删除数据
 	if err := mainDelMethod(data); err != nil {
+		fmt.Println(err)
 		response.Code = common.ErrorDelErrId
 		response.Msg = common.ErrorDelErrMsg
 		return
@@ -110,7 +113,7 @@ func mainQueryValueMethod(w http.ResponseWriter, r *http.Request) {
 
 	//响应状态
 	defer response.Answer(w)
-	defer fmt.Println("repeat!!!")
+	defer w.Write([]byte("测试输出"))
 
 	//接受数据并校验
 	if r.Form["groupId"][0] == "" || len(r.Form["groupId"]) != 1 {
