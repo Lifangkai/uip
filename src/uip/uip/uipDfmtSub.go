@@ -23,8 +23,7 @@ func subInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 
 	//获取SN
 	var errs error
-	data.FmtCode, errs = getSnsNew("fmtCode")
-	fmt.Println("GETSN:",data.FmtCode)
+	data.DtlCode, errs = getSnsNew("fmtCode")
 	if errs != nil {
 		fmt.Println(errs.Error())
 		response.Code = common.ErrorDiscoverCheckId
@@ -51,9 +50,6 @@ func subInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 */
 func subUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 	fmt.Println("***mainUpdateValueMethod***")
-
-	//响应状态
-	defer response.Answer(w)
 
 	//校验数据
 	if ok := attached.SubFilter(data); !ok {
