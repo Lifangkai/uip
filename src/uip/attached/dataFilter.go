@@ -46,7 +46,7 @@ func SubFilter(uipSub UipDfmtSub) bool {
 	var boo bool = true
 
 	//为空判断
-	if uipSub.GroupId == "" || uipSub.FmtCode == "" || uipSub.DtlCode == "" || uipSub.FieldName == "" || uipSub.DataType == "" || uipSub.Length == "" || uipSub.Constrain == "" || uipSub.ExtInfo == "" || uipSub.OperCode == "" {
+	if uipSub.GroupId == "" || uipSub.FmtCode == "" || uipSub.FieldName == "" || uipSub.DataType == "" || uipSub.Length == "" || uipSub.Constrain == "" || uipSub.ExtInfo == "" || uipSub.OperCode == "" {
 		boo = false
 		fmt.Println("有字段为空！")
 		//res:=&response{
