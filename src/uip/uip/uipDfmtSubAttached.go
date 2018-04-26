@@ -157,7 +157,7 @@ func querySubAllCondtion(key string) ([]attached.UipDfmtSub,error) {
 	if len(results) == 1 && results[0] == "ok" {
 		response.Code = common.ErrorDataNotExistsErrId
 		response.Msg = common.ErrorDataNotExistsMsg
-		return nil, errors.New("数据为空:" + err.Error())
+		return nil,errors.New("数据为空" )
 	} else {
 		//反序列化的实体
 		var subBean attached.UipDfmtSub
