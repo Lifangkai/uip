@@ -180,11 +180,11 @@ func uipOpenInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 		//根据传入的对应状态值执行相应的方法
 		switch request.Com {
 		case "POST":
-			interfaceOpenInsertMethod(w, data)
+			interfaceOpenInsertMethod(data)
 		case "PUT":
-			interfaceOpenUpdateMethod(w, data)
+			interfaceOpenUpdateMethod(data)
 		case "DELETE":
-			interfaceOpenDeleteMethod(w, data)
+			interfaceOpenDeleteMethod(data)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
@@ -210,10 +210,10 @@ func uipOpenInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 		//根据传入的参数执行对应的方法
 		switch comWay[0] {
 		case "one":
-			interfaceOpenQueryOneMethod(w, r)
+			interfaceOpenQueryOneMethod(r)
 		case "list":
 			//全文检索查询出前20条数据
-			interfaceOpenQueryManyMethod(w, r)
+			interfaceOpenQueryManyMethod(r)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
@@ -575,7 +575,6 @@ func main() {
 	frame.SetPathHandlerPair("/func/manage/ftsearch", uipInterFuncFtsearchHandler)
 	frame.SetPathHandlerPair("/func/manage/batchCreate",uipInterFuncBatchCreateHandler)
 	frame.SetPathHandlerPair("/func/manage/bSearch", uipInterFuncBSearchHandler)
-
 	//开放接口管理 uip_open_interface
 	frame.SetPathHandlerPair("/ointe/manage", uipOpenInterfaceHandler)
 

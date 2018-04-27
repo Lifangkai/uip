@@ -12,7 +12,7 @@ import (
 /*
 	添加数据方法
 */
-func interfaceOpenInsertMethod(w http.ResponseWriter, data attached.UipOpenInterface) {
+func interfaceOpenInsertMethod(data attached.UipOpenInterface) {
 	fmt.Println("***interfaceOpenInsertMethod***")
 
 	//校验数据
@@ -43,7 +43,7 @@ func interfaceOpenInsertMethod(w http.ResponseWriter, data attached.UipOpenInter
 /*
 	修改数据方法
 */
-func interfaceOpenUpdateMethod(w http.ResponseWriter, data attached.UipOpenInterface) {
+func interfaceOpenUpdateMethod(data attached.UipOpenInterface) {
 	fmt.Println("***interfaceOpenUpdateMethod***")
 
 	//校验数据
@@ -74,7 +74,7 @@ func interfaceOpenUpdateMethod(w http.ResponseWriter, data attached.UipOpenInter
 /*
 	删除数据方法，同时删除源接口中的对应本条的openlist字段
 */
-func interfaceOpenDeleteMethod(w http.ResponseWriter, data attached.UipOpenInterface) {
+func interfaceOpenDeleteMethod(data attached.UipOpenInterface) {
 	fmt.Println("***interfaceOpenDeleteMethod***")
 
 	//数据过滤
@@ -188,7 +188,7 @@ func interfaceOpenDeleteMethod(w http.ResponseWriter, data attached.UipOpenInter
 /*
 	开放接口查询单条
 */
-func interfaceOpenQueryOneMethod(w http.ResponseWriter, r *http.Request) {
+func interfaceOpenQueryOneMethod(r *http.Request) {
 	fmt.Println("***interfaceOpenQueryOneMethod***")
 
 	//接受数据并校验
@@ -230,7 +230,7 @@ func interfaceOpenQueryOneMethod(w http.ResponseWriter, r *http.Request) {
 /*
 	查询主表与子表的数据方法
 */
-func interfaceOpenQueryManyMethod(w http.ResponseWriter, r *http.Request) {
+func interfaceOpenQueryManyMethod(r *http.Request) {
 	fmt.Println("***interfaceOpenQueryManyMethod***")
 
 	//接受数据并校验
