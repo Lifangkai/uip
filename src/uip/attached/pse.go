@@ -22,7 +22,7 @@ func GetPse(tableName, findValue string) ([]string, error) {
 	var keysGet requestPseValue
 
 	//发送的数据
-	sendValue := " {\"com\":\"search\",\"data\":{\"tableName\":\"" + tableName + "+\",\"keyWords\":\"" + findValue + "\"}}"
+	sendValue := " {\"com\":\"search\",\"data\":{\"tableName\":\"" + tableName + "\",\"keyWords\":\"" + findValue + "\"}}"
 
 	//请求发送
 	resp, err := http.Post("http://172.16.0.14:31007/pse",
