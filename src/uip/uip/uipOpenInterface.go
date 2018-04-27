@@ -134,6 +134,17 @@ func interfaceOpenDeleteMethod(data attached.UipOpenInterface) {
 		//判断当前openInterface的信息是否在这条OpenList当中
 		if v.InteCode == resultInterface.InteCode {
 			boo = true
+
+			/*
+				example:delete '3'
+				array:=[]int{1,2,3,4,5}
+				i==2
+				array[i:]==[3,4,5]
+				array[i+1:]==[4,5]
+				copy()==array==[1,2,4,5,5]
+				finalValue:[:len(array)-1]==[1,2,4,5]
+			*/
+
 			//删除当前存在的数据
 			copy(ol[i:], ol[i+1:])
 			break
