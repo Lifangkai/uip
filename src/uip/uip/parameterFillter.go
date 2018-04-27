@@ -4,7 +4,6 @@ import (
 	"uip/common"
 	"uip/attached"
 )
-
 func UipSrcInterfaceParaFilter(data attached.UipSrcInterface) (emptyCheckResponse responseJson, isEmpty bool) {
 	isEmpty = true
 	if len(data.GroupId) == 0 || len(data.InteCode)==0{

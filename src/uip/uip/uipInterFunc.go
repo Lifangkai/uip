@@ -10,107 +10,67 @@ import(
 	"uip/attached"
 )
 
-
-type responseJsonForUipInterFuncGet struct {
-	Code		string `json:"code"`
-	Msg			string `json:"msg"`
-	Data		attached.UipInterFunc `json:"data"`
-}
-type responseJsonForUipInterFuncsGet struct {
-	Code		string `json:"code"`
-	Msg			string `json:"msg"`
-	Data		[]attached.UipInterFunc `json:"data"`
-}
-
-
 /*@Author:zengzeen
 * @param:uipInterFunc struct
 * @return:{code,msg,data}   json
  */
-func UipInterFuncHandlePostRequest(w http.ResponseWriter, r *http.Request, data attached.UipInterFunc) {
+func UipInterFuncHandlePostRequest( data attached.UipInterFunc) {
+	var err error
 	fmt.Println("this is UipInterFunc post!")
-	var responseInfo responseJson
-	var responseStr []byte
-
-	//获取输入数据
-	dataStr, _ := json.Marshal(data)
-	fmt.Println("dataStr=[", dataStr, "]")
-	var uip attached.UipInterFunc
-	err := json.Unmarshal([]byte(dataStr), &uip)
-
-	if err != nil {
-		responseInfo.Code = common.ErrorJsonFmtErrId
-		responseInfo.Msg = common.ErrorJsonFmtErrMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
-		return
-	}
 	data.FuncCode ,err = getSnsNew("UIPFUNC1")
 	data.Ctime,err = getSnsNew("dmm00001")
-	emptyCheckResponse, isEmpty := UipInterFuncParaFilter(uip)
+	emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
 	if isEmpty == false {
-		responseStr, _ = json.Marshal(emptyCheckResponse)
-		w.Write([]byte(responseStr))
+		response.Code = emptyCheckResponse.Code
+		response.Msg = emptyCheckResponse.Msg
 		return
 	}
 	//判断是否已经存在数据
 	isExists, errI := frame.DB.ExistsDo("exists", "uipInterFunc"+data.GroupId+data.FuncCode)
 	//异常处理
 	if errI != nil {
-		responseInfo.Code = common.ErrorSystemErrId
-		responseInfo.Msg = common.ErrorSystemErrMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorSystemErrId
+		response.Msg = common.ErrorSystemErrMsg
 		return
 	}
 	if isExists[0] == "ok" && isExists[1] == "1" {
-		responseInfo.Code = common.ErrorDataExistsErrId
-		responseInfo.Msg = common.ErrorDataExistsErrMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorDataExistsErrId
+		response.Msg = common.ErrorDataExistsErrMsg
 		return
 	}
 
 	//向数据库插入新数据
-	err =frame.DB.Create("uipSrcInterface","uipSrcInterface"+data.GroupId+data.FuncCode, string(dataStr))
+	dataStr, _ := json.Marshal(data)
+	err =frame.DB.Create("uipInterFunc","uipInterFunc"+data.GroupId+data.FuncCode, string(dataStr))
 	//异常处理
 	if err != nil {
-		responseInfo.Code = common.ErrorSystemErrId
-		responseInfo.Msg = common.ErrorSystemErrMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorSystemErrId
+		response.Msg = common.ErrorSystemErrMsg
 		return
 
 	}
-	responseInfo.Code = common.ErrorOKId
-	responseInfo.Msg = common.ErrorOKInsertMsg
-	responseStr, _ = json.Marshal(responseInfo)
-	w.Write([]byte(responseStr))
+	response.Code = common.ErrorOKId
+	response.Msg = common.ErrorOKInsertMsg
+	response.Data = data
 	return
 }
 
-func UipInterFuncsHandlePostRequest(w http.ResponseWriter, r *http.Request, datas []attached.UipInterFunc) {
+func UipInterFuncsHandlePostRequest(datas []attached.UipInterFunc) {
 	fmt.Println("this is UipInterFunc post!")
-	var responseInfo responseJson
-	var responseStr []byte
 	var insertSucc  bool
-	for _,data:= range datas{
-		//获取输入数据
-		dataStr, _ := json.Marshal(data)
-		fmt.Println("dataStr=[", dataStr, "]")
-		var uip attached.UipInterFunc
-		err := json.Unmarshal([]byte(dataStr), &uip)
-
-		if err != nil {
-			insertSucc = false
-			break
-		}
+	var err error
+	insertSucc = true
+	for i,data:= range datas{
 		data.FuncCode ,err = getSnsNew("UIPFUNC1")
 		data.Ctime,err = getSnsNew("dmm00001")
-		_, isEmpty := UipInterFuncParaFilter(uip)
+		datas[i].FuncCode = data.FuncCode
+		datas[i].Ctime = data.Ctime
+		emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
 		if isEmpty == false {
-			insertSucc = false
-			break
+			response.Code = emptyCheckResponse.Code
+			response.Msg = emptyCheckResponse.Msg
+			return
+
 		}
 		//判断是否已经存在数据
 		isExists, errI := frame.DB.ExistsDo("exists", "uipInterFunc"+data.GroupId+data.FuncCode)
@@ -125,6 +85,7 @@ func UipInterFuncsHandlePostRequest(w http.ResponseWriter, r *http.Request, data
 		}
 
 		//向数据库插入新数据
+		dataStr, _ := json.Marshal(data)
 		err =frame.DB.Create("uipSrcInterface","uipInterFunc"+data.GroupId+data.FuncCode, string(dataStr))
 		//异常处理
 		if err != nil {
@@ -134,16 +95,13 @@ func UipInterFuncsHandlePostRequest(w http.ResponseWriter, r *http.Request, data
 		}
 	}
 	if insertSucc{
-		responseInfo.Code = common.ErrorOKId
-		responseInfo.Msg = common.ErrorOKInsertMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorOKId
+		response.Msg = common.ErrorOKInsertMsg
 		return
 	}else {
-		responseInfo.Code = common.InsertErrorId
-		responseInfo.Msg = common.InsertErrorMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.InsertErrorId
+		response.Msg = common.InsertErrorMsg
+		response.Data = datas
 		return
 	}
 
@@ -155,53 +113,45 @@ func UipInterFuncsHandlePostRequest(w http.ResponseWriter, r *http.Request, data
 *   @return:{code,msg,data} json
  */
 
-func UipInterFuncvDelRequest(w http.ResponseWriter, r *http.Request, data attached.UipInterFunc) {
+func UipInterFuncvDelRequest( data attached.UipInterFunc) {
 	fmt.Println("this is UipInterFunc Del method")
-	var responseInfo responseJson
-	var responseStr []byte
 	dataStr, _ := json.Marshal(data)
 	var uip attached.UipInterFunc
 	err := json.Unmarshal([]byte(dataStr), &uip)
 	if err != nil {
-		responseInfo.Code = common.ErrorJsonFmtErrId
-		responseInfo.Msg = common.ErrorJsonFmtErrMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorJsonFmtErrId
+		response.Msg = common.ErrorJsonFmtErrMsg
 		return
 	}
 
 	emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
 	if isEmpty == false {
-		responseStr, _ = json.Marshal(emptyCheckResponse)
-		w.Write([]byte(responseStr))
+		response.Code = emptyCheckResponse.Code
+		response.Msg = emptyCheckResponse.Msg
 		return
 
 	}
 	OldData, err := frame.DB.RetriveOne("uipInterFunc" + data.GroupId + data.FuncCode)
 	if err == nil && OldData == "" {
-		responseInfo.Code = common.ErrorDataNotExistsErrId
-		responseInfo.Msg = common.ErrorDataNotExistsMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorDataNotExistsErrId
+		response.Msg = common.ErrorDataNotExistsMsg
+		return
 	} else if OldData == "" && err != nil {
-		responseInfo.Code = common.ErrorSystemErrId
-		responseInfo.Msg = common.ErrorSystemErrMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorSystemErrId
+		response.Msg = common.ErrorSystemErrMsg
+		return
 
 	} else {
 		err :=frame.DB.Delete("uipInterFunc","uipInterFunc" + data.GroupId+data.FuncCode)
 		//异常处理
 		if err != nil {
-			responseInfo.Code = common.ErrorSystemErrId
-			responseInfo.Msg = common.ErrorSystemErrMsg
-			responseStr, _ = json.Marshal(responseInfo)
-			w.Write([]byte(responseStr))
+			response.Code = common.ErrorSystemErrId
+			response.Msg = common.ErrorSystemErrMsg
+			return
 		} else {
-			responseInfo.Code = common.ErrorOKId
-			responseInfo.Msg = common.ErrorOKDeleteMsg
-			responseStr, _ = json.Marshal(responseInfo)
-			w.Write([]byte(responseStr))
+			response.Code = common.ErrorOKId
+			response.Msg = common.ErrorOKDeleteMsg
+			return
 		}
 	}
 }
@@ -213,57 +163,38 @@ func UipInterFuncvDelRequest(w http.ResponseWriter, r *http.Request, data attach
 *   @return:{code,msg,data} json
  */
 
-func UipInterFuncHandlePutRequest(w http.ResponseWriter, r *http.Request, data attached.UipInterFunc) {
+func UipInterFuncHandlePutRequest( data attached.UipInterFunc) {
 	fmt.Println("this is uipInterFunc Put method")
-	var responseInfo responseJson
-	var responseStr []byte
-
-	dataStr, _ := json.Marshal(data)
-	var uip attached.UipInterFunc
-	err := json.Unmarshal([]byte(dataStr), &uip)
-	if err != nil {
-		responseInfo.Code = common.ErrorJsonFmtErrId
-		responseInfo.Msg = common.ErrorJsonFmtErrMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
-		return
-	}
-	emptyCheckResponse, isEmpty := UipInterFuncParaFilter(uip)
+	emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
 	if isEmpty == false {
-		responseStr, _ = json.Marshal(emptyCheckResponse)
-		w.Write([]byte(responseStr))
+		response.Code = emptyCheckResponse.Code
+		response.Msg = emptyCheckResponse.Msg
 		return
 	}
 	//判断是否已经存在数据
 	OldData, err := frame.DB.RetriveOne("uipInterFunc" + data.GroupId + data.FuncCode)
 	if err == nil && OldData == "" {
-		responseInfo.Code = common.ErrorDataNotExistsErrId
-		responseInfo.Msg = common.ErrorDataNotExistsMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorDataNotExistsErrId
+		response.Msg = common.ErrorDataNotExistsMsg
 		return
 	}
 	if OldData == "" && err != nil {
-		responseInfo.Code = common.ErrorSystemErrId
-		responseInfo.Msg = common.ErrorSystemErrMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorSystemErrId
+		response.Msg = common.ErrorSystemErrMsg
 		return
 	} else {
-		fmt.Println("UipSrcInterface = [", uip, "]")
 		//向数据库插入新数据
+		dataStr, _ := json.Marshal(data)
 		err := frame.DB.Update("uipInterFunc","uipInterFunc"+data.GroupId+data.FuncCode, string(dataStr))
 		//异常处理
 		if err != nil {
-			responseInfo.Code = common.ErrorSystemErrId
-			responseInfo.Msg = common.ErrorSystemErrMsg
-			responseStr, _ = json.Marshal(responseInfo)
-			w.Write([]byte(responseStr))
+			response.Code = common.ErrorSystemErrId
+			response.Msg = common.ErrorSystemErrMsg
+			return
 		}
-		responseInfo.Code = common.ErrorOKId
-		responseInfo.Msg = common.ErrorOKModifyMsg
-		responseStr, _ := json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorOKId
+		response.Msg = common.ErrorOKModifyMsg
+		response.Data = data
 		return
 	}
 }
@@ -274,47 +205,40 @@ func UipInterFuncHandlePutRequest(w http.ResponseWriter, r *http.Request, data a
 *	@param  funcCode 前来传过来用于查询的sn，即序列号
 *   @return {code,msg,data} json
  */
-func UipInterFuncGetRequest(w http.ResponseWriter, r *http.Request ) {
+func UipInterFuncGetRequest(r *http.Request ) {
 	fmt.Println("this is uipInterFunc SNGet method")
-	var responseInfo responseJson
-	var responseStr []byte
-	var interFuncResponse responseJsonForUipInterFuncGet
 	var groupId,funcCode string
 
 	groupId = r.Form["groupId"][0]
 	funcCode = r.Form["funcCode"][0]
 
 	if len(groupId)==0 || len(funcCode)==0 {
-		responseInfo.Code = common.ErrorDataNullId
-		responseInfo.Msg = common.ErrorDataNullMsg
+		response.Code = common.ErrorDataNullId
+		response.Msg = common.ErrorDataNullMsg
 		return
 	}else if len(groupId)!=8 {
-		responseInfo.Code = common.ErrorGroupIdLenId
-		responseInfo.Msg = common.ErrorGroupIdLenMsg
+		response.Code = common.ErrorGroupIdLenId
+		response.Msg = common.ErrorGroupIdLenMsg
 		return
 	}else if len(funcCode)>32 {
-		responseInfo.Code = common.ErrorFuncLenId
-		responseInfo.Msg = common.ErrorFuncLenMsg
+		response.Code = common.ErrorFuncLenId
+		response.Msg = common.ErrorFuncLenMsg
 		return
 	}
 
 	//根据主键搜索
 	result, err :=frame.DB.RetriveOne("uipInterFunc"+groupId+funcCode)
 	if err == nil && result == "" {
-		responseInfo.Code = common.ErrorDataNotExistsErrId
-		responseInfo.Msg = common.ErrorDataNotExistsMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorDataNotExistsErrId
+		response.Msg = common.ErrorDataNotExistsMsg
 		return
 	} else if result == "" && err != nil {
-		responseInfo.Code = common.ErrorSystemErrId
-		responseInfo.Msg = common.ErrorSystemErrMsg
-		responseStr, _ = json.Marshal(responseInfo)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorSystemErrId
+		response.Msg = common.ErrorSystemErrMsg
 		return
 	} else {
-		responseInfo.Code = common.ErrorOKId
-		responseInfo.Msg = common.ErrorOKSelectMsg
+		response.Code = common.ErrorOKId
+		response.Msg = common.ErrorOKSelectMsg
 		var uip attached.UipInterFunc
 
 		err := json.Unmarshal([]byte(result), &uip)
@@ -322,15 +246,12 @@ func UipInterFuncGetRequest(w http.ResponseWriter, r *http.Request ) {
 			var response responseJson
 			response.Code = common.ErrorJsonFmtErrId
 			response.Msg = common.ErrorJsonFmtErrMsg
-			responseStr, _ = json.Marshal(response)
-			w.Write([]byte(responseStr))
 			return
 		}
-		interFuncResponse.Data = uip
-		interFuncResponse.Code = common.ErrorOKId
-		interFuncResponse.Msg = common.ErrorOKGetMsg
-		responseStr, _ = json.Marshal(interFuncResponse)
-		w.Write([]byte(responseStr))
+		response.Data = uip
+		response.Code = common.ErrorOKId
+		response.Msg = common.ErrorOKGetMsg
+		return
 	}
 }
 
@@ -341,12 +262,13 @@ func UipInterFuncGetRequest(w http.ResponseWriter, r *http.Request ) {
 *   @return:{code,msg,data} json
  */
 
-func UipInterFuncPseHandlePutRequest(w http.ResponseWriter, r *http.Request, data attached.SrcIntePseRequest) {
+func UipInterFuncPseHandlePutRequest( r *http.Request) {
 	fmt.Println("this is uipInterFunc pse method")
+	var datas []attached.UipInterFunc
 	var keysGet Pse
-	var responseStr []byte
-	var resopnseData responseJsonForUipInterFuncsGet
-	requestStr := " {\"com\":\"search\",\"data\":{\"tableName\":\"uipInterFunc"+data.GroupId+"\",\"keyWords\":\""+data.Settext+"\"}}"
+	groupId := r.Form["groupId"][0]
+	settext := r.Form["settext"][0]
+	requestStr := " {\"com\":\"search\",\"data\":{\"tableName\":\"uipInterFunc"+groupId+"\",\"keyWords\":\""+settext+"\"}}"
 	var valstr=[]byte(requestStr)
 	resp, err := http.Post("http://172.16.0.14:31007/pse",
 		"application/json;charset=utf-8", bytes.NewBuffer(valstr))
@@ -370,17 +292,17 @@ func UipInterFuncPseHandlePutRequest(w http.ResponseWriter, r *http.Request, dat
 		if len(childRes.Data) != 0 {
 			err := json.Unmarshal([]byte(childRes.Data), &res)
 			//异常处理
-			if err != nil || res.GroupId != data.GroupId{
+			if err != nil || res.GroupId != groupId{
 				fmt.Println("in pse method, some err occured:",err)
 				continue
 			}
-			resopnseData.Data = append(resopnseData.Data, res)
+			datas = append(datas, res)
 		}
 	}
-	resopnseData.Code = common.ErrorOKId
-	resopnseData.Msg = common.ErrorOKGetMsg
-	responseStr, _ = json.Marshal(resopnseData)
-	w.Write([]byte(responseStr))
+	response.Code = common.ErrorOKId
+	response.Msg = common.ErrorOKGetMsg
+	response.Data = datas
+	return
 }
 
 /*
@@ -390,12 +312,12 @@ func UipInterFuncPseHandlePutRequest(w http.ResponseWriter, r *http.Request, dat
 *   @return:{code,msg,data} json
  */
 
-func UipInterFuncvBatchQueryRequest(w http.ResponseWriter, r *http.Request, datas attached.BatchResQuest) {
+func UipInterFuncvBatchQueryRequest( datas attached.BatchResQuest) {
 	fmt.Println("this is uipInterFunc batchQuery method")
-	var responseStr []byte
-	var interFuncResponse responseJsonForUipInterFuncsGet
+	var resDatas []attached.UipInterFunc
 	var querySucc bool
 	groupId := datas.GroupId
+	querySucc = true
 	for _,data := range  datas.Data{
 		result, err :=frame.DB.RetriveOne("uipInterFunc"+groupId+data)
 		if err == nil && result == "" {
@@ -411,19 +333,22 @@ func UipInterFuncvBatchQueryRequest(w http.ResponseWriter, r *http.Request, data
 				querySucc = false
 				break
 			}
-			querySucc = true
-			interFuncResponse.Data = append(interFuncResponse.Data,uip)
+			resDatas = append(resDatas,uip)
 		}
 	}
+	if len(resDatas) == 0 {
+		response.Code = common.ErrorDataNotExistsErrId
+		response.Msg = common.ErrorDataNotExistsMsg
+		return
+	}
 	if querySucc {
-		interFuncResponse.Code = common.ErrorOKId
-		interFuncResponse.Msg = common.ErrorOKGetMsg
-		responseStr, _ = json.Marshal(interFuncResponse)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorOKId
+		response.Msg = common.ErrorOKGetMsg
+		response.Data = resDatas
+		return
 	}else {
-		interFuncResponse.Code = common.ErrorQueryId
-		interFuncResponse.Msg = common.ErrorQueryMsg
-		responseStr, _ = json.Marshal(interFuncResponse)
-		w.Write([]byte(responseStr))
+		response.Code = common.ErrorQueryId
+		response.Msg = common.ErrorQueryMsg
+		return
 	}
 }

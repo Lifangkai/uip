@@ -81,4 +81,13 @@ const (
 
 	ErrorQueryErrId="200021"
 	ErrorQueryErrMsg="查询错误"
+
+	ErrorInsertErrId="200022"
+	ErrorInsertErrMsg="一条或者多条往接口功能表种插入失败！"
+
+	ErrorSrcInterfaceErrId="200023"
+	ErrorSrcInterfaceMsg="源接口不存在"
+
+	ErrorOpenInterDeleteErrId="200024"
+	ErrorOpenInterDeleteMsg="“删除开放接口错误"
 )
