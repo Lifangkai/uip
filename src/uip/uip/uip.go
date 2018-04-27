@@ -254,11 +254,11 @@ func uipSrcInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 		//根据传入的对应状态值执行相应的方法
 		switch request.Com {
 		case "POST":
-			UipSrcInterfaceHandlePostRequest(w, r, request.Data)
+			UipSrcInterfaceHandlePostRequest(request.Data)
 		case "PUT":
-			UipSrcInterfaceHandlePutRequest(w, r, request.Data)
+			UipSrcInterfaceHandlePutRequest(request.Data)
 		case "DELETE":
-			UipSrcInterfaceDelRequest(w, r, request.Data)
+			UipSrcInterfaceDelRequest(request.Data)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
@@ -285,7 +285,7 @@ func uipSrcInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 		//根据传入的参数执行对应的方法
 		switch comWay[0] {
 		case "key":
-			UipSrcInterfaceGetRequest(w, r)
+			UipSrcInterfaceGetRequest(r)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
@@ -311,18 +311,30 @@ func uipSrcInterfaceFtsearchHandler(w http.ResponseWriter, r *http.Request) {
 	//设置请求方法
 	setHeader(w)
 
-	//POST逻辑
-	if r.Method == "POST" {
-		//用于接受前段给的值
-		var request attached.SrcIntePseRequest
-
-		//接受并解析数据
-		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-			response.Code = common.ErrorJsonErrId
-			response.Msg = common.ErrorJsonErrMsg
+	if r.Method == "GET" {
+		//解析
+		if err := r.ParseForm(); err != nil {
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
 			return
 		}
-		UipSrcInterfacePseHandlePutRequest(w, r, request)
+
+		//判断参数是否正确
+		comWay := r.Form["com"]
+		if len(comWay) != 1 || comWay[0] == "" {
+			response.Code = common.ErrorParameterIsErrId
+			response.Msg = common.ErrorParameterIsErrMsg
+		}
+
+		//根据传入的参数执行对应的方法
+		switch comWay[0] {
+		case "key":
+			UipSrcInterfacePseHandlePutRequest(r)
+		default:
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
 	}
 }
 
@@ -358,11 +370,11 @@ func uipInterFuncHandler(w http.ResponseWriter, r *http.Request) {
 		//根据传入的对应状态值执行相应的方法
 		switch request.Com {
 		case "POST":
-			UipInterFuncHandlePostRequest(w, r, request.Data)
+			UipInterFuncHandlePostRequest(request.Data)
 		case "PUT":
-			UipInterFuncHandlePutRequest(w, r, request.Data)
+			UipInterFuncHandlePutRequest( request.Data)
 		case "DELETE":
-			UipInterFuncvDelRequest(w, r, request.Data)
+			UipInterFuncvDelRequest(request.Data)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
@@ -389,7 +401,7 @@ func uipInterFuncHandler(w http.ResponseWriter, r *http.Request) {
 		//根据传入的参数执行对应的方法
 		switch comWay[0] {
 		case "key":
-			UipInterFuncGetRequest(w, r)
+			UipInterFuncGetRequest(r)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
@@ -415,17 +427,30 @@ func uipInterFuncFtsearchHandler(w http.ResponseWriter, r *http.Request) {
 	//设置请求方法
 	setHeader(w)
 
-	//POST逻辑
-	if r.Method == "POST" {
-		//用于接受前段给的值
-		var request attached.SrcIntePseRequest
-		//接受并解析数据
-		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-			response.Code = common.ErrorJsonErrId
-			response.Msg = common.ErrorJsonErrMsg
+	if r.Method == "GET" {
+		//解析
+		if err := r.ParseForm(); err != nil {
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
 			return
 		}
-		UipInterFuncPseHandlePutRequest(w, r, request)
+
+		//判断参数是否正确
+		comWay := r.Form["com"]
+		if len(comWay) != 1 || comWay[0] == "" {
+			response.Code = common.ErrorParameterIsErrId
+			response.Msg = common.ErrorParameterIsErrMsg
+		}
+
+		//根据传入的参数执行对应的方法
+		switch comWay[0] {
+		case "key":
+			UipInterFuncPseHandlePutRequest(r)
+		default:
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
 	}
 }
 
@@ -456,7 +481,7 @@ func uipInterFuncBatchCreateHandler(w http.ResponseWriter, r *http.Request) {
 			response.Msg = common.ErrorJsonErrMsg
 			return
 		}
-		UipInterFuncsHandlePostRequest(w, r, request.Data)
+		UipInterFuncsHandlePostRequest(request.Data)
 	}
 }
 
@@ -487,7 +512,7 @@ func uipInterFuncBSearchHandler(w http.ResponseWriter, r *http.Request) {
 			response.Msg = common.ErrorJsonErrMsg
 			return
 		}
-		UipInterFuncvBatchQueryRequest(w, r, request)
+		UipInterFuncvBatchQueryRequest(request)
 	}
 }
 
@@ -543,13 +568,13 @@ func main() {
 	//接口数据格式信息子表 uip_dfmt_sub
 	frame.SetPathHandlerPair("/fmt/manage/sub", dfmtSubHandler)
 	//uipSrcInteface源接口管理
-	frame.SetPathHandlerPair("/group/manage", uipSrcInterfaceHandler)
-	frame.SetPathHandlerPair("/group/manage/ftsearch", uipSrcInterfaceFtsearchHandler)
+	frame.SetPathHandlerPair("/sinte/manage", uipSrcInterfaceHandler)
+	frame.SetPathHandlerPair("/sinte/manage/ftsearch", uipSrcInterfaceFtsearchHandler)
 	//uipInterFunc接口功能管理表
 	frame.SetPathHandlerPair("/func/manage", uipInterFuncHandler)
 	frame.SetPathHandlerPair("/func/manage/ftsearch", uipInterFuncFtsearchHandler)
-	frame.SetPathHandlerPair(" /func/manage/batchCreate ", uipInterFuncBatchCreateHandler)
-	frame.SetPathHandlerPair(" /func/manage/bSearch ", uipInterFuncBSearchHandler)
+	frame.SetPathHandlerPair("/func/manage/batchCreate",uipInterFuncBatchCreateHandler)
+	frame.SetPathHandlerPair("/func/manage/bSearch", uipInterFuncBSearchHandler)
 
 	//开放接口管理 uip_open_interface
 	frame.SetPathHandlerPair("/ointe/manage", uipOpenInterfaceHandler)
