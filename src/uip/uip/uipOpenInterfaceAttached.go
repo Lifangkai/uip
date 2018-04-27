@@ -159,13 +159,13 @@ func queryOpenInterfaceAll(groupId, condition string) ([]attached.UipOpenInterfa
 	//Key := "uipOpenInterface" + key
 
 	//调用搜索引擎
-	getKeysByPse, err := attached.GetPse("uipOpenInterface", groupId, condition)
+	getKeysByPse, err := attached.GetPse("uipOpenInterface", condition)
 	if err != nil {
 		fmt.Println("pse错误:" + err.Error())
 		return nil, errors.New(err.Error())
 	}
 
-	fmt.Println("查询出来的数组:",getKeysByPse,len(getKeysByPse))
+	fmt.Println("查询出来的数组:", getKeysByPse, len(getKeysByPse))
 
 	//用于取前20个key
 	var newKey []string
@@ -177,7 +177,7 @@ func queryOpenInterfaceAll(groupId, condition string) ([]attached.UipOpenInterfa
 		newKey = getKeysByPse[:20]
 	}
 
-	fmt.Println("截取后的值:",newKey,len(newKey))
+	fmt.Println("截取后的值:", newKey, len(newKey))
 
 	//根据pse查询出来的key数组进行查询
 	for _, v := range newKey {

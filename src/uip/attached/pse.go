@@ -15,14 +15,14 @@ type requestPseValue struct {
 	Data []string
 }
 
-func GetPse(tableName, groupId, findValue string) ([]string, error) {
+func GetPse(tableName, findValue string) ([]string, error) {
 	fmt.Println("***GetPse***")
 
 	//用于接受查询出来的key数组
 	var keysGet requestPseValue
 
 	//发送的数据
-	sendValue := " {\"com\":\"search\",\"data\":{\"tableName\":\"" + tableName + groupId + "+\",\"keyWords\":\"" + findValue + "\"}}"
+	sendValue := " {\"com\":\"search\",\"data\":{\"tableName\":\"" + tableName + "+\",\"keyWords\":\"" + findValue + "\"}}"
 
 	//请求发送
 	resp, err := http.Post("http://172.16.0.14:31007/pse",
@@ -39,7 +39,7 @@ func GetPse(tableName, groupId, findValue string) ([]string, error) {
 		return nil, errors.New("反序列化错误:" + err.Error())
 	}
 
-	fmt.Println("pse相应的值:",keysGet)
+	fmt.Println("pse相应的值:", keysGet)
 
 	//如果数据我空则返回
 	if keysGet.Data == nil {
