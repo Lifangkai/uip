@@ -85,7 +85,7 @@ func interfaceOpenDeleteMethod(data attached.UipOpenInterface) {
 	}
 
 	//先查询当前openInterface表数据是否存在
-	resultInterface, err := openInterfaceQuery(data.GroupId + data.InteCode)
+	resultInterface, err := openInterfaceQuery("uipOpenInterface"+data.GroupId + data.InteCode)
 	if err != nil {
 		fmt.Println(err.Error())
 		if err.Error() == "数据不存在" {
@@ -219,7 +219,7 @@ func interfaceOpenQueryOneMethod(r *http.Request) {
 	key := r.Form["groupId"][0] + r.Form["inteCode"][0]
 
 	//查询
-	result, err := openInterfaceQuery(key)
+	result, err := openInterfaceQuery("uipOpenInterface"+key)
 	if err != nil {
 		fmt.Println(err.Error())
 		if err.Error() == "数据不存在" {

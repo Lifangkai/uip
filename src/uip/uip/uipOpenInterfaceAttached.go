@@ -118,10 +118,10 @@ func openInterfaceQuery(key string) (attached.UipOpenInterface, error) {
 	var openInterFace attached.UipOpenInterface
 
 	//条件
-	Key := "uipOpenInterface" + key
+	//Key := "uipOpenInterface" + key
 
 	//查询
-	result, err := frame.DB.RetriveOne(Key)
+	result, err := frame.DB.RetriveOne(key)
 
 	//异常处理
 	if err != nil {
