@@ -81,7 +81,7 @@ func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
 		//根据传入的参数执行对应的方法
 		switch comWay[0] {
 		case "search":
-			mainQueryValueMethod(w,r)
+			mainQueryValueMethod(w, r)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
@@ -127,6 +127,93 @@ func dfmtSubHandler(w http.ResponseWriter, r *http.Request) {
 			subUpdateValueMethod(w, request.Data)
 		case "DELETE":
 			subDeleteValueMethod(w, request.Data)
+		default:
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
+	}
+}
+
+/*
+	author:jcx
+	date:180426
+	describe:接口开放管理
+*/
+func uipOpenInterfaceHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("***in uipOpenInterfaceHandler!!!***")
+
+	//实例化给前段的状态的对象
+	response = attached.NewResponse()
+
+	//如果没有对应的请求方式则请求错误,同时执行对应的响应信息
+	defer response.Answer(w)
+
+	//设置请求方法
+	setHeader(w)
+
+	//POST逻辑
+	if r.Method == "POST" {
+		//用于接受前段给的值
+		var request attached.RequestJson
+
+		//接受并解析数据
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			response.Code = common.ErrorJsonErrId
+			response.Msg = common.ErrorJsonErrMsg
+			return
+		}
+
+		//类型断言
+		data, ok := request.Data.(attached.UipOpenInterface)
+		if !ok {
+			fmt.Println("类型不匹配")
+			response.Code = common.ErrorSystemErrId
+			response.Msg = common.ErrorSystemErrMsg
+			return
+		}
+		//switch request.Data.(type) {
+		//case attached.UipOpenInterface:
+		//	fmt.Println("UipOpenInterface类型！")
+		//}
+
+		//根据传入的对应状态值执行相应的方法
+		switch request.Com {
+		case "POST":
+			interfaceOpenInsertMethod(w, data)
+		case "PUT":
+			interfaceOpenUpdateMethod(w, data)
+		case "DELETE":
+			interfaceOpenDeleteMethod(w, data)
+		default:
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
+	}
+	//GET逻辑
+	if r.Method == "GET" {
+		//解析
+		if err := r.ParseForm(); err != nil {
+			response.Code = common.ComErrorId
+			response.Msg = common.ComErrorMsg
+			return
+		}
+
+		//判断参数是否正确
+		comWay := r.Form["com"]
+		if len(comWay) != 1 || comWay[0] == "" {
+			response.Code = common.ErrorParameterIsErrId
+			response.Msg = common.ErrorParameterIsErrMsg
+		}
+
+		//根据传入的参数执行对应的方法
+		switch comWay[0] {
+		case "one":
+			interfaceOpenQueryOneMethod(w, r)
+		case "list":
+			//全文检索查询出前20条数据
+			interfaceOpenQueryManyMethod(w, r)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg
@@ -206,6 +293,7 @@ func uipSrcInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
 /*
 	author:quasimodo
 	date:180424
@@ -237,6 +325,7 @@ func uipSrcInterfaceFtsearchHandler(w http.ResponseWriter, r *http.Request) {
 		UipSrcInterfacePseHandlePutRequest(w, r, request)
 	}
 }
+
 /*
 	author:quasimodo
 	date:180424
@@ -339,6 +428,7 @@ func uipInterFuncFtsearchHandler(w http.ResponseWriter, r *http.Request) {
 		UipInterFuncPseHandlePutRequest(w, r, request)
 	}
 }
+
 /*
 	author:quasimodo
 	date:180424
@@ -460,6 +550,9 @@ func main() {
 	frame.SetPathHandlerPair("/func/manage/ftsearch", uipInterFuncFtsearchHandler)
 	frame.SetPathHandlerPair(" /func/manage/batchCreate ", uipInterFuncBatchCreateHandler)
 	frame.SetPathHandlerPair(" /func/manage/bSearch ", uipInterFuncBSearchHandler)
+
+	//开放接口管理 uip_open_interface
+	frame.SetPathHandlerPair("/ointe/manage", uipOpenInterfaceHandler)
 
 	frame.Run()
 

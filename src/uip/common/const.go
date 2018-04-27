@@ -81,4 +81,16 @@ const (
 
 	ErrorQueryErrId="200021"
 	ErrorQueryErrMsg="查询错误"
+
+	ErrorInterfaceNotExsitId="200022"
+	ErrorInterfaceNotExsitMsg="源接口数据不存在"
+
+	ErrorDelSrcInterfaceErrId="200023"
+	ErrorDelSrcInterfaceErrMsg="在源接口中删除开放接口编码错误:"
+
+	ErrorSrcInterfaceDataIsNilId="200024"
+	ErrorSrcInterfaceDataIsNilMsg="源接口不存在"
+
+	ErrorOpenInterfaceDataIsNilId="200025"
+	ErrorOpenInterfaceDataIsNilMsg="删除源接口表错误"
 )
