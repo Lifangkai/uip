@@ -155,7 +155,7 @@ func uipOpenInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 	//POST逻辑
 	if r.Method == "POST" {
 		//用于接受前段给的值
-		var request attached.RequestJson
+		var request attached.RequestOpenInterfaceJson
 
 		//接受并解析数据
 		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -164,27 +164,14 @@ func uipOpenInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		//类型断言
-		data, ok := request.Data.(attached.UipOpenInterface)
-		if !ok {
-			fmt.Println("类型不匹配")
-			response.Code = common.ErrorSystemErrId
-			response.Msg = common.ErrorSystemErrMsg
-			return
-		}
-		//switch request.Data.(type) {
-		//case attached.UipOpenInterface:
-		//	fmt.Println("UipOpenInterface类型！")
-		//}
-
 		//根据传入的对应状态值执行相应的方法
 		switch request.Com {
 		case "POST":
-			interfaceOpenInsertMethod(data)
+			interfaceOpenInsertMethod(request.Data)
 		case "PUT":
-			interfaceOpenUpdateMethod(data)
+			interfaceOpenUpdateMethod(request.Data)
 		case "DELETE":
-			interfaceOpenDeleteMethod(data)
+			interfaceOpenDeleteMethod(request.Data)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg

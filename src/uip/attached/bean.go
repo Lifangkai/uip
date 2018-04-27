@@ -112,8 +112,7 @@ type UipOpenInterface struct {
 	GroupId    string `json:"groupId"`
 }
 
-//万能接收方法
-type RequestJson struct {
-	Com  string      `json:"com"`
-	Data interface{} `json:"data"`
+type RequestOpenInterfaceJson struct {
+	Com  string           `json:"com"`
+	Data UipOpenInterface `json:"data"`
 }
