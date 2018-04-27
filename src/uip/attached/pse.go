@@ -39,6 +39,8 @@ func GetPse(tableName, groupId, findValue string) ([]string, error) {
 		return nil, errors.New("反序列化错误:" + err.Error())
 	}
 
+	fmt.Println("pse相应的值:",keysGet)
+
 	//如果数据我空则返回
 	if keysGet.Data == nil {
 		return nil, nil
