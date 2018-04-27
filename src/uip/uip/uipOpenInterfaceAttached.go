@@ -165,6 +165,8 @@ func queryOpenInterfaceAll(groupId, condition string) ([]attached.UipOpenInterfa
 		return nil, errors.New(err.Error())
 	}
 
+	fmt.Println("查询出来的数组:",getKeysByPse,len(getKeysByPse))
+
 	//用于取前20个key
 	var newKey []string
 	newKey = getKeysByPse
@@ -174,6 +176,8 @@ func queryOpenInterfaceAll(groupId, condition string) ([]attached.UipOpenInterfa
 		//覆盖
 		newKey = getKeysByPse[:20]
 	}
+
+	fmt.Println("截取后的值:",newKey,len(newKey))
 
 	//根据pse查询出来的key数组进行查询
 	for _, v := range newKey {
