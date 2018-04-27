@@ -324,7 +324,7 @@ func UipSrcInterfacePseHandlePutRequest( r *http.Request) {
 	var resopnseData responseJsonForUipSrcInterfacesGet
 	groupId := r.Form["groupId"][0]
 	fettext := r.Form["fettext"][0]
-	requestStr := " {\"com\":\"search\",\"data\":{\"tableName\":\"uipSrcInterface"+groupId+"\",\"keyWords\":\""+fettext+"\"}}"
+	requestStr := "  {\"com\":\"search\",\"data\":{\"tableName\":\"uipSrcInterface"+groupId+"\",\"keyWords\":\""+fettext+"\"}}"
 	var valstr=[]byte(requestStr)
 	resp, err := http.Post("http://172.16.0.14:31007/pse",
 		"application/json;charset=utf-8", bytes.NewBuffer(valstr))

@@ -58,39 +58,48 @@ const (
 	ErrorParameterIsErrId  = "200014"
 	ErrorParameterIsErrMsg = "参数错误"
 
-	ErrorDelErrId="200015"
-	ErrorDelErrMsg="删除错误"
+	ErrorDelErrId  = "200015"
+	ErrorDelErrMsg = "删除错误"
 
-	ErrorJsonFmtErrId = "2000018"
+	ErrorJsonFmtErrId  = "2000018"
 	ErrorJsonFmtErrMsg = "json格式错误!"
 
-	ErrorDataNullId = "2000016"
+	ErrorDataNullId  = "2000016"
 	ErrorDataNullMsg = "请求参数为空!"
 
-	ErrorGroupIdLenId = "2000017"
-	ErrorGroupIdLenMsg ="机构表示长度不为8位！"
+	ErrorGroupIdLenId  = "2000017"
+	ErrorGroupIdLenMsg = "机构表示长度不为8位！"
 
-	ErrorInterLenId = "2000018"
+	ErrorInterLenId  = "2000018"
 	ErrorInterLenMsg = "接口编码长度大于32位！"
 
-	ErrorFuncLenId = "2000019"
+	ErrorFuncLenId  = "2000019"
 	ErrorFuncLenMsg = "接口功能编码长度大于32位！"
 
-	ErrorQueryId = "2000020"
+	ErrorQueryId  = "2000020"
 	ErrorQueryMsg = "一条或者多条数据查询失败！"
 
-	ErrorQueryErrId="200021"
-	ErrorQueryErrMsg="查询错误"
+	ErrorQueryErrId  = "200021"
+	ErrorQueryErrMsg = "查询错误"
 
-	ErrorInterfaceNotExsitId="200022"
-	ErrorInterfaceNotExsitMsg="源接口数据不存在"
+	ErrorInterfaceNotExsitId  = "200022"
+	ErrorInterfaceNotExsitMsg = "源接口数据不存在"
 
-	ErrorDelSrcInterfaceErrId="200023"
-	ErrorDelSrcInterfaceErrMsg="在源接口中删除开放接口编码错误:"
+	ErrorDelSrcInterfaceErrId  = "200023"
+	ErrorDelSrcInterfaceErrMsg = "在源接口中删除开放接口编码错误:"
 
-	ErrorSrcInterfaceDataIsNilId="200024"
-	ErrorSrcInterfaceDataIsNilMsg="源接口不存在"
+	ErrorSrcInterfaceDataIsNilId  = "200024"
+	ErrorSrcInterfaceDataIsNilMsg = "源接口不存在"
 
-	ErrorOpenInterfaceDataIsNilId="200025"
-	ErrorOpenInterfaceDataIsNilMsg="删除源接口表错误"
+	ErrorOpenInterfaceDataIsNilId  = "200025"
+	ErrorOpenInterfaceDataIsNilMsg = "删除源接口表错误"
+
+	ErrorInsertErrId  = "200026"
+	ErrorInsertErrMsg = "一条或者多条往接口功能表种插入失败！"
+
+	ErrorSrcInterfaceErrId = "200027"
+	ErrorSrcInterfaceMsg   = "源接口不存在"
+
+	ErrorOpenInterDeleteErrId = "200028"
+	ErrorOpenInterDeleteMsg   = "“删除开放接口错误"
 )
