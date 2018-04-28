@@ -171,7 +171,8 @@ func queryOpenInterfaceAll(groupId, condition string) ([]attached.UipOpenInterfa
 	var newKey []string
 	newKey = getKeysByPse
 
-	//只查询前20所以进行判断,如果大于20则取前二十,反之
+	//只查询前20所以进行判断,如果大于20则取前二十,反之,
+	//todo:2018年4月27日止 由于pse搜索引擎目前只能返回10 所以这个方法暂时不起作用
 	if len(getKeysByPse) > 20 {
 		//覆盖
 		newKey = getKeysByPse[:20]
