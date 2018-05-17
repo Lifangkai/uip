@@ -41,58 +41,63 @@
 import axios from 'axios'
 
 export default {
-  data() {
-      return {
-          input: '',//查询内容
-          tableData:[] //表格数据
-      }
-  },
-  methods:{
-      gotoAddEquip(){
-        this.$router.push({ path :'/equipAdd' })
-      },
-      //查询-全文检索
-      queryAllEquip(){
-          let _this = this;
-          axios.defaults.baseURL = "http://172.16.0.13:31425"
-          axios.get('/terminal/manage/ftsearch', {
-              params: {
-                  groupId: '12312312',
-                  fttext: _this.input          
-              }
-          })
-          .then(function (response) {
-              console.log(response);
-              if (response.data.code === "200000") {
-                  _this.tableData = response.data.data;
-              } else {
-                  _this.tableData = [];
-              }
-          })
-          .catch(function (error) {
-              console.log(error);
-              _this.tableData = [];
-          });
-      },
-      //删除终端
-      handleDelete(index, row) {
-          console.log(index);
-          console.log(row);
-          axios.defaults.baseURL = "http://172.16.0.13:31425"
-          axios.post('/terminal/manage', {
-              com:'DELETE',
-              data: {
-              groupId: '12312312',
-              termCode: row.termCode
-              }          
-          })
-          .then(function (response) {
-              console.log(response);
-          })
-          .catch(function (error) {
-              console.log(error);
-          });
-      }
+    data() {
+        return {
+            input: '',//查询内容
+            tableData:[] //表格数据
+        }
+    },
+    methods:{
+        gotoAddEquip(){
+            this.$router.push({ path :'/equipAdd' })
+        },
+        //查询-全文检索
+        queryAllEquip(){
+            let _this = this;
+            axios.defaults.baseURL = "http://172.16.0.13:31425"
+            axios.get('/terminal/manage/ftsearch', {
+                params: {
+                    groupId: '12345678',
+                    fttext: this.input          
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                if (response.data.code === "200000") {
+                    _this.tableData = response.data.data;
+                } else {
+                    _this.tableData = [];
+                    alert(response.data.msg);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+                _this.tableData = [];
+            });
+        },
+        //删除终端
+        handleDelete(index, row) {
+            console.log(index);
+            console.log(row);
+            axios.defaults.baseURL = "http://172.16.0.13:31425"
+            axios.post('/terminal/manage', {
+                com:'DELETE',
+                data: {
+                groupId: '12345678',
+                termCode: row.termCode
+                }          
+            })
+            .then(function (response) {
+                console.log(response);
+                if (response.data.code) {
+                    alert(response.data.msg);
+                }
+            })
+            .catch(function (error) {
+                alert('删除失败');
+                console.log(error);
+            });
+        }
         //点击图标刷新页面
         // reload(){
         //     window.location.reload();
@@ -133,7 +138,7 @@ export default {
 	/* font-weight: normal;
 	height: 28px;
 	line-height: 28px; */
-  width: 90px;
+    width: 90px;
 	margin: 6px 0;
 	padding-right: 15px;
 	text-align: right;
@@ -141,4 +146,5 @@ export default {
 .add_form_item_con{
 	flex: 1;
 }
+
 </style>
