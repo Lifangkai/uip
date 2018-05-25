@@ -7,6 +7,8 @@ import reginter from '@/components/workItem/Reginter'
 import uipt from '@/components/workItem/Uipt'
 import user from '@/components/workItem/User'
 import equipAdd from '@/components/workItem/EquipAdd'
+import uiptAdd from '@/components/workItem/UiptAdd'
+import uiptEditor from '@/components/workItem/UiptEditor'
 Vue.use(Router)
 
 export default new Router({
@@ -22,6 +24,8 @@ export default new Router({
         { path: '/equip', component: equip, name: '终端设备管理',iconCls:"icon-shebeiguanli", hidden:true,},
         { path: '/uipt', component:uipt, name: 'UIPT实例管理',iconCls:"icon-fuwushili", hidden:true },
         { path: '/equipAdd', component: equipAdd, name: '终端设备管理-新增', hidden:false},
+        { path: '/uiptAdd', component: uiptAdd, name: '新增实例', hidden:false},
+        { path: '/uiptEditor', component: uiptEditor, name: '编辑实例', hidden:false},
     ]
     }
   ]

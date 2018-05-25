@@ -129,117 +129,127 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-    data() {
-        return {
-            termType_options:[{
-                value: '选项1',
-                label: '黄金糕'
-                }, {
-                value: '选项2',
-                label: '双皮奶'
-                }, {
-                value: '选项3',
-                label: '蚵仔煎'
-                }, {
-                value: '选项4',
-                label: '龙须面'
-                }, {
-                value: '选项5',
-                label: '北京烤鸭'
-                }],
-            drivType_options:[{
-                value: '驱动1',
-                label: '驱动1'
-            }],
-            drivType:'',
-            termType:'',
-            instances: [],
-            // state4: '',
-            timeout:  null,
-            value:'',
-            textarea:'',
-            tableData:[],
-            queryString:''
-        };
-    },
-    methods: {
-        //新增终端
-        equipAdd() {
-            axios.defaults.baseURL = "http://172.16.0.13:31425"
-            axios.post('/terminal/manage', {
-                com:'POST',
-                data: {
-                    "groupId":"12345678",
-                    "termName":"终端名4",
-                    "termType": "终端类型4",
-                    "instCode": "sd3434002", 
-                    "drivType": "驱动4", 
-                    "drivParam":'',
-                    "cmt":"说明4"
-                }          
-            })
-            .then(function (response) {
-                console.log(response);
-                if (response.data.code) {
-                    alert(response.data.msg);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                if (response.data.code) {
-                    alert(response.data.msg);
-                }
-            });
+  data() {
+    return {
+      termType_options: [
+        {
+          value: "选项1",
+          label: "黄金糕"
         },
-        loadAll() {
-            return []
+        {
+          value: "选项2",
+          label: "双皮奶"
         },
-        querySearchAsync(queryString, cb) {
-            console.log(this.queryString);
-            let _this = this;
-            axios.defaults.baseURL = "http://172.16.0.13:31425"
-            axios.get('/instance/manage/ftsearch', {
-                params: {
-                    groupId: '12345678',
-                    fttext: _this.queryString          
-                }
-            })
-            .then(function (response) {
-                console.log(response);
-                if (response.data.code === "200000") {
-                    // _this.tableData = response.data.data;
-                } else {
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                // _this.tableData = [];
-            });
+        {
+          value: "选项3",
+          label: "蚵仔煎"
         },
-        handleSelect(item) {
-            console.log(item);
+        {
+          value: "选项4",
+          label: "龙须面"
+        },
+        {
+          value: "选项5",
+          label: "北京烤鸭"
         }
+      ],
+      drivType_options: [
+        {
+          value: "驱动1",
+          label: "驱动1"
+        }
+      ],
+      drivType: "",
+      termType: "",
+      instances: [],
+      // state4: '',
+      timeout: null,
+      value: "",
+      textarea: "",
+      tableData: [],
+      queryString: ""
+    };
+  },
+  methods: {
+    //新增终端
+    equipAdd() {
+      axios.defaults.baseURL = "http://172.16.0.13:31425";
+      axios
+        .post("/terminal/manage", {
+          com: "POST",
+          data: {
+            groupId: "12345678",
+            termName: "终端名4",
+            termType: "终端类型4",
+            instCode: "sd3434002",
+            drivType: "驱动4",
+            drivParam: "",
+            cmt: "说明4"
+          }
+        })
+        .then(function(response) {
+          console.log(response);
+          if (response.data.code) {
+            alert(response.data.msg);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          if (response.data.code) {
+            alert(response.data.msg);
+          }
+        });
     },
-    mounted() {
-        this.instances = this.loadAll();
+    loadAll() {
+      return [];
+    },
+    querySearchAsync(queryString, cb) {
+      console.log(this.queryString);
+      let _this = this;
+      axios.defaults.baseURL = "http://172.16.0.13:31425";
+      axios
+        .get("/instance/manage/ftsearch", {
+          params: {
+            groupId: "12345678",
+            fttext: _this.queryString
+          }
+        })
+        .then(function(response) {
+          console.log(response);
+          if (response.data.code === "200000") {
+            // _this.tableData = response.data.data;
+          } else {
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          // _this.tableData = [];
+        });
+    },
+    handleSelect(item) {
+      console.log(item);
     }
-}
+  },
+  mounted() {
+    this.instances = this.loadAll();
+  }
+};
 </script>
 
 <style>
 .main_row {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 .block-height1 {
-    height: 180px;
+  height: 180px;
 }
 .block-height2 {
-    height: 400px;
+  height: 400px;
 }
-.add_form_item_con .el-autocomplete{
-    width:100%;
+.add_form_item_con .el-autocomplete {
+  width: 100%;
 }
 </style>
