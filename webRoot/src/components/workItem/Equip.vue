@@ -2,7 +2,7 @@
       <div class="main_div main_block">
         <router-view></router-view> 
         <div class="main_header">
-            <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6"><div class="grid-content">
+            <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6"><div class="grid-content">
                 <div class="add_form_item">
                     <label class="add_form_label">终端查询：</label>
                     <div class="add_form_item_con">
@@ -10,7 +10,7 @@
                     </div></div>
                 </div>   
             </el-col>
-            <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6"><div class="grid-content">
+            <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6"><div class="grid-content">
             <!-- <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8"><div class="grid-content"> -->
                 <el-button size="small" type="primary" @click="queryAllEquip">查询</el-button>
                 <el-button size="small" @click="gotoAddEquip()">新增</el-button>
