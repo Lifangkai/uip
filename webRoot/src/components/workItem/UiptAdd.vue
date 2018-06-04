@@ -97,7 +97,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .uiptaddvue {
   height: 500px;
 }

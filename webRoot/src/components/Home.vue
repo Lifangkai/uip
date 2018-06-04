@@ -1,35 +1,46 @@
 <template>
-     <el-container width="100%" height="100%">
-     <!-- <template @transferUser="getUser"></template> 
-     <p>{{text}}</p> -->
-    <el-aside v-bind:style="{width:(isCollapse?'200px':'64px')}" style="background-color: rgba(0, 21, 41, 1)" >
-        <el-row style="height:64px">
-          <el-col :span="6"><div class="grid-content bg-purple home-logo" :style="{backgroundImage: 'url(' + icon + ')' }"></div></el-col>
-          <el-col :span="10" v-show="isCollapse"><div class="grid-content bg-purple home-text">统一接口</div></el-col>
-        </el-row>
-        <div class="nav-box">
-          <template v-for="item in $router.options.routes[0].children"  v-if="item.hidden" !=false >
-            <router-link  v-bind:to="item.path">
-                  <i class="iconfont" v-bind:class="item.iconCls"  v-bind:title="isCollapse?'':item.name"></i>
-                  <span v-show="isCollapse" class="">{{item.name}}</span>
-            </router-link>  <router-link  v-bind:to="item.path">
-                  <i class="iconfont" v-bind:class="item.iconCls"  v-bind:title="isCollapse?'':item.name"></i>
-                  <span v-show="isCollapse" class="">{{item.name}}</span>
-            </router-link>
-           </template>
-        </div>
-    </el-aside>
-    <el-main>
-         <el-row class="main-top">
-                <el-col :span="6">
-                  <div class="grid-content bg-purple mt-left">
-                    <!-- <i class="fl iconfont icon-daohangliebiao"  @click="changeLeftNav"></i> -->
-              <p class="fl">{{$route.name}}</p>
-
-                  </div>
-                </el-col> 
+    <el-container width="100%" height="100%">
+     <el-aside v-bind:style="{width:(isCollapse?'200px':'64px')}" style="background-color: rgba(0, 21, 41, 1)" >
+          <el-row style="height:64px">
+            <el-col :span="6"><div class="grid-content bg-purple home-logo" :style="{backgroundImage: 'url(' + icon + ')' }"></div></el-col>
+            <el-col :span="14" v-show="isCollapse"><div class="grid-content bg-purple home-text">统一接口平台</div></el-col>
           </el-row>
-          <router-view class="right-box"></router-view>
+          <div class="nav-box">
+            <template v-for="item in $router.options.routes[0].children"  v-if="item.hidden" !=false >
+              <router-link  v-bind:to="item.path">
+                    <i class="iconfont" v-bind:class="item.iconCls"  v-bind:title="isCollapse?'':item.name"></i>
+                    <span v-show="isCollapse" class="">{{item.name}}</span>
+              </router-link>  
+            </template>
+          </div>
+      </el-aside>
+    <el-main>
+      <el-row class="main-top">
+        <el-col :span="6">
+          <div class="grid-content bg-purple mt-left">
+            <i class="fl icon-clolor iconfont icon-daohangliebiao" @click="changeLeftNav"></i>
+            <template><p class="fr">{{$route.name}}</p></template>
+          </div>
+        </el-col>
+
+        <el-col :span="6" :offset="12">
+          <div class="grid-content bg-purple clearfix">
+            <el-dropdown trigger="hover">
+                  <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" class='fr'/>管理
+                  <i class="fl icon-clolor iconfont icon-xiala"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>我的消息</el-dropdown-item>
+                    <el-dropdown-item>设置</el-dropdown-item>
+                    <el-dropdown-item divided>退出登录</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+          </div>
+        </el-col>
+      </el-row>
+      <transition name="fade" mode="out-in">
+        <router-view class="right-box"></router-view>
+      </transition>
     </el-main>
     
    </el-container>
@@ -43,17 +54,21 @@ export default {
     return {
       icon: icon,
       isCollapse: true,
+      sysUserAvatar:
+        "https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png",
       navflag: ""
     };
   },
-  methods: {}
+  methods: {
+    changeLeftNav() {
+      this.isCollapse = !this.isCollapse;
+    }
+  }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 @import "../../static/commonCss/home.css";
-
 .el-container {
   width: 100%;
   height: 100%;
@@ -64,6 +79,9 @@ export default {
 }
 .el-aside {
   border-right: 1px solid #d8d8d8;
+}
+.icon-clolor{
+  color:#1A91FF !important;
 }
 .home-logo {
   width: 48px;
@@ -76,7 +94,8 @@ export default {
   color: #14823b;
   height: 64px;
   line-height: 70px;
-  font-size: 14px;
+  font-size: 18px;
+  margin-left: 8px;
 }
 .el-main {
   height: 100%;
@@ -96,6 +115,7 @@ export default {
   height: 30px;
   font-size: 28px;
   color: #14823b;
+  float: left;
 }
 .mt-left p {
   padding: 8px 0 0 22px;
@@ -105,6 +125,7 @@ export default {
 }
 .userinfo {
   float: right;
+  line-height: 64px;
 }
 .main-top .userinfo .userinfo-inner {
   cursor: pointer;
@@ -165,5 +186,19 @@ i.logout-item {
 }
 .el-dropdown-menu__item:not(.is-disabled):hover i.logout-item {
   background-position: -168px -763px;
+}
+.fr {
+  float: left;
+  font-size: 18px;
+}
+.tools {
+  line-height: 64px;
+  text-align: left;
+}
+.userinfo-inner{
+  line-height: 64px;
+}
+.right-box{
+  background: #EFF3F6;
 }
 </style>

@@ -112,7 +112,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .equip_blcok {
   height: 550px;
 }

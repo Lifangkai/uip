@@ -18,10 +18,10 @@ export default new Router({
       name: 'home',
       component: home,
       children: [
-        { path: '/reginter', component: reginter, name: '接口登记管理', iconCls:"icon-dengjizongshu",hidden:true},
+        { path: '/reginter', component: reginter, name: '接口登记管理', iconCls:"icon-queshudengji1",hidden:true},
         { path: '/openinter', component: openinter, name: '接口开放管理',iconCls:"icon-fenxiang" ,hidden:true},
-        { path: '/user', component: user, name: '用户管理',iconCls:"icon-yonghuguanli" , hidden:true},
-        { path: '/equip', component: equip, name: '终端设备管理',iconCls:"icon-shebeiguanli", hidden:true,},
+        { path: '/user', component: user, name: '用户管理',iconCls:"icon-yonghubangding" , hidden:true},
+        { path: '/equip', component: equip, name: '终端设备管理',iconCls:"icon-shebei", hidden:true,},
         { path: '/uipt', component:uipt, name: 'UIPT实例管理',iconCls:"icon-fuwushili", hidden:true },
         { path: '/equipAdd', component: equipAdd, name: '终端设备管理-新增', hidden:false},
         { path: '/uiptAdd', component: uiptAdd, name: '新增实例', hidden:false},

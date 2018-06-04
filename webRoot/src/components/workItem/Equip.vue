@@ -1,6 +1,6 @@
 <template>
       <div class="main_div main_block">
-        <router-view></router-view> 
+        <!-- <router-view></router-view>  -->
         <div class="main_header">
             <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6"><div class="grid-content">
                 <div class="add_form_item">

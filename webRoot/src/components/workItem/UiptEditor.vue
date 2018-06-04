@@ -152,7 +152,7 @@
     }
   }
 </script>
-<<style>
+<style scoped>
 .uiptaddvue {
     height: 800px;
 }
