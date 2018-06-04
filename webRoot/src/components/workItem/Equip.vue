@@ -1,4 +1,5 @@
 <template>
+<div>
       <div class="main_div main_block">
         <!-- <router-view></router-view>  -->
         <div class="main_header">
@@ -36,6 +37,7 @@
             </el-table>
         </div>  
         </div>
+</div>
 </template>
 <script>
 import axios from 'axios'
@@ -112,10 +114,10 @@ export default {
 .main_block {
     padding: 10px;
     border: 10px solid #EFF3F6;
+    background: white;
 }
 .main_header {
-    margin-top:20px;
-    margin-bottom:20px;
+    padding-bottom: 20px;
 }
 .main_table {
     margin-top:20px;
