@@ -55,5 +55,15 @@
     line-height: 48px;
     background: #465666;
 }
+.form-serch {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  padding: 20px 20px 0 30px;
+}
 
+.form-serch .demonstration {
+  font-size: 14px;
+  margin-right: 6px;
+}
     

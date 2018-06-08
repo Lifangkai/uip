@@ -39,7 +39,7 @@
                     <div class="add_form_item_con">
                         <el-input
                         type="textarea"
-                        :rows="1"
+                        :rows="2"
                         placeholder="请输入内容"
                         v-model="cmt">
                         </el-input>
@@ -113,27 +113,17 @@
                         <!-- <span v-if="scope.row.editFlag" class="cell-edit-input"><el-input v-model="inputColumn1" placeholder="请输入内容"></el-input></span> -->
                     </template>
                 </el-table-column>
-                <el-table-column prop="termName" label="参数编码" style="width: 25%">
-                    <template slot-scope="scope">
-                        <span v-if="!scope.row.editFlag"><el-input v-model="paramCode" placeholder="请输入内容"></el-input></span>
-                        <span v-if="scope.row.editFlag">{{ scope.row.paramCode }}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="cmt" label="参数值" style="width: 25%">
-                    <template slot-scope="scope">
-                        <span v-if="!scope.row.editFlag"><el-input v-model="paramValue" placeholder="请输入内容"></el-input></span>
-                        <span v-if="scope.row.editFlag">{{ scope.row.paramValue }}</span>
-                    </template>
-                </el-table-column>
+                <el-table-column prop="termName" label="参数编码" style="width: 25%"></el-table-column>
+                <el-table-column prop="cmt" label="参数值" style="width: 25%"></el-table-column>
                 <el-table-column label="操作" style="width: 25%">
                     <template slot-scope="scope">
                         <el-button
                             size="mini"
                             type="danger"
-                            @click="drivParamDelete(scope.$index, scope.row)">删除</el-button>
+                            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                         <el-button
                             size="mini"
-                            @click="drivParamSave(scope.$index, scope.row)">保存</el-button>
+                            @click="handleSave(scope.$index, scope.row)">保存</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -198,9 +188,7 @@ export default {
             instCode:'',//实例编码
             termName: '',
             termSn:'',
-            paramName:'',
-            paramCode:'',
-            paramValue:''
+            paramName:''
         };
     },
     methods: {
@@ -235,23 +223,13 @@ export default {
         //添加驱动参数的方法
         drivParamAdd(){
             this.tableData.push({ 
-                paramName:'',
-                paramCode:'',
-                paramValue:'',
+                paramName:"",
                 editeFlage:true
             })
         },
-        //保存驱动参数
-        drivParamSave(index, row){
+        handleSave(index, row){
             this.tableData[index].editeFlage = false;
             this.tableData[index].paramName = this.paramName;
-            this.tableData[index].paramCode = this.paramCode;
-            this.tableData[index].paramValue = this.paramValue;
-            console.log(this.tableData);
-            editeFlage:false;
-        },
-        drivParamDelete(index,row){
-            this.tableData.splice(index, 1);
         },
         loadAll() {
             return []
@@ -349,7 +327,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .main_row {
   margin-top: 15px;
 }

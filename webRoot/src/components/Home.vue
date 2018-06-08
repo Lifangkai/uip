@@ -2,7 +2,9 @@
     <el-container width="100%" height="100%">
      <el-aside v-bind:style="{width:(isCollapse?'200px':'64px')}" style="background-color: rgba(0, 21, 41, 1)" >
           <el-row style="height:64px">
-            <el-col :span="6"><div class="grid-content bg-purple home-logo" :style="{backgroundImage: 'url(' + icon + ')' }"></div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple home-logo">
+               <i class="fl icon-clolor iconfont icon-hisgai"></i>
+              </div></el-col>
             <el-col :span="14" v-show="isCollapse"><div class="grid-content bg-purple home-text">统一接口平台</div></el-col>
           </el-row>
           <div class="nav-box">
@@ -24,10 +26,10 @@
         </el-col>
 
         <el-col :span="6" :offset="12">
-          <div class="grid-content bg-purple clearfix">
+          <div class="grid-content bg-purple clearf">
             <el-dropdown trigger="hover">
-                  <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" class='fr'/>管理
-                  <i class="fl icon-clolor iconfont icon-xiala"></i>
+                  <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" class='fr'/>管理员
+                  <i class="icon-clolor iconfont icon-xiala"></i>
                   </span>
                   <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>我的消息</el-dropdown-item>
@@ -80,22 +82,25 @@ export default {
 .el-aside {
   border-right: 1px solid #d8d8d8;
 }
-.icon-clolor{
-  color:#1A91FF !important;
+.icon-clolor {
+  color: #1c93ef !important;
 }
 .home-logo {
-  width: 48px;
-  height: 48px;
-  background-position: -155px -492px;
-  background-repeat: no-repeat;
-  margin: 10px 0 7px 8px;
+  width: 42px;
+  height: 42px;
+  margin: 16px 5px 8px 10px;
+}
+.home-logo i {
+  font-size: 42px;
 }
 .home-text {
-  color: #14823b;
+  background: linear-gradient(to right, #1782e5, #67a0e4, #c5d2e5);
+  -webkit-background-clip: text;
+  color: transparent;
   height: 64px;
-  line-height: 70px;
+  line-height: 74px;
   font-size: 18px;
-  margin-left: 8px;
+  margin-left: 2px;
 }
 .el-main {
   height: 100%;
@@ -118,9 +123,9 @@ export default {
   float: left;
 }
 .mt-left p {
-  padding: 8px 0 0 22px;
-  line-height: 20px;
-  font-size: 14px;
+  padding: 8px 0 0 20px;
+  line-height: 10px;
+  font-size: 16px;
   font-weight: 500;
 }
 .userinfo {
@@ -195,10 +200,17 @@ i.logout-item {
   line-height: 64px;
   text-align: left;
 }
-.userinfo-inner{
+.right-box {
+  background: #eff3f6;
+  min-height: 700px;
+}
+.clearf {
+  text-align: right;
+  margin-right: 20px;
   line-height: 64px;
 }
-.right-box{
-  background: #EFF3F6;
+.clearf i {
+  font-size: 10px;
+  margin-left: 6px;
 }
 </style>
