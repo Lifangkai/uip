@@ -18,8 +18,7 @@
                             <div>
                                 <span class="demonstration">接口协议:</span>
                                 <el-select v-model="formInline.region" placeholder="请输入" size="small">
-                                <el-option label="区域一" value="shanghai"></el-option>
-                                <el-option label="区域二" value="beijing"></el-option>
+                                <el-option label="http" value="http"></el-option>
                                 </el-select>
                             </div>
                             <div class="seach-con">

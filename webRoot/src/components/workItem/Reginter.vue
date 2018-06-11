@@ -75,6 +75,7 @@ export default {
         console.log(res);
         if (res.code == 200000) {
           this.tableData = res.data;
+          this.searchKey = '';
           console.log(this.tableData);
         } else {
           console.log(res.msg);

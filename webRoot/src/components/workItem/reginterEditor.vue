@@ -6,45 +6,58 @@
           <el-tab-pane label="登录接口信息" name="first">
             	 <div style="margin:0px 10px" class="reginter-con">
                  <div class="pagecon-box">
-                      <el-form ref="form" :model="formInline" label-width="80px">
-                        <div class="form-serch" style="margin-bottom: 20px;">
-                          <div>
-                            <span class="demonstration">用户名称:</span>
-                            <el-input placeholder="请输入" size="small" style="width: 200px;"></el-input>
-                          </div>
-                          <div style="margin-left: 70px;">
-                            <span class="demonstration">接口名称:</span>
-                            <el-input placeholder="请输入" size="small" style="width: 200px;"></el-input>
-                          </div>
-                        </div>
-                        <el-form-item label="接口说明:" style="width: 600px;margin-left:20px;margin-bottom: 0px;">
-                          <el-input type="textarea"></el-input>
+                    <el-form ref="sinteData" :model="sinteData" label-width="80px">
+                        <el-row style="margin-top:10px;">
+                          <el-col :span="6">
+                            <el-form-item label="用户名称:" prop='userCode'  style="margin:6px 0px 0px 20px;">
+                              <el-input placeholder="请输入" size="small" style="width: 200px;" v-model="sinteData.userCode"></el-input>
+                            </el-form-item>
+                            </el-col>
+                            <el-col :span="6">
+                              <el-form-item label="接口名称:" prop='inteName'  style="margin:6px 0px 0px 20px;">
+                              <el-input placeholder="请输入" size="small" style="width: 200px;" v-model="sinteData.inteName"></el-input>
+                              </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-form-item label="接口说明:" prop='cmt' style="width: 600px;margin:6px 0px 0px 20px;">
+                            <el-input type="textarea" v-model="sinteData.cmt"></el-input>
                         </el-form-item>
-                        <div class="form-serch">
-                          <div>
-                            <span class="demonstration">接口协议:</span>
-                            <el-select v-model="formInline.region" size="small">
-                              <el-option label="http" value="http"></el-option>
-                            </el-select>
+                        <el-row>
+                          <el-col :span="5">
+                            <el-form-item label="接口协议:" prop='inteType' style="margin:6px 0px 0px 20px;">
+                                <el-select v-model="sinteData.inteType " size="small">
+                                  <el-option label="http" value="http"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            </el-col>
+                            <el-col :span="4">
+                                <div class="seach-con">
+                                  <span class="demonstration">IP</span>
+                                  <el-input placeholder="请输入" size="small" v-model="ConfData.ip"></el-input>
+                                </div>
+                            </el-col>
+                            <el-col :span="4">
+                                <div class="seach-con">
+                                  <span class="demonstration">端口</span>
+                                  <el-input placeholder="请输入" size="small"  v-model="ConfData.port"></el-input>
+                                </div>
+                            </el-col>
+                            <el-col :span="4">
+                                <div class="seach-con">
+                                  <span class="demonstration">路径</span>
+                                  <el-input placeholder="请输入" size="small" v-model="ConfData.path"></el-input>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                        <el-form-item>
+                          <div class="fun-save">
+                            <el-button type="primary" size="small" @click="sinteManage()">保存</el-button>         
+                            <el-button size="small" @click="resetForm('sinteData')">返回</el-button>
                           </div>
-                          <div class="seach-con">
-                            <span class="demonstration">IP</span>
-                            <el-input placeholder="请输入" size="small" style="width: 160px;"></el-input>
-                          </div>
-                          <div class="seach-con">
-                            <span class="demonstration">端口</span>
-                            <el-input placeholder="请输入" size="small" style="width: 160px;"></el-input>
-                          </div>
-                          <div class="seach-con">
-                            <span class="demonstration">路径</span>
-                            <el-input placeholder="请输入" size="small" style="width: 160px;"></el-input>
-                          </div>
-                        </div>
+                        </el-form-item>
+                        </el-row>
                       </el-form>
-                      <div class="fun-save">
-                              <el-button type="primary" size="small">保存</el-button>         
-                              <el-button size="small" @click="$router.back(-1)">返回</el-button>
-                        </div>
                     </div>    
                   <div class="page-content-box">
                      <div class="addCon">
@@ -232,6 +245,18 @@ export default {
   },
   data() {
     return {
+       sinteData: {
+        inteName: "",
+        inteType: "",
+        userCode: "",
+        cmt: "",
+        funcList: "[]"
+      },
+      ConfData: {
+        ip: "",
+        port: "",
+        path: ""
+      },
       tableData: [
         {
           date: "2016-05-02",
@@ -277,7 +302,6 @@ export default {
   display: flex;
 }
 .fun-save {
-  text-align: left;
-  margin: 10px 40px 0 40px;
+  margin: 0px 0px 0 -40px;
 }
 </style>

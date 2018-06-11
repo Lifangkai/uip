@@ -10,7 +10,8 @@ export const sinteManage = params => { return instanceBase1.post(`/sinte/manage`
 export const sinteSearch = params => { return instanceBase1.get(`/sinte/manage/ftsearch`,{ params: params }).then(res => res.data); };
 // 接口登记弹框保存
 export const funcManage = params => { return instanceBase1.post(`/func/manage`, params).then(res => res.data); };
-
+// 接口登记数据格式保存
+export const fmtManageSub = params => { return instanceBase1.post(`/fmt/manage/sub`, params).then(res => res.data); };
 const instanceBase1 = axios.create({
     //  baseURL: config.BASE1_URL,
      baseURL: base1,
