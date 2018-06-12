@@ -117,7 +117,7 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 	data.FuncList = string(funcStr)
 	fmt.Println("the funcList is:",data.FuncList)
 	dataStr, _ := json.Marshal(data)
-	err =frame.DB.Create("uipSrcInterface","uipSrcInterface"+data.GroupId+data.InteCode, string(dataStr))
+	err =frame.DB.Create("uipSrcInterface"+data.GroupId,"uipSrcInterface"+data.GroupId+data.InteCode, string(dataStr))
 	//异常处理
 	if err != nil {
 		response.Code = common.ErrorSystemErrId
