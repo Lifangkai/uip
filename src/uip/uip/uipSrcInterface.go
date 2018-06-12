@@ -36,7 +36,7 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 	fmt.Println("this is UipSrcInterface post!")
 	var err error
 	var funcs []attached.UipInterFunc
-	var funcs2 []simpleFunc
+	var  funcs2 []simpleFunc
 	var insertSucc bool
 
 	data.InteCode ,err = getSnsNew("UIPSRC1")
@@ -81,7 +81,7 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 		}
 		//向数据库插入新数据
 		dataStr2, _ := json.Marshal(row)
-		err =frame.DB.Create("uipInterFunc","uipInterFunc"+row.GroupId+row.FuncCode, string(dataStr2))
+		err =frame.DB.Create("uipInterFunc"+row.GroupId,"uipInterFunc"+row.GroupId+row.FuncCode, string(dataStr2))
 		//截取func对象的funcCode和funcName字段，避免冗余
 		a.FuncCode = row.FuncCode
 		a.FuncName = row.FuncName
@@ -335,6 +335,7 @@ func UipSrcInterfacePseHandlePutRequest( r *http.Request) {
 	data2,err2:= ioutil.ReadAll(resp.Body)
 	fmt.Println("the err when we read the respons's body is :",err2)
 	err =json.Unmarshal([]byte(data2),&keysGet)
+	fmt.Println("the keys is :",keysGet)
 	resp.Body.Close()
 	if err !=nil{
 		fmt.Println("the json umarshal to keys[] is faild, the err is:",err)
