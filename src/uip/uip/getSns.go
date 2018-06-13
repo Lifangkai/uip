@@ -11,7 +11,7 @@ import (
 //调用sns服务获取序列号
 func getSnsNew(snsType string) (string, error) {
 	//请求sns的路径(网址)
-	url := "http://172.16.0.14:31300/snList?com=LIST&groupId=12345678&snId=" + snsType + "&operatorId=12000&bs=1"
+	url := "http://172.16.0.14:31300/snList?com=LIST&groupId=SNS16494&snId=" + snsType + "&operatorId=12000&bs=1"
 	//进行http请求 获取请求数据
 	resp, err := http.Get(url)
 	if err != nil {
