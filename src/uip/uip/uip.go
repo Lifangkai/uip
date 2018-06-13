@@ -389,6 +389,8 @@ func uipInterFuncHandler(w http.ResponseWriter, r *http.Request) {
 		switch comWay[0] {
 		case "key":
 			UipInterFuncGetRequest(r)
+		case "all":
+			UipInterFuncQuryAlltRequest(r)
 		default:
 			response.Code = common.ComErrorId
 			response.Msg = common.ComErrorMsg

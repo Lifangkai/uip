@@ -357,3 +357,43 @@ func UipInterFuncvBatchQueryRequest( datas attached.BatchResQuest) {
 		return
 	}
 }
+
+
+/**
+*	@Author:zengzeen
+*	@param:groupId          机构标识     定长八位
+*   @param:Sn               序号
+*   @return:{code,msg,data} json
+ */
+
+func UipInterFuncQuryAlltRequest( r *http.Request) {
+	fmt.Println("this is uipInterFunc queryall  method")
+	var datas []attached.UipInterFunc
+	var uip attached.UipInterFunc
+	groupId := r.Form["groupId"][0]
+	inteCode := r.Form["inteCode"][0]
+	results, err := frame.DB.Retrive("scan", "uipInterFunc"+groupId+inteCode+"0", "uipInterFunc"+groupId+inteCode+"~", 999999)
+	if err != nil {
+		response.Code = common.ErrorSystemErrId
+		response.Msg = common.ErrorSystemErrMsg
+	}
+	if len(results) < 0 {
+		response.Code = common.ErrorDataNotExistsErrId
+		response.Msg = common.ErrorDataNotExistsMsg
+	}
+
+	for i := 2; i < len(results); i += 2 {
+		if err:=json.Unmarshal([]byte(results[i]), &uip); err!= nil{
+			continue
+		}
+		datas= append(datas,uip)
+	}
+	if len(datas) < 0 {
+		response.Code = common.ErrorDataNotExistsErrId
+		response.Msg = common.ErrorDataNotExistsMsg
+	}
+	response.Code = common.ErrorOKId
+	response.Msg = common.ErrorOKGetMsg
+	response.Data = datas
+	return
+}
