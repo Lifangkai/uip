@@ -26,7 +26,7 @@ func UipInterFuncHandlePostRequest( data attached.UipInterFunc) {
 		return
 	}
 	//判断是否已经存在数据
-	isExists, errI := frame.DB.ExistsDo("exists", "uipInterFunc"+data.GroupId+data.FuncCode)
+	isExists, errI := frame.DB.ExistsDo("exists", "uipInterFunc"+data.GroupId+data.InterCode+data.FuncCode)
 	//异常处理
 	if errI != nil {
 		response.Code = common.ErrorSystemErrId
@@ -41,7 +41,7 @@ func UipInterFuncHandlePostRequest( data attached.UipInterFunc) {
 
 	//向数据库插入新数据
 	dataStr, _ := json.Marshal(data)
-	err =frame.DB.Create("uipInterFunc","uipInterFunc"+data.GroupId+data.FuncCode, string(dataStr))
+	err =frame.DB.Create("uipInterFunc"+data.GroupId,"uipInterFunc"+data.GroupId+data.InterCode+data.FuncCode, string(dataStr))
 	//异常处理
 	if err != nil {
 		response.Code = common.ErrorSystemErrId
@@ -73,7 +73,7 @@ func UipInterFuncsHandlePostRequest(datas []attached.UipInterFunc) {
 
 		}
 		//判断是否已经存在数据
-		isExists, errI := frame.DB.ExistsDo("exists", "uipInterFunc"+data.GroupId+data.FuncCode)
+		isExists, errI := frame.DB.ExistsDo("exists", "uipInterFunc"+data.GroupId+data.InterCode+data.FuncCode)
 		//异常处理
 		if errI != nil {
 			insertSucc = false
@@ -86,7 +86,7 @@ func UipInterFuncsHandlePostRequest(datas []attached.UipInterFunc) {
 
 		//向数据库插入新数据
 		dataStr, _ := json.Marshal(data)
-		err =frame.DB.Create("uipSrcInterface","uipInterFunc"+data.GroupId+data.FuncCode, string(dataStr))
+		err =frame.DB.Create("uipSrcInterface"+data.GroupId,"uipInterFunc"+data.GroupId+data.InterCode+data.FuncCode, string(dataStr))
 		//异常处理
 		if err != nil {
 			insertSucc = false
@@ -131,7 +131,7 @@ func UipInterFuncvDelRequest( data attached.UipInterFunc) {
 		return
 
 	}
-	OldData, err := frame.DB.RetriveOne("uipInterFunc" + data.GroupId + data.FuncCode)
+	OldData, err := frame.DB.RetriveOne("uipInterFunc" + data.GroupId +data.InterCode+ data.FuncCode)
 	if err == nil && OldData == "" {
 		response.Code = common.ErrorDataNotExistsErrId
 		response.Msg = common.ErrorDataNotExistsMsg
@@ -142,7 +142,7 @@ func UipInterFuncvDelRequest( data attached.UipInterFunc) {
 		return
 
 	} else {
-		err :=frame.DB.Delete("uipInterFunc","uipInterFunc" + data.GroupId+data.FuncCode)
+		err :=frame.DB.Delete("uipInterFunc"+data.GroupId,"uipInterFunc" + data.GroupId+data.InterCode+data.FuncCode)
 		//异常处理
 		if err != nil {
 			response.Code = common.ErrorSystemErrId
@@ -172,7 +172,7 @@ func UipInterFuncHandlePutRequest( data attached.UipInterFunc) {
 		return
 	}
 	//判断是否已经存在数据
-	OldData, err := frame.DB.RetriveOne("uipInterFunc" + data.GroupId + data.FuncCode)
+	OldData, err := frame.DB.RetriveOne("uipInterFunc" + data.GroupId +data.InterCode+ data.FuncCode)
 	if err == nil && OldData == "" {
 		response.Code = common.ErrorDataNotExistsErrId
 		response.Msg = common.ErrorDataNotExistsMsg
@@ -185,7 +185,7 @@ func UipInterFuncHandlePutRequest( data attached.UipInterFunc) {
 	} else {
 		//向数据库插入新数据
 		dataStr, _ := json.Marshal(data)
-		err := frame.DB.Update("uipInterFunc","uipInterFunc"+data.GroupId+data.FuncCode, string(dataStr))
+		err := frame.DB.Update("uipInterFunc"+data.GroupId,"uipInterFunc"+data.GroupId+data.InterCode+data.FuncCode, string(dataStr))
 		//异常处理
 		if err != nil {
 			response.Code = common.ErrorSystemErrId
@@ -207,9 +207,10 @@ func UipInterFuncHandlePutRequest( data attached.UipInterFunc) {
  */
 func UipInterFuncGetRequest(r *http.Request ) {
 	fmt.Println("this is uipInterFunc SNGet method")
-	var groupId,funcCode string
+	var groupId,funcCode,inteCode string
 
 	groupId = r.Form["groupId"][0]
+	inteCode = r.Form["inteCode"][0]
 	funcCode = r.Form["funcCode"][0]
 
 	if len(groupId)==0 || len(funcCode)==0 {
@@ -227,7 +228,7 @@ func UipInterFuncGetRequest(r *http.Request ) {
 	}
 
 	//根据主键搜索
-	result, err :=frame.DB.RetriveOne("uipInterFunc"+groupId+funcCode)
+	result, err :=frame.DB.RetriveOne("uipInterFunc"+groupId+inteCode+funcCode)
 	if err == nil && result == "" {
 		response.Code = common.ErrorDataNotExistsErrId
 		response.Msg = common.ErrorDataNotExistsMsg
