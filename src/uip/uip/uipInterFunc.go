@@ -19,6 +19,8 @@ func UipInterFuncHandlePostRequest( data attached.UipInterFunc) {
 	fmt.Println("this is UipInterFunc post!")
 	data.FuncCode ,err = getSnsNew("UIPFUNC1")
 	data.Ctime,err = getSnsNew("dmm00001")
+	data.ReqFtmCode,err = getSnsNew("reqFmtC")
+	data.ResFmtCode,err = getSnsNew("resFmtC")
 	emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
 	if isEmpty == false {
 		response.Code = emptyCheckResponse.Code
@@ -26,7 +28,7 @@ func UipInterFuncHandlePostRequest( data attached.UipInterFunc) {
 		return
 	}
 	//判断是否已经存在数据
-	isExists, errI := frame.DB.ExistsDo("exists", "uipInterFunc"+data.GroupId+data.InterCode+data.FuncCode)
+	isExists, errI := frame.DB.ExistsDo("exists", "uipInterFunc"+data.GroupId+data.InteCode+data.FuncCode)
 	//异常处理
 	if errI != nil {
 		response.Code = common.ErrorSystemErrId
@@ -41,7 +43,7 @@ func UipInterFuncHandlePostRequest( data attached.UipInterFunc) {
 
 	//向数据库插入新数据
 	dataStr, _ := json.Marshal(data)
-	err =frame.DB.Create("uipInterFunc"+data.GroupId,"uipInterFunc"+data.GroupId+data.InterCode+data.FuncCode, string(dataStr))
+	err =frame.DB.Create("uipInterFunc"+data.GroupId,"uipInterFunc"+data.GroupId+data.InteCode+data.FuncCode, string(dataStr))
 	//异常处理
 	if err != nil {
 		response.Code = common.ErrorSystemErrId
@@ -63,6 +65,8 @@ func UipInterFuncsHandlePostRequest(datas []attached.UipInterFunc) {
 	for i,data:= range datas{
 		data.FuncCode ,err = getSnsNew("UIPFUNC1")
 		data.Ctime,err = getSnsNew("dmm00001")
+		data.ReqFtmCode,err = getSnsNew("reqFmtC")
+		data.ResFmtCode,err = getSnsNew("resFmtC")
 		datas[i].FuncCode = data.FuncCode
 		datas[i].Ctime = data.Ctime
 		emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
@@ -73,7 +77,7 @@ func UipInterFuncsHandlePostRequest(datas []attached.UipInterFunc) {
 
 		}
 		//判断是否已经存在数据
-		isExists, errI := frame.DB.ExistsDo("exists", "uipInterFunc"+data.GroupId+data.InterCode+data.FuncCode)
+		isExists, errI := frame.DB.ExistsDo("exists", "uipInterFunc"+data.GroupId+data.InteCode+data.FuncCode)
 		//异常处理
 		if errI != nil {
 			insertSucc = false
@@ -86,7 +90,7 @@ func UipInterFuncsHandlePostRequest(datas []attached.UipInterFunc) {
 
 		//向数据库插入新数据
 		dataStr, _ := json.Marshal(data)
-		err =frame.DB.Create("uipSrcInterface"+data.GroupId,"uipInterFunc"+data.GroupId+data.InterCode+data.FuncCode, string(dataStr))
+		err =frame.DB.Create("uipSrcInterface"+data.GroupId,"uipInterFunc"+data.GroupId+data.InteCode+data.FuncCode, string(dataStr))
 		//异常处理
 		if err != nil {
 			insertSucc = false
@@ -131,7 +135,7 @@ func UipInterFuncvDelRequest( data attached.UipInterFunc) {
 		return
 
 	}
-	OldData, err := frame.DB.RetriveOne("uipInterFunc" + data.GroupId +data.InterCode+ data.FuncCode)
+	OldData, err := frame.DB.RetriveOne("uipInterFunc" + data.GroupId +data.InteCode+ data.FuncCode)
 	if err == nil && OldData == "" {
 		response.Code = common.ErrorDataNotExistsErrId
 		response.Msg = common.ErrorDataNotExistsMsg
@@ -142,7 +146,7 @@ func UipInterFuncvDelRequest( data attached.UipInterFunc) {
 		return
 
 	} else {
-		err :=frame.DB.Delete("uipInterFunc"+data.GroupId,"uipInterFunc" + data.GroupId+data.InterCode+data.FuncCode)
+		err :=frame.DB.Delete("uipInterFunc"+data.GroupId,"uipInterFunc" + data.GroupId+data.InteCode+data.FuncCode)
 		//异常处理
 		if err != nil {
 			response.Code = common.ErrorSystemErrId
@@ -172,7 +176,7 @@ func UipInterFuncHandlePutRequest( data attached.UipInterFunc) {
 		return
 	}
 	//判断是否已经存在数据
-	OldData, err := frame.DB.RetriveOne("uipInterFunc" + data.GroupId +data.InterCode+ data.FuncCode)
+	OldData, err := frame.DB.RetriveOne("uipInterFunc" + data.GroupId +data.InteCode+ data.FuncCode)
 	if err == nil && OldData == "" {
 		response.Code = common.ErrorDataNotExistsErrId
 		response.Msg = common.ErrorDataNotExistsMsg
@@ -185,7 +189,7 @@ func UipInterFuncHandlePutRequest( data attached.UipInterFunc) {
 	} else {
 		//向数据库插入新数据
 		dataStr, _ := json.Marshal(data)
-		err := frame.DB.Update("uipInterFunc"+data.GroupId,"uipInterFunc"+data.GroupId+data.InterCode+data.FuncCode, string(dataStr))
+		err := frame.DB.Update("uipInterFunc"+data.GroupId,"uipInterFunc"+data.GroupId+data.InteCode+data.FuncCode, string(dataStr))
 		//异常处理
 		if err != nil {
 			response.Code = common.ErrorSystemErrId

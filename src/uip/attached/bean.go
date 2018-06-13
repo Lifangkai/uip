@@ -70,7 +70,7 @@ type UipInterFunc struct {
 	FuncName    string `json:"funcName"`
 	GroupId     string `json:"groupId"`
 	//add intercode as primary key
-	InterCode     string `json:"interCode"`
+	InteCode     string `json:"inteCode"`
 }
 type UipInterFuncRequestJson struct {
 	Com  string       `json:"com"`
