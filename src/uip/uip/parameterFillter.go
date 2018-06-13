@@ -6,7 +6,7 @@ import (
 )
 func UipSrcInterfaceParaFilter(data attached.UipSrcInterface) (emptyCheckResponse responseJson, isEmpty bool) {
 	isEmpty = true
-	if len(data.GroupId) == 0 || len(data.InteCode)==0 || len(data.InteCode) == 0{
+	if len(data.GroupId) == 0 || len(data.InteCode)==0 {
 		emptyCheckResponse.Code = common.ErrorDataNullId
 		emptyCheckResponse.Msg = common.ErrorDataNullMsg
 		isEmpty = false
@@ -27,7 +27,7 @@ func UipSrcInterfaceParaFilter(data attached.UipSrcInterface) (emptyCheckRespons
 
 func UipInterFuncParaFilter(data attached.UipInterFunc) (emptyCheckResponse responseJson, isEmpty bool) {
 	isEmpty = true
-	if len(data.GroupId) == 0 || len(data.FuncCode)==0{
+	if len(data.GroupId) == 0 || len(data.FuncCode)==0 || len(data.InterCode) == 0{
 		emptyCheckResponse.Code = common.ErrorDataNullId
 		emptyCheckResponse.Msg = common.ErrorDataNullMsg
 		isEmpty = false
