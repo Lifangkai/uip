@@ -19,7 +19,7 @@ func UipInterFuncHandlePostRequest( data attached.UipInterFunc) {
 	fmt.Println("this is UipInterFunc post!")
 	data.FuncCode ,err = getSnsNew("UIPFUNC1")
 	data.Ctime,err = getSnsNew("dmm00001")
-	data.ReqFtmCode,err = getSnsNew("reqFmtC")
+	data.ReqFmtCode,err = getSnsNew("reqFmtC")
 	data.ResFmtCode,err = getSnsNew("resFmtC")
 	emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
 	if isEmpty == false {
@@ -65,7 +65,7 @@ func UipInterFuncsHandlePostRequest(datas []attached.UipInterFunc) {
 	for i,data:= range datas{
 		data.FuncCode ,err = getSnsNew("UIPFUNC1")
 		data.Ctime,err = getSnsNew("dmm00001")
-		data.ReqFtmCode,err = getSnsNew("reqFmtC")
+		data.ReqFmtCode,err = getSnsNew("reqFmtC")
 		data.ResFmtCode,err = getSnsNew("resFmtC")
 		datas[i].FuncCode = data.FuncCode
 		datas[i].Ctime = data.Ctime

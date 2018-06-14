@@ -61,7 +61,7 @@ type UipInterFunc struct {
 	OperCode    string `json:"operCode"`
 	Ctime       string `json:"ctime"`
 	ResFmtCode  string `json:"resFmtCode"`
-	ReqFtmCode  string `json:"reqFtmCode"`
+	ReqFmtCode  string `json:"reqFmtCode"`
 	ResDataProp string `json:"resDataProp"`
 	ReqDataProp string `json:"reqDataProp"`
 	ResExample  string `json:"resExample"`
