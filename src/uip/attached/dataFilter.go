@@ -11,7 +11,7 @@ func MainFilter(uipMain UipDfmtMain) bool {
 	var boo bool = true
 
 	//为空判断
-	if uipMain.GroupId == "" || uipMain.FmtType == "" || uipMain.ExtInfo == "" || uipMain.OperCode == "" {
+	if uipMain.GroupId == "" || uipMain.FmtType == ""  || uipMain.OperCode == "" {
 		boo = false
 		fmt.Println("有字段为空！")
 		//res:=&response{
