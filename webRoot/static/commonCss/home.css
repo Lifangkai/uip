@@ -12,7 +12,7 @@
 .nav-box a.router-link-active{
     background-color: rgba(24, 144, 255, 1);
     color: #FFFFFFFF;
-    border-left:3px solid #13823A;
+    /* border-left:3px solid #13823A; */
 }
 .nav-box a i{
     position: absolute;

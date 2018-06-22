@@ -248,8 +248,9 @@
  .dialog-con .el-textarea__inner{
     height: 90px;
 }
- .el-form-item__content{
-     text-align: left;
+ .elcs .el-form-item__content{
+     /* text-align: left; */
+     margin-left: 10px !important;
  }
  /* 折叠面板里内容的样式 */
 .coll-con {
@@ -312,7 +313,7 @@
     border-radius: 4px !important;
     min-width: 760px;
     max-height: 824px;
-    margin-top: 10px !important;
+    margin-top: 50px !important;
 }
 .el-dialog__header{
     padding: 0 !important;
@@ -373,6 +374,18 @@
     color: #333;
     opacity: 0.5;
   }
+  .addCon1 {
+    height: 100px;
+    line-height: 100px;
+    margin: 20px;
+    border: 1px dashed #dde2e3;
+    text-align: center;
+  }
+  .addCon1 i {
+    font-size: 50px;
+    color: #333;
+    opacity: 0.5;
+  }
   .page-botton {
     height: 68px;
     background: white;
@@ -394,7 +407,7 @@
     font-size: 16px;
   }
   .add-div {
-    padding: 10px 6px;
+    padding: 0px 6px 10px 6px;
   }
   .page-table {
     border: 1px solid #dde2e3;
@@ -415,4 +428,7 @@
 /* 多选框不拉伸 */
 .el-textarea__inner{
     resize: none !important;
+}
+.el-input-group{
+    margin-top: 10px;
 }

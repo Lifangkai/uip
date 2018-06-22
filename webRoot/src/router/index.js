@@ -18,11 +18,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: '管理',
       component: home,
       children: [
-        { path: '/reginter', component: reginter, name: '接口登记管理', iconCls: "icon-queshudengji1", hidden: true },
-        { path: '/openinter', component: openinter, name: '接口开放管理', iconCls: "icon-fenxiang", hidden: true },
+        { path: '/reginter', component: reginter, name: '接口登记管理', iconCls: "icon-dengjixinxi", hidden: true },
+        { path: '/openinter', component: openinter, name: '接口开放管理', iconCls: "icon-jiekouguanli", hidden: true },
         { path: '/user', component: user, name: '用户管理', iconCls: "icon-yonghubangding", hidden: true },
         { path: '/equip', component: equip, name: '终端设备管理', iconCls: "icon-shebei", hidden: true, },
         { path: '/uipt', component: uipt, name: 'UIPT实例管理', iconCls: "icon-fuwushili", hidden: true },

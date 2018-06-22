@@ -2,19 +2,28 @@ import axios from 'axios';
 import routes from '../router'
 import QS from 'qs'
 
- let base1 = 'http://172.16.0.14:31424';
+let base1 = 'http://172.16.0.14:31424';
+let base2 = 'http://172.16.0.14:31300';
 
 // 接口登记保存
 export const sinteManage = params => { return instanceBase1.post(`/sinte/manage`, params).then(res => res.data); };
+// 接口登记格式id的sns
+export const sinteSns = params => { return instanceBase2.get(`/snList`, { params: params }).then(res => res.data); };
 // 接口登记查询
-export const sinteSearch = params => { return instanceBase1.get(`/sinte/manage/ftsearch`,{ params: params }).then(res => res.data); };
+export const sinteSearch = params => { return instanceBase1.get(`/sinte/manage/ftsearch`, { params: params }).then(res => res.data); };
 // 接口登记弹框保存
 export const funcManage = params => { return instanceBase1.post(`/func/manage`, params).then(res => res.data); };
+// 接口登记弹框查询
+export const funcManageAll = params => { return instanceBase1.get(`/func/manage`, { params: params }).then(res => res.data); };
 // 接口登记数据格式保存
 export const fmtManageSub = params => { return instanceBase1.post(`/fmt/manage/sub`, params).then(res => res.data); };
+// 接口登记数据格式保存
+export const fmtManageMain = params => { return instanceBase1.post(`/fmt/manage/main`, params).then(res => res.data); };
+// 接口登记数据格式保存
+export const fmtSubAll = params => { return instanceBase1.get(`/fmt/manage/main`, { params: params }).then(res => res.data); };
 const instanceBase1 = axios.create({
     //  baseURL: config.BASE1_URL,
-     baseURL: base1,
+    baseURL: base1,
     // headers: {
     //     'Access-Control-Allow-Origin':'*',
     //     'Content-Type': 'application/json',
@@ -27,6 +36,21 @@ const instanceBase1 = axios.create({
 });
 
 instanceBase1.defaults.headers.post['Content-Type'] = 'application/json';
+const instanceBase2 = axios.create({
+    //  baseURL: config.BASE1_URL,
+    baseURL: base2,
+    // headers: {
+    //     'Access-Control-Allow-Origin':'*',
+    //     'Content-Type': 'application/json',
+    //     'Access-Control-Allow-Headers':'Authorization,Origin, X-Requested-With, Content-Type, Accept',
+    // }
+    // transformRequest: [function (data) {
+    //     data = QS.stringify(data);
+    //     return data;
+    // }]
+});
+
+instanceBase2.defaults.headers.post['Content-Type'] = 'application/json';
 // instanceBase1.interceptors.request.use(
 //        config => {
 //         // if (request.getMethod().equals("OPTIONS")) {

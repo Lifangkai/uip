@@ -27,16 +27,16 @@
 
         <el-col :span="6" :offset="12">
           <div class="grid-content bg-purple clearf">
-            <el-dropdown trigger="hover">
-                  <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" class='fr'/>管理员
-                  <i class="icon-clolor iconfont icon-xiala"></i>
-                  </span>
-                  <el-dropdown-menu slot="dropdown">
+            <el-dropdown trigger="click">
+              <span class="el-dropdown-link userinfo-inner">
+                <img :src="this.sysUserAvatar" class='fr'/>管理员<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>我的消息</el-dropdown-item>
                     <el-dropdown-item>设置</el-dropdown-item>
                     <el-dropdown-item divided>退出登录</el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
+              </el-dropdown-menu>
+            </el-dropdown>
           </div>
         </el-col>
       </el-row>
@@ -160,37 +160,6 @@ export default {
   height: 40px;
   border-radius: 20px;
   margin: 10px 10px 10px 0px;
-}
-.el-dropdown-menu__item {
-  padding-left: 56px;
-  padding-right: 36px;
-  position: relative;
-}
-.el-dropdown-menu__item i {
-  display: block;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  font-size: 20px;
-  position: absolute;
-  top: 7px;
-  left: 22px;
-  background-repeat: no-repeat;
-}
-.el-dropdown-menu__item i.icon-tuichu {
-  line-height: 33px;
-}
-.el-dropdown-menu__item:not(.is-disabled):hover {
-  background: #ffffff;
-  color: #14823b;
-}
-i.logout-item {
-  margin: 0;
-  top: 14px;
-  background-position: -168px -738px;
-}
-.el-dropdown-menu__item:not(.is-disabled):hover i.logout-item {
-  background-position: -168px -763px;
 }
 .fr {
   float: left;
