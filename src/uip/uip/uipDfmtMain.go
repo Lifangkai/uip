@@ -21,15 +21,17 @@ func mainInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 		return
 	}
 
-	//获取SN
-	var errs error
-	data.FmtCode, errs = getSnsNew("fmtCode")
-	if errs != nil {
-		fmt.Println(errs.Error())
-		response.Code = common.ErrorDiscoverCheckId
-		response.Msg = common.ErrorDiscoverCheckMsg
-		return
-	}
+  if data.FmtCode == "" {
+  		//获取SN
+		var errs error
+		data.FmtCode, errs = getSnsNew("fmtCode")
+		if errs != nil {
+			fmt.Println(errs.Error())
+			response.Code = common.ErrorDiscoverCheckId
+			response.Msg = common.ErrorDiscoverCheckMsg
+			return
+		}
+ 	 } 
 
 	//添加数据
 	if err := mainAddMehod(data); err != nil {
