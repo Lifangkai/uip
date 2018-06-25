@@ -67,47 +67,47 @@
               <el-table :data="tableReq" style="width: 100%" stripe>
                 <el-table-column prop="fieldName" align="center" label="节点名称">
                   <template slot-scope="scope">
-                    <el-input v-if="scope.row.type" v-model="scope.row.fieldName" size='small'></el-input>
+                    <el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.fieldName" size='small'></el-input>
                     <span v-else>{{scope.row.fieldName}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column prop="extInfo" align="center" label="父节点名称">
                   <template slot-scope="scope">
-                    <el-input v-if="scope.row.type" v-model="scope.row.extInfo" size='small'></el-input>
+                    <el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.extInfo" size='small'></el-input>
                     <span v-else>{{scope.row.extInfo}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column prop="dataType" align="center" label="数据类型">
                   <template slot-scope="scope">
-                    <el-input v-if="scope.row.type" v-model="scope.row.dataType" size='small'></el-input>
+                    <el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.dataType" size='small'></el-input>
                     <span v-else>{{scope.row.dataType}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column prop="length" align="center" label="最大长度">
                   <template slot-scope="scope">
-                    <el-input v-if="scope.row.type" v-model="scope.row.length" size='small'></el-input>
+                    <el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.length" size='small'></el-input>
                     <span v-else>{{scope.row.length}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column prop="constrain" align="center" label="约束">
                   <template slot-scope="scope">
-                    <el-input v-if="scope.row.type" v-model="scope.row.constrain" size='small'></el-input>
+                    <el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.constrain" size='small'></el-input>
                     <span v-else>{{scope.row.constrain}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column prop="cmt" align="center" label="说明">
                   <template slot-scope="scope">
-                    <el-input v-if="scope.row.type" v-model="scope.row.cmt" size='small'></el-input>
+                    <el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.cmt" size='small'></el-input>
                     <span v-else>{{scope.row.cmt}}</span>
                   </template>
                 </el-table-column>
                 <el-table-column label="操作" align="center">
                   <template slot-scope="scope">
-                    <el-button type="text" size="small" v-if="!scope.row.type" @click="editReq(scope.$index,tableReq)">修改 |</el-button>
-                    <el-button type="text" size="small" v-show="xgSave" @click="reqRevise(scope.$index,tableReq)">修改保存</el-button>
-                    <el-button type="text" size="small" v-if="!scope.row.type" @click="reqDelete(scope.$index,tableReq)">删除</el-button>
-                    <el-button type="text" size="small" v-if="scope.row.type" v-show="!xgSave" style="color:#658F34;" @click="reqSave(scope.$index,tableReq)">保存 |</el-button>
-                    <el-button type="text" size="small" v-if="scope.row.type" v-show="!xgSave"style="color:red;" @click="cancelReq(scope.$index,tableReq)">取消</el-button>
+                    <el-button type="text" size="small" v-if="!scope.row.type&&!scope.row.xgSave" @click="editReq(scope.$index,tableReq)">修改 |</el-button>
+                    <el-button type="text" size="small" v-if="scope.row.xgSave" @click="reqRevise(scope.$index,tableReq)">修改保存</el-button>
+                    <el-button type="text" size="small" v-if="!scope.row.type&&!scope.row.xgSave" @click="reqDelete(scope.$index,tableReq)">删除</el-button>
+                    <el-button type="text" size="small" v-if="scope.row.type" style="color:#658F34;" @click="reqSave(scope.$index,tableReq)">保存 |</el-button>
+                    <el-button type="text" size="small" v-if="scope.row.type" style="color:red;" @click="cancelReq(scope.$index,tableReq)">取消</el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -149,7 +149,6 @@ export default {
       activeName: "first",
       innerVisible: false,
       dialogFormVisible: false,
-      xgSave:false,
       fmtCode: "",
       fmtType: ""
     };
@@ -162,8 +161,7 @@ export default {
     },
     //  请求参数编辑
     editReq(index, rows) {
-      this.tableReq[index].type = true;
-      this.xgSave = true;
+      rows[index].xgSave = true;
     },
     //  请求参数取消
     cancelReq(index, rows) {
@@ -225,7 +223,6 @@ export default {
         type: true
       };
       this.tableReq.push(data);
-      console.log(this.resCode);
     },
     // 参数保存每一行
     reqSave(index, rows) {
@@ -246,7 +243,6 @@ export default {
       fmtManageSub(params).then(res => {
         console.log(res);
         if (res.code == 200000) {
-          this.tableReq[index].type = false;
           this.funcAllsnb();
         } else {
           this.$message({
@@ -276,8 +272,6 @@ export default {
       });
       fmtManageSub(params).then(res => {
         if (res.code == 200000) {
-          this.xgSave = false;
-          this.tableReq[index].type = false;
           this.funcAllsnb();
         } else {
           this.$message({
@@ -347,8 +341,12 @@ export default {
       fmtSubAll(params).then(res => {
         if (res.code == 200000) {
           console.log(res);
+          res.data.fields.forEach(function(c){
+            c.xgSave = false;
+          })
           that.tableReq = res.data.fields;
-          that.fmtType = res.data.fmtType
+          that.fmtType = res.data.fmtType;
+         
         } else {
           console.log(res.msg);
           this.tableReq = [];      

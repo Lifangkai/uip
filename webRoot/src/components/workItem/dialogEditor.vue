@@ -102,12 +102,12 @@
 									</template>
 								</el-table-column>
 								<el-table-column label="操作" align="center">
-									<template slot-scope="scope">
-										<el-button type="text" size="small" v-if="!scope.row.type" @click="editReq(scope.$index,tableReq)">修改 |</el-button>
-										<el-button type="text" size="small" v-show="xgSave" @click="reqRevise(scope.$index,tableReq)">修改保存</el-button>
-										<el-button type="text" size="small" v-if="!scope.row.type" @click="reqDelete(scope.$index,tableReq)">删除</el-button>
-										<el-button type="text" size="small" v-if="scope.row.type" v-show="!xgSave" style="color:#658F34;" @click="reqSave(scope.$index,tableReq)">保存 |</el-button>
-										<el-button type="text" size="small" v-if="scope.row.type" v-show="!xgSave" style="color:red;" @click="cancelReq(scope.$index,tableReq)">取消</el-button>
+									 <template slot-scope="scope">
+										<el-button type="text" size="small" v-if="!scope.row.type&&!scope.row.xgSave" @click="editReq(scope.$index,tableReq)">修改 |</el-button>
+										<el-button type="text" size="small" v-if="scope.row.xgSave" @click="reqRevise(scope.$index,tableReq)">修改保存</el-button>
+										<el-button type="text" size="small" v-if="!scope.row.type&&!scope.row.xgSave" @click="reqDelete(scope.$index,tableReq)">删除</el-button>
+										<el-button type="text" size="small" v-if="scope.row.type" style="color:#658F34;" @click="reqSave(scope.$index,tableReq)">保存 |</el-button>
+										<el-button type="text" size="small" v-if="scope.row.type" style="color:red;" @click="cancelReq(scope.$index,tableReq)">取消</el-button>
 									</template>
 								</el-table-column>
 							</el-table>
@@ -162,8 +162,7 @@
 			},
 			//  请求参数编辑
 			editReq(index, rows) {
-				this.tableReq[index].type = true;
-				this.xgSave = true;
+				rows[index].xgSave = true;
 			},
 			//  请求参数取消
 			cancelReq(index, rows) {
@@ -238,7 +237,6 @@
 				fmtManageSub(params).then(res => {
 					console.log(res);
 					if(res.code == 200000) {
-						this.tableReq[index].type = false;
 						this.funcAllsnb();
 					} else {
 						this.$message({
@@ -268,8 +266,6 @@
 				});
 				fmtManageSub(params).then(res => {
 					if(res.code == 200000) {
-						this.xgSave = false;
-						this.tableReq[index].type = false;
 						this.funcAllsnb();
 					} else {
 						this.$message({
@@ -339,6 +335,9 @@
 				fmtSubAll(params).then(res => {
 					if(res.code == 200000) {
 						console.log(res);
+						  res.data.fields.forEach(function(c){
+							c.xgSave = false;
+						  })
 						that.tableReq = res.data.fields;
 						that.fmtType = res.data.fmtType;
 					} else {
