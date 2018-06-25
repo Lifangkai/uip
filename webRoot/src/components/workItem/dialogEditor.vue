@@ -67,37 +67,37 @@
 							<el-table :data="tableReq" style="width: 100%" stripe>
 								<el-table-column prop="fieldName" align="center" label="节点名称">
 									<template slot-scope="scope">
-										<el-input v-if="scope.row.type" v-model="scope.row.fieldName" size='small'></el-input>
+										<el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.fieldName" size='small'></el-input>
 										<span v-else>{{scope.row.fieldName}}</span>
 									</template>
 								</el-table-column>
 								<el-table-column prop="extInfo" align="center" label="父节点名称">
 									<template slot-scope="scope">
-										<el-input v-if="scope.row.type" v-model="scope.row.extInfo" size='small'></el-input>
+										<el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.extInfo" size='small'></el-input>
 										<span v-else>{{scope.row.extInfo}}</span>
 									</template>
 								</el-table-column>
 								<el-table-column prop="dataType" align="center" label="数据类型">
 									<template slot-scope="scope">
-										<el-input v-if="scope.row.type" v-model="scope.row.dataType" size='small'></el-input>
+										<el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.dataType" size='small'></el-input>
 										<span v-else>{{scope.row.dataType}}</span>
 									</template>
 								</el-table-column>
 								<el-table-column prop="length" align="center" label="最大长度">
 									<template slot-scope="scope">
-										<el-input v-if="scope.row.type" v-model="scope.row.length" size='small'></el-input>
+										<el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.length" size='small'></el-input>
 										<span v-else>{{scope.row.length}}</span>
 									</template>
 								</el-table-column>
 								<el-table-column prop="constrain" align="center" label="约束">
 									<template slot-scope="scope">
-										<el-input v-if="scope.row.type" v-model="scope.row.constrain" size='small'></el-input>
+										<el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.constrain" size='small'></el-input>
 										<span v-else>{{scope.row.constrain}}</span>
 									</template>
 								</el-table-column>
 								<el-table-column prop="cmt" align="center" label="说明">
 									<template slot-scope="scope">
-										<el-input v-if="scope.row.type" v-model="scope.row.cmt" size='small'></el-input>
+										<el-input v-if="scope.row.type||scope.row.xgSave" v-model="scope.row.cmt" size='small'></el-input>
 										<span v-else>{{scope.row.cmt}}</span>
 									</template>
 								</el-table-column>
