@@ -1,27 +1,33 @@
 <template>
-    <el-container width="100%" height="100%">
-     <el-aside v-bind:style="{width:(isCollapse?'200px':'64px')}" style="background-color: rgba(0, 21, 41, 1)" >
-          <el-row style="height:64px">
-            <el-col :span="6"><div class="grid-content bg-purple home-logo">
-               <i class="fl icon-clolor iconfont icon-hisgai"></i>
-              </div></el-col>
-            <el-col :span="14" v-show="isCollapse"><div class="grid-content bg-purple home-text">统一接口平台</div></el-col>
-          </el-row>
-          <div class="nav-box">
-            <template v-for="item in $router.options.routes[0].children"  v-if="item.hidden" !=false >
-              <router-link  v-bind:to="item.path">
-                    <i class="iconfont" v-bind:class="item.iconCls"  v-bind:title="isCollapse?'':item.name"></i>
-                    <span v-show="isCollapse" class="">{{item.name}}</span>
-              </router-link>  
-            </template>
+  <el-container width="100%" height="100%">
+    <el-aside v-bind:style="{width:(isCollapse?'200px':'64px')}" style="background-color: rgba(0, 21, 41, 1)">
+      <el-row style="height:64px">
+        <el-col :span="6">
+          <div class="grid-content bg-purple home-logo">
+            <i class="fl icon-clolor iconfont icon-hisgai"></i>
           </div>
-      </el-aside>
+        </el-col>
+        <el-col :span="14" v-show="isCollapse">
+          <div class="grid-content bg-purple home-text">统一接口平台</div>
+        </el-col>
+      </el-row>
+      <div class="nav-box">
+        <template v-for="item in $router.options.routes[0].children" v-if="item.hidden" !=false>
+          <router-link v-bind:to = "item.path">
+            <i class="iconfont" v-bind:class="item.iconCls" v-bind:title="isCollapse?'':item.name"></i>
+            <span v-show="isCollapse" class="">{{item.name}}</span>
+          </router-link>
+        </template>
+      </div>
+    </el-aside>
     <el-main>
       <el-row class="main-top">
         <el-col :span="6">
           <div class="grid-content bg-purple mt-left">
             <i class="fl icon-clolor iconfont icon-daohangliebiao" @click="changeLeftNav"></i>
-            <template><p class="fr">{{$route.name}}</p></template>
+            <template>
+              <p class="fr">{{$route.name}}</p>
+            </template>
           </div>
         </el-col>
 
@@ -29,12 +35,13 @@
           <div class="grid-content bg-purple clearf">
             <el-dropdown trigger="click">
               <span class="el-dropdown-link userinfo-inner">
-                <img :src="this.sysUserAvatar" class='fr'/>管理员<i class="el-icon-arrow-down el-icon--right"></i>
+                <img :src="this.sysUserAvatar" class='fr' />管理员
+                <i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>我的消息</el-dropdown-item>
-                    <el-dropdown-item>设置</el-dropdown-item>
-                    <el-dropdown-item divided>退出登录</el-dropdown-item>
+                <el-dropdown-item>我的消息</el-dropdown-item>
+                <el-dropdown-item>设置</el-dropdown-item>
+                <el-dropdown-item divided>退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
@@ -44,8 +51,8 @@
         <router-view class="right-box"></router-view>
       </transition>
     </el-main>
-    
-   </el-container>
+
+  </el-container>
 </template>
 
 <script>

@@ -38,121 +38,123 @@
 	</div>
 </template>
 <script>
-	import axios from 'axios'
+import axios from "axios";
 
-	export default {
-		data() {
-			return {
-				input: '', //查询内容
-				tableData: [] //表格数据
-			}
-		},
-		methods: {
-			gotoAddEquip() {
-				this.$router.push({
-					path: '/equipAdd'
-				})
-			},
-			//查询-全文检索
-			queryAllEquip() {
-				let _this = this;
-				axios.defaults.baseURL = "http://172.16.0.13:31425"
-				axios.get('/terminal/manage/ftsearch', {
-						params: {
-							groupId: '12345678',
-							fttext: this.input
-						}
-					})
-					.then(function(response) {
-						console.log(response);
-						if(response.data.code === "200000") {
-							_this.tableData = response.data.data;
-						} else {
-							_this.tableData = [];
-							alert(response.data.msg);
-						}
-					})
-					.catch(function(error) {
-						console.log(error);
-						_this.tableData = [];
-					});
-			},
-			//删除终端
-			handleDelete(index, row) {
-				console.log(index);
-				console.log(row);
-				axios.defaults.baseURL = "http://172.16.0.13:31425"
-				axios.post('/terminal/manage', {
-						com: 'DELETE',
-						data: {
-							groupId: '12345678',
-							termCode: row.termCode
-						}
-					})
-					.then(function(response) {
-						console.log(response);
-						if(response.data.code) {
-							alert(response.data.msg);
-						}
-					})
-					.catch(function(error) {
-						alert('删除失败');
-						console.log(error);
-					});
-			}
-			//点击图标刷新页面
-			// reload(){
-			//     window.location.reload();
-			// }
-		}
-	}
+export default {
+  data() {
+    return {
+      input: "", //查询内容
+      tableData: [] //表格数据
+    };
+  },
+  methods: {
+    gotoAddEquip() {
+      this.$router.push({
+        path: "/equipAdd"
+      });
+    },
+    //查询-全文检索
+    queryAllEquip() {
+      let _this = this;
+      axios.defaults.baseURL = "http://172.16.0.13:31425";
+      axios
+        .get("/terminal/manage/ftsearch", {
+          params: {
+            groupId: "12345678",
+            fttext: this.input
+          }
+        })
+        .then(function(response) {
+          console.log(response);
+          if (response.data.code === "200000") {
+            _this.tableData = response.data.data;
+          } else {
+            _this.tableData = [];
+            alert(response.data.msg);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          _this.tableData = [];
+        });
+    },
+    //删除终端
+    handleDelete(index, row) {
+      console.log(index);
+      console.log(row);
+      axios.defaults.baseURL = "http://172.16.0.13:31425";
+      axios
+        .post("/terminal/manage", {
+          com: "DELETE",
+          data: {
+            groupId: "12345678",
+            termCode: row.termCode
+          }
+        })
+        .then(function(response) {
+          console.log(response);
+          if (response.data.code) {
+            alert(response.data.msg);
+          }
+        })
+        .catch(function(error) {
+          alert("删除失败");
+          console.log(error);
+        });
+    }
+    //点击图标刷新页面
+    // reload(){
+    //     window.location.reload();
+    // }
+  }
+};
 </script>
 <style>
-	.equip_blcok {
-		height: 550px;
-	}
-	
-	.main_block {
-		padding: 10px;
-		border: 10px solid #EFF3F6;
-		background: white;
-	}
-	
-	.main_header {
-		padding-bottom: 20px;
-	}
-	
-	.main_table {
-		margin-top: 20px;
-	}
-	
-	.main_div {
-		/* margin-left: 10px; */
-		background: white;
-	}
-	/* 输入框 */
-	
-	.add_form_item {
-		/* 
+.equip_blcok {
+  height: 550px;
+}
+
+.main_block {
+  padding: 10px;
+  border: 10px solid #eff3f6;
+  background: white;
+}
+
+.main_header {
+  padding-bottom: 20px;
+}
+
+.main_table {
+  margin-top: 20px;
+}
+
+.main_div {
+  /* margin-left: 10px; */
+  background: white;
+}
+/* 输入框 */
+
+.add_form_item {
+  /* 
 	height: 28px;
 	line-height: 28px; */
-		/* margin: 6px 0; */
-		/* font-size: 1.4rem; */
-		padding: 0;
-		display: flex;
-	}
-	
-	.add_form_label {
-		/* font-weight: normal;
+  /* margin: 6px 0; */
+  /* font-size: 1.4rem; */
+  padding: 0;
+  display: flex;
+}
+
+.add_form_label {
+  /* font-weight: normal;
 	height: 28px;
 	line-height: 28px; */
-		width: 90px;
-		margin: 6px 0;
-		padding-right: 15px;
-		text-align: right;
-	}
-	
-	.add_form_item_con {
-		flex: 1;
-	}
+  width: 90px;
+  margin: 6px 0;
+  padding-right: 15px;
+  text-align: right;
+}
+
+.add_form_item_con {
+  flex: 1;
+}
 </style>

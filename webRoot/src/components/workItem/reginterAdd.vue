@@ -64,21 +64,14 @@
 			<div class="addCon1" v-if="!addCon">
 				<i class="iconfont icon-zengjia" @click="sinteSns()"></i>
 			</div>
-			<el-collapse accordion v-if="addCon">
-				<div v-for="(item,index) in childList" :key="index">
+			<div v-for="(item,index) in childList" :key="index">
+				<el-collapse accordion v-if="addCon" @change="changeColl(item,index)">
 					<el-collapse-item>
 						<template slot="title">
 							<span class="span">{{item.funcName}}</span>
-							<div class="btn">
-								<el-button type="text" size="small">刷新 |</el-button>
-								<el-button type="text" size="small">删除</el-button>
-							</div>
 						</template>
 						<div class="coll-con">
 							<div class="con-left">请求参数
-								<div class="con-button">
-									<el-button type="text" size="small" @click="dialogFormVisible = true">编辑</el-button>
-								</div>
 							</div>
 							<div class="con-right">
 								<div class="right-content">
@@ -86,18 +79,18 @@
 								</div>
 								<div class="page-table1">
 									<template>
-										<el-table :data="tableData" style="width: 100%" stripe>
-											<el-table-column fixed prop="date" align="center" label="节点名称">
+										<el-table :data="tableReq" style="width: 100%" stripe>
+											<el-table-column fixed prop="fieldName" align="center" label="节点名称">
 											</el-table-column>
-											<el-table-column prop="name" align="center" label="父节点名称">
+											<el-table-column prop="extInfo" align="center" label="父节点名称">
 											</el-table-column>
-											<el-table-column prop="name" align="center" label="数据类型">
+											<el-table-column prop="dataType" align="center" label="数据类型">
 											</el-table-column>
-											<el-table-column prop="name" align="center" label="最大长度">
+											<el-table-column prop="length" align="center" label="最大长度">
 											</el-table-column>
-											<el-table-column prop="name" align="center" label="约束">
+											<el-table-column prop="constrain" align="center" label="约束">
 											</el-table-column>
-											<el-table-column prop="name" align="center" label="说明">
+											<el-table-column prop="cmt" align="center" label="说明">
 											</el-table-column>
 										</el-table>
 									</template>
@@ -106,9 +99,6 @@
 						</div>
 						<div class="coll-con">
 							<div class="con-left">返回参数
-								<div class="con-button">
-									<el-button type="text" size="small" @click="dialogFormVisible = true">编辑</el-button>
-								</div>
 							</div>
 							<div class="con-right">
 								<div class="right-content">
@@ -116,18 +106,18 @@
 								</div>
 								<div class="page-table1">
 									<template>
-										<el-table :data="tableData" style="width: 100%" stripe>
-											<el-table-column fixed prop="date" align="center" label="节点名称">
+										<el-table :data="tableRes" style="width: 100%" stripe>
+											<el-table-column fixed prop="fieldName" align="center" label="节点名称">
 											</el-table-column>
-											<el-table-column prop="name" align="center" label="父节点名称">
+											<el-table-column prop="extInfo" align="center" label="父节点名称">
 											</el-table-column>
-											<el-table-column prop="name" align="center" label="数据类型">
+											<el-table-column prop="dataType" align="center" label="数据类型">
 											</el-table-column>
-											<el-table-column prop="name" align="center" label="最大长度">
+											<el-table-column prop="length" align="center" label="最大长度">
 											</el-table-column>
-											<el-table-column prop="name" align="center" label="约束">
+											<el-table-column prop="constrain" align="center" label="约束">
 											</el-table-column>
-											<el-table-column prop="name" align="center" label="说明">
+											<el-table-column prop="cmt" align="center" label="说明">
 											</el-table-column>
 										</el-table>
 									</template>
@@ -135,134 +125,161 @@
 							</div>
 						</div>
 					</el-collapse-item>
-				</div>
-			</el-collapse>
+				</el-collapse>
+			</div>
 		</div>
 
 		<!-- 新增弹框 -->
-		<dialogAdd v-bind:inte='inteCode' v-bind:inteSns='snsCode' v-on:child="list" @changeDialog="changeDialog" :dialogStatus='dialogStatus'></dialogAdd>
+		<dialogAdd v-bind:inte='inteCode' v-bind:inteSns='snsCode' v-on:funcCon="list" @changeDialog="changeDialog" :dialogStatus='dialogStatus'></dialogAdd>
 	</div>
 </template>
 <script>
-import {
-  funcManage,
-  sinteSns,
-  sinteManage,
-  fmtManageSub
-} from "../../axios/axios.js";
-import dialogAdd from "./dialogAdd.vue";
-import { mapState } from "vuex";
-export default {
-  components: {
-    dialogAdd
-  },
-  data() {
-    return {
-      groupId: "YYGJUIP1",
-      sinteData: {
-        inteName: "",
-        inteType: "",
-        userCode: "",
-        cmt: "",
-        funcList: "[]"
-      },
-      ConfData: {
-        ip: "",
-        port: "",
-        path: ""
-      },
-      tableRes: [],
-      tableReq: [],
-      inteCode: "",
-      addCon: false,
-      activeName: "first",
-      childList: [],
-      dialogStatus: "",
-      snsCode: ""
-    };
-  },
-  methods: {
-    // 切换弹框显示
-    changeDialog() {
-      this.dialogStatus = false;
-    },
-    returnReginter() {
-      this.$router.push({
-        path: "/reginter"
-      });
-    },
-    // 接口登记保存
-    sinteManage() {
-      this.sinteData.groupId = this.groupId;
-      this.sinteData.connConf = JSON.stringify(this.ConfData);
-      let params = JSON.stringify({
-        com: "POST",
-        data: this.sinteData
-      });
-      console.log(params);
-      sinteManage(params).then(res => {
-        console.log(res);
-        if (res.code == 200000) {
-          // this.ConfData = {
-          //   ip: "",
-          //   port: "",
-          //   path: ""
-          // };
-          // this.$refs["sinteData"].resetFields();
-          this.inteCode = res.data.inteCode;
-          this.$message({
-            message: "新增成功",
-            type: "success"
-          });
-        } else {
-          console.log(res.msg);
-          this.$message({
-            message: "新增失败",
-            type: "error"
-          });
-        }
-      });
-    },
-    // 点击产生sns
-    sinteSns() {
-      let params = {
-        com: "LIST",
-        groupId: "SNS16494",
-        snId: "UIPFMT01",
-        operatorId: "12000",
-        bs: "2"
-      };
-      sinteSns(params).then(res => {
-        console.log(res);
-        if (res.Code == 200000) {
-          this.snsCode = res.Data;
-          this.dialogStatus = true;
-        } else {
-          console.log(res.Msg);
-        }
-      });
-    },
-    list: function(somedata) {
-      this.childList = somedata;
-      if (this.childList == null) {
-        this.addCon = false;
-      } else {
-        this.addCon = true;
-      }
-    }
-  }
-};
+	import {
+		funcManage,
+		sinteSns,
+		sinteManage,
+		fmtManageSub,
+		fmtSubAll
+	} from "../../axios/axios.js";
+	import dialogAdd from "./dialogAdd.vue";
+	import { mapState } from "vuex";
+	export default {
+		components: {
+			dialogAdd
+		},
+		data() {
+			return {
+				groupId: "YYGJUIP1",
+				sinteData: {
+					inteName: "",
+					inteType: "",
+					userCode: "",
+					cmt: "",
+					funcList: "[]"
+				},
+				ConfData: {
+					ip: "",
+					port: "",
+					path: ""
+				},
+				tableRes: [],
+				tableReq: [],
+				inteCode: "",
+				addCon: false,
+				activeName: "first",
+				childList: '',
+				dialogStatus: "",
+				snsCode: ""
+			};
+		},
+		methods: {
+			// 切换弹框显示
+			changeDialog() {
+				this.dialogStatus = false;
+			},
+			returnReginter() {
+				this.$router.push({
+					path: "/reginter"
+				});
+			},
+			// 接口登记保存
+			sinteManage() {
+				this.sinteData.groupId = this.groupId;
+				this.sinteData.connConf = JSON.stringify(this.ConfData);
+				let params = JSON.stringify({
+					com: "POST",
+					data: this.sinteData
+				});
+				console.log(params);
+				sinteManage(params).then(res => {
+					console.log(res);
+					if(res.code == 200000) {
+						this.inteCode = res.data.inteCode;
+						this.$message({
+							message: "新增成功",
+							type: "success"
+						});
+					} else {
+						console.log(res.msg);
+						this.$message({
+							message: "新增失败",
+							type: "error"
+						});
+					}
+				});
+			},
+			// 点击产生sns
+			sinteSns() {
+				let params = {
+					com: "LIST",
+					groupId: "SNS16494",
+					snId: "UIPFMT01",
+					operatorId: "12000",
+					bs: "2"
+				};
+				sinteSns(params).then(res => {
+					console.log(res);
+					if(res.Code == 200000) {
+						this.snsCode = res.Data;
+						this.dialogStatus = true;
+					} else {
+						console.log(res.Msg);
+					}
+				});
+			},
+			// 渲染数据格式
+			changeColl(item, index) {
+				let that = this;
+				let params = {
+					com: "search",
+					groupId: that.groupId,
+					fmtCode: item.reqFmtCode
+				};
+				fmtSubAll(params).then(res => {
+					console.log(res);
+					if(res.code == 200000) {
+						that.tableReq = res.data.fields;
+					} else {
+						console.log(res.msg);
+						that.tableReq = [];
+					}
+					let param = {
+						com: "search",
+						groupId: that.groupId,
+						fmtCode: item.resFmtCode
+					};
+					fmtSubAll(param).then(res => {
+						if(res.code == 200000) {
+							that.tableRes = res.data.fields;
+						} else {
+							console.log(res.msg);
+							that.tableRes = [];
+						}
+					});
+				});
+			},
+			list: function(somedata) {
+				this.childList = somedata;
+				console.log(this.childList);
+				if(this.childList) {
+					this.addCon = true;
+				} else {
+					this.addCon = false;
+				}
+			}
+		}
+	};
 </script>
 <style scoped>
-.pagetable-top {
-  margin-left: 8px;
-}
-
-.page-box {
-  padding: 10px;
-}
-
-.fun-save {
-  margin: 0px 0px 0 -40px;
-}
+	.pagetable-top {
+		margin-left: 8px;
+	}
+	
+	.page-box {
+		padding: 10px;
+	}
+	
+	.fun-save {
+		margin: 0px 0px 0 -40px;
+	}
 </style>
