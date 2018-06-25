@@ -128,12 +128,17 @@ func UipInterFuncvDelRequest( data attached.UipInterFunc) {
 		return
 	}
 
-	emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
-	if isEmpty == false {
-		response.Code = emptyCheckResponse.Code
-		response.Msg = emptyCheckResponse.Msg
+	//emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
+	//if isEmpty == false {
+	//	response.Code = emptyCheckResponse.Code
+	//	response.Msg = emptyCheckResponse.Msg
+	//	return
+	//
+	//}
+	if len(data.GroupId)==0 || len(data.InteCode)== 0 || len(data.FuncCode) == 0 {
+		response.Code = common.ErrorDataNullId
+		response.Msg = common.ErrorDataNullMsg
 		return
-
 	}
 	OldData, err := frame.DB.RetriveOne("uipInterFunc" + data.GroupId +data.InteCode+ data.FuncCode)
 	if err == nil && OldData == "" {
