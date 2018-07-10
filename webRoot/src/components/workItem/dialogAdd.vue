@@ -15,7 +15,7 @@
           <el-col :span="12" style="text-align:left;">
             <label>请求参数样例:</label>
           </el-col>
-          <el-col :span="12" style="text-align:right">
+          <el-col :span="12" style="text-align: right">
             <el-button size='small' type="primary" @click="resFmtcode()">请求参数配置</el-button>
           </el-col>
         </el-row>

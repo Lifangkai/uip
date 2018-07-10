@@ -1,8 +1,14 @@
 <template>
 	<div class="page-box">
 		<div style="margin:0px 10px" class="reginter-con">
-			<el-tabs v-model="activeName" type="card">
-				<el-tab-pane label="http" name="first">
+			<div style="margin-bottom: 6px;" v-if='!publishCon'>
+				<el-button size="small" @click='pubBut'>
+				    新增
+				</el-button>
+		  </div>
+			<el-tabs v-if='publishCon' v-model="activeName" type="card" editable  @tab-add="handleTabsEdit">
+				<el-tab-pane name="first" >
+				  <span slot="label">{{formInline.region}}</span>
 					<div class="pagecon-box">
 						<el-form ref="form" :model="ConfData" label-width="80px">
 							<el-form-item label="接口名称:" style="margin-left:20px">
@@ -45,6 +51,11 @@
 								</el-col>
 							</el-row>
 						</el-form>
+					</div>
+					<div class="page-botton">
+						<el-button size="small" @click="$router.back(-1)">返回</el-button>
+						<el-button type="primary" size="small">保存</el-button>
+						<el-button type="danger" size="small">删除</el-button>
 					</div>
 					<div class="page-content-box">
 						<div class="addCon" v-if="!addCon">
@@ -125,19 +136,31 @@
 							</el-collapse-item>
 						</el-collapse>
 					</div>
-					<div class="page-botton">
-						<el-button size="small" @click="$router.back(-1)">返回</el-button>
-						<el-button type="primary" size="small">保存</el-button>
-						<el-button type="danger" size="small">删除</el-button>
-					</div>
-				</el-tab-pane>
-				<el-tab-pane label="file" name="second">
-					23456
 				</el-tab-pane>
 			</el-tabs>
 		</div>
-		<!-- 新增弹框 -->
-			<dialogAdd  @changeDialog="changeDialog" :dialogStatus='dialogStatus'></dialogAdd>
+		<!-- 新增开放协议 -->
+		<el-dialog :visible.sync="dialogFormVisible" width="400px">
+        <template slot="title">
+          <div class="dialog-top">
+            新增开放协议
+          </div>
+        </template>
+        <div class="dialog-info">
+           <el-form :model="formInline">
+							<el-form-item label="开放协议">
+								<el-select v-model="formInline.region" placeholder="请输入" size='small'>
+									<el-option label="http" value="http"></el-option>
+									<el-option label="flie" value="flie"></el-option>
+								</el-select>
+							</el-form-item>
+					</el-form>
+        </div>
+				<div slot="footer" class="dialog-footer">
+					<el-button type="primary" size='small' @click="dialogSelect">保存</el-button>
+					<el-button @click="dialogFormVisible = false;" size='small'>取消</el-button>
+				</div>
+      </el-dialog>
 	</div>
 </template>
 <script>
@@ -158,19 +181,32 @@ export default {
       dialogStatus: "",
       dialogFormVisible: false,
       activeName: "first",
-      addCon: false
+      addCon: false,
+			publishCon:false,
+			formInline: {
+          user: '',
+          region: ''
+      }
     };
   },
   methods: {
-    // 切换弹框显示
-    changeDialog() {
-      this.dialogStatus = false;
-    },
     returnReginter() {
       this.$router.push({
         path: "/reginter"
       });
-    }
+    },
+		// 新增弹框切换
+		pubBut(){
+      this.dialogFormVisible = true;
+		},
+		handleTabsEdit(){
+     this.dialogFormVisible = true;
+		},
+		// 点击保存 标签页显示
+		dialogSelect(){
+     this.publishCon = true;
+		 this.dialogFormVisible = false;
+		}
   }
 };
 </script>

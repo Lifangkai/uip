@@ -309,7 +309,7 @@
     margin-bottom: 6px !important;    
   }
   /* 弹框样式 */
-.el-dialog{
+.dialog-con .el-dialog{
     border-radius: 4px !important;
     min-width: 760px;
     max-height: 824px;
@@ -322,7 +322,7 @@
     color: white !important;
 }
 .el-dialog__body{
-    padding: 10px 16px !important;
+    padding: 16px 16px 0 16px !important;
 }
 .seach-con {
     margin-left: 20px;
@@ -387,9 +387,8 @@
     opacity: 0.5;
   }
   .page-botton {
-    height: 68px;
+    height: 56px;
     background: white;
-    margin-top: 20px;
   }
   .page-botton button {
     float: right;
@@ -398,10 +397,10 @@
   }
 /* 弹框样式 */
 .dialog-top {
-    height: 54px;
+    height: 44px;
     background: #1890ff;
     border-radius: 4px 4px 0 0;
-    line-height: 54px;
+    line-height: 44px;
     color: white;
     padding-left: 26px;
     font-size: 16px;

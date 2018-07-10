@@ -11,12 +11,12 @@
           <div class="grid-content bg-purple home-text">统一接口平台</div>
         </el-col>
       </el-row>
-      <div class="nav-box">
+      <div class="nav-box" @click='colNav'>
         <template v-for="item in $router.options.routes[0].children" v-if="item.hidden" !=false>
           <router-link v-bind:to = "item.path">
             <i class="iconfont" v-bind:class="item.iconCls" v-bind:title="isCollapse?'':item.name"></i>
             <span v-show="isCollapse" class="">{{item.name}}</span>
-          </router-link>
+          </router-link>  
         </template>
       </div>
     </el-aside>
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     changeLeftNav() {
-      this.isCollapse = !this.isCollapse;
+      this.isCollapse = !this.isCollapse;   
     }
   }
 };
