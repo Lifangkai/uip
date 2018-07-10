@@ -11,7 +11,7 @@
           <div class="grid-content bg-purple home-text">统一接口平台</div>
         </el-col>
       </el-row>
-      <div class="nav-box" @click='colNav'>
+      <div class="nav-box">
         <template v-for="item in $router.options.routes[0].children" v-if="item.hidden" !=false>
           <router-link v-bind:to = "item.path">
             <i class="iconfont" v-bind:class="item.iconCls" v-bind:title="isCollapse?'':item.name"></i>
