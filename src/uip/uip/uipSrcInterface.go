@@ -332,7 +332,7 @@ func UipSrcInterfacePseHandlePutRequest( r *http.Request) {
 	requestStr := "  {\"com\":\"search\",\"data\":{\"tableName\":\"uipSrcInterface"+groupId + "\",\"keyWords\":\"" + fettext + "\"}}"
 	var valstr = []byte(requestStr)
 	
-	resp, err := http.Post("http://" + frame.PseIp + ":" + frame.PseIp + "/pse",
+	resp, err := http.Post("http://" + frame.PseIp + ":" + frame.PsePort + "/pse",
 		"application/json;charset=utf-8", bytes.NewBuffer(valstr))
 	if err != nil {
 		frame.Log.Write("err:" + err.Error())
