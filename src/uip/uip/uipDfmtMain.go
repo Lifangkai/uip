@@ -24,7 +24,7 @@ func mainInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
   if data.FmtCode == "" {
   		//获取SN
 		var errs error
-		data.FmtCode, errs = getSnsNew("fmtCode")
+		data.FmtCode, errs = getSnsNew(data.GroupId ,"fmtCode")
 		if errs != nil {
 			fmt.Println(errs.Error())
 			response.Code = common.ErrorDiscoverCheckId

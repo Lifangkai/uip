@@ -96,7 +96,7 @@ func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
 	describe:接口数据格式信息子表
 */
 func dfmtSubHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("***in dfmtSubHandler!!!***")
+	fmt.Println("in dfmtSubHandler!!!***")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -215,7 +215,7 @@ func uipOpenInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 	describe:源接口管理表格基本方法
 */
 func uipSrcInterfaceHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("***in uipSrcInterfaceHandler!!!***")
+	fmt.Println("in uipSrcInterfaceHandler!!!***")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -542,6 +542,7 @@ func setHeader(w http.ResponseWriter) {
 *  程序运行的入口
 */
 func main() {
+
 	//web
 	//static route tmpl 是在执行程序的目录下面
 	http.Handle("/css/", http.FileServer(http.Dir("./webRoot")))
@@ -550,6 +551,16 @@ func main() {
 
 	//dynamic route
 	frame = rsf.NewRsf()
+	
+	//common.AExt = aYljg
+
+  err := json.Unmarshal([]byte( frame.Ext), &common.AExt)
+  if err != nil {
+    frame.Log.Write("get ext parameter object err=[" + err.Error() + "], ext = [" + frame.Ext +"]")
+    return
+    }
+	
+	
 	//默认路由
 	frame.SetPathHandlerPair("/", defaultHandler)
 	//接口数据格式信息总表/主表 uip_dfmt_main

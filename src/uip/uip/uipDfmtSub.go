@@ -23,7 +23,7 @@ func subInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 
 	//获取SN
 	var errs error
-	data.DtlCode, errs = getSnsNew("fmtCode")
+	data.DtlCode, errs = getSnsNew(data.GroupId ,"fmtCode")
 	if errs != nil {
 		fmt.Println(errs.Error())
 		response.Code = common.ErrorDiscoverCheckId

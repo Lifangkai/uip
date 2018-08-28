@@ -6,12 +6,14 @@ import (
 	"strings"
 	"encoding/json"
 	"errors"
+	
+	"uip/common"
 )
 
 //调用sns服务获取序列号
-func getSnsNew(snsType string) (string, error) {
+func getSnsNew(groupId string, snsType string) (string, error) {
 	//请求sns的路径(网址)
-	url := "http://172.16.0.14:31300/snList?com=LIST&groupId=SNS16494&snId=" + snsType + "&operatorId=12000&bs=1"
+	url := "http://"+common.AExt.SNSIP + ":" + common.AExt.SNSPORT + "/snList?com=LIST&groupId="+ groupId +"&snId=" + snsType + "&operatorId=12000&bs=1"
 	//进行http请求 获取请求数据
 	resp, err := http.Get(url)
 	if err != nil {
@@ -28,6 +30,7 @@ func getSnsNew(snsType string) (string, error) {
 	type sn struct {
 		Sn string `json:"Sn"`
 	}
+	
 	var snsInfo struct {
 		Code string `json:"Code"`
 		Msg  string `json:"Msg"`

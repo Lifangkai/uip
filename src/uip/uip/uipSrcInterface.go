@@ -39,8 +39,8 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 	var  funcs2 []simpleFunc
 	var insertSucc bool
 
-	data.InteCode ,err = getSnsNew("UIPSRC1")
-	data.Ctime,err = getSnsNew("dmm00001")
+	data.InteCode ,err = getSnsNew( data.GroupId ,"UIPSRC1")
+	data.Ctime,err = getSnsNew( data.GroupId, "dmm00001")
 	emptyCheckResponse, isEmpty := UipSrcInterfaceParaFilter(data)
 	if isEmpty == false {
 		response.Msg = emptyCheckResponse.Msg
@@ -57,8 +57,8 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 	for _,row :=range funcs {
 		var a simpleFunc
 		row.GroupId = data.GroupId
-		row.Ctime ,err= getSnsNew("dmm00001")
-		row.FuncCode ,err= getSnsNew("UIPFUNC1")
+		row.Ctime ,err= getSnsNew( data.GroupId ,"dmm00001")
+		row.FuncCode ,err= getSnsNew( data.GroupId ,"UIPFUNC1")
 		if err != nil {
 			insertSucc = false
 			break

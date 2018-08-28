@@ -17,8 +17,8 @@ import(
 func UipInterFuncHandlePostRequest( data attached.UipInterFunc) {
 	var err error
 	fmt.Println("this is UipInterFunc post!")
-	data.FuncCode ,err = getSnsNew("UIPFUNC1")
-	data.Ctime,err = getSnsNew("dmm00001")
+	data.FuncCode ,err = getSnsNew(data.GroupId ,"UIPFUNC1")
+	data.Ctime,err = getSnsNew(data.GroupId ,"dmm00001")
 	//data.ReqFmtCode,err = getSnsNew("reqFmtC")
 	//data.ResFmtCode,err = getSnsNew("resFmtC")
 	emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
@@ -63,10 +63,10 @@ func UipInterFuncsHandlePostRequest(datas []attached.UipInterFunc) {
 	var err error
 	insertSucc = true
 	for i,data:= range datas{
-		data.FuncCode ,err = getSnsNew("UIPFUNC1")
-		data.Ctime,err = getSnsNew("dmm00001")
-		data.ReqFmtCode,err = getSnsNew("reqFmtC")
-		data.ResFmtCode,err = getSnsNew("resFmtC")
+		data.FuncCode ,err = getSnsNew(data.GroupId ,"UIPFUNC1")
+		data.Ctime,err = getSnsNew(data.GroupId ,"dmm00001")
+		data.ReqFmtCode,err = getSnsNew(data.GroupId ,"reqFmtC")
+		data.ResFmtCode,err = getSnsNew(data.GroupId ,"resFmtC")
 		datas[i].FuncCode = data.FuncCode
 		datas[i].Ctime = data.Ctime
 		emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
