@@ -81,7 +81,7 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 		}
 		//向数据库插入新数据
 		dataStr2, _ := json.Marshal(row)
-		err =frame.DB.Create("uipInterFunc"+row.GroupId,"uipInterFunc"+row.GroupId+row.FuncCode, string(dataStr2))
+		err =frame.DB.Create("uipInterFunc"+row.GroupId, "uipInterFunc"+row.GroupId+row.FuncCode, string(dataStr2))
 		//截取func对象的funcCode和funcName字段，避免冗余
 		a.FuncCode = row.FuncCode
 		a.FuncName = row.FuncName
@@ -117,16 +117,18 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 	data.FuncList = string(funcStr)
 	fmt.Println("the funcList is:",data.FuncList)
 	dataStr, _ := json.Marshal(data)
-	err =frame.DB.Create("uipSrcInterface"+data.GroupId,"uipSrcInterface"+data.GroupId+data.InteCode, string(dataStr))
+	err =frame.DB.Create("uipSrcInterface"+data.GroupId, "uipSrcInterface"+data.GroupId+data.InteCode, string(dataStr))
 	//异常处理
 	if err != nil {
 		response.Code = common.ErrorSystemErrId
 		response.Msg = common.ErrorSystemErrMsg
 		return
 	}
+	
 	response.Code = common.ErrorOKId
 	response.Msg = common.ErrorOKInsertMsg
 	response.Data = data
+	
 	return
 }
 
@@ -264,6 +266,7 @@ func UipSrcInterfaceHandlePutRequest(data attached.UipSrcInterface) {
 func UipSrcInterfaceGetRequest( r *http.Request ) {
 	fmt.Println("this is UipSrcInterface SNGet method")
 	var groupId,inteCode string
+	
 	groupId = r.Form["groupId"][0]
 	inteCode = r.Form["inteCode"][0]
 
@@ -319,45 +322,54 @@ func UipSrcInterfaceGetRequest( r *http.Request ) {
  */
 
 func UipSrcInterfacePseHandlePutRequest( r *http.Request) {
-	fmt.Println("this is UipSrcInterface pse method")
+	frame.Log.Write("this is UipSrcInterfacePseHandlePutRequest method")
 	var keysGet Pse
 	var resopnseData responseJsonForUipSrcInterfacesGet
+
 	groupId := r.Form["groupId"][0]
 	fettext := r.Form["fettext"][0]
-	requestStr := "  {\"com\":\"search\",\"data\":{\"tableName\":\"uipSrcInterface"+groupId+"\",\"keyWords\":\""+fettext+"\"}}"
-	var valstr=[]byte(requestStr)
-	resp, err := http.Post("http://172.16.0.14:31007/pse",
+	
+	requestStr := "  {\"com\":\"search\",\"data\":{\"tableName\":\"uipSrcInterface"+groupId + "\",\"keyWords\":\"" + fettext + "\"}}"
+	var valstr = []byte(requestStr)
+	
+	resp, err := http.Post("http://" + frame.PseIp + ":" + frame.PseIp + "/pse",
 		"application/json;charset=utf-8", bytes.NewBuffer(valstr))
 	if err != nil {
-		fmt.Println("err:", err)
+		frame.Log.Write("err:" + err.Error())
 		return
 	}
+	
 	data2,err2:= ioutil.ReadAll(resp.Body)
-	fmt.Println("the err when we read the respons's body is :",err2)
-	err =json.Unmarshal([]byte(data2),&keysGet)
-	fmt.Println("the keys is :",keysGet)
+	frame.Log.Write("the err when we read the respons's body is :" + err2.Error())
+	err = json.Unmarshal([]byte(data2), &keysGet)
+	frame.Log.Write("the keys is :" + string(data2))
+	
 	resp.Body.Close()
 	if err !=nil{
-		fmt.Println("the json umarshal to keys[] is faild, the err is:",err)
+		frame.Log.Write("the json umarshal to keys[] is faild, the err is:" + err.Error())
 		return
 	}
+	
 	keys := keysGet.Data
 	for _, keyword := range keys {
 		var res attached.UipSrcInterface
 		childRes := getlistOne(keyword)
-		fmt.Println(childRes)
+		frame.Log.Write(childRes.Data)
+		
 		if len(childRes.Data) != 0 {
 			err := json.Unmarshal([]byte(childRes.Data), &res)
 			//异常处理
 			if err != nil || res.GroupId != groupId{
-				fmt.Println("in pse method, some err occured:",err)
+				frame.Log.Write("in pse method, some err occured:" + err.Error())
 				continue
 			}
 			resopnseData.Data = append(resopnseData.Data, res)
 		}
 	}
+	
 	response.Code = common.ErrorOKId
 	response.Msg = common.ErrorOKGetMsg
 	response.Data = resopnseData.Data
+	
 	return
 }

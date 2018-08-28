@@ -19,8 +19,8 @@ type responJson struct {
  */
 //getlistOne()函数通过传入key来查询子表信息
 func getlistOne(keyword string) (responsesChild responJson) {
-
-	//fmt.Println("this is childTable getlistOne method")
+	frame.Log.Write("in getlistOne(): keyword = " + keyword)
+	
 	key := keyword
 	//fmt.Println("key = [", key, "]")
 	//根据key查询所有数据dictCode + itemCode搜索
