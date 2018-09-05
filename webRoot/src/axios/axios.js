@@ -2,8 +2,11 @@ import axios from 'axios';
 import routes from '../router'
 import QS from 'qs'
 
-let base1 = 'http://172.16.0.14:31424';
-let base2 = 'http://172.16.0.14:31300';
+let base1 = 'http://172.16.0.13:7001';   //uip svc
+
+//let base2 = 'http://172.16.0.14:31300';   //sns svc
+let base2 = 'http://172.16.0.13:7501';   //sns svc
+
 
 // 接口登记保存
 export const sinteManage = params => { return instanceBase1.post(`/sinte/manage`, params).then(res => res.data); };

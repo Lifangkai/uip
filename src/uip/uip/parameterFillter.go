@@ -4,6 +4,11 @@ import (
 	"uip/common"
 	"uip/attached"
 )
+
+/**UipSrcInterfaceParaFilter()
+*
+*
+*/
 func UipSrcInterfaceParaFilter(data attached.UipSrcInterface) (emptyCheckResponse responseJson, isEmpty bool) {
 	isEmpty = true
 	if len(data.GroupId) == 0 || len(data.InteCode)==0 {
@@ -24,7 +29,9 @@ func UipSrcInterfaceParaFilter(data attached.UipSrcInterface) (emptyCheckRespons
 	return emptyCheckResponse, isEmpty
 }
 
-
+/**
+*
+*/
 func UipInterFuncParaFilter(data attached.UipInterFunc) (emptyCheckResponse responseJson, isEmpty bool) {
 	isEmpty = true
 	if len(data.GroupId) == 0 || len(data.FuncCode)==0 || len(data.InteCode) == 0 || len(data.ResFmtCode) == 0 || len(data.ReqFmtCode) == 0{

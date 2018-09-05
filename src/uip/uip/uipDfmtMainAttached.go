@@ -10,11 +10,11 @@ import (
 	"uip/common"
 )
 
-/*
-	主表添加方法
+/**
+*	主表添加方法
 */
 func mainAddMehod(data attached.UipDfmtMain) error {
-	fmt.Println("***mainAddMehod***")
+	frame.Log.Write("***mainAddMehod***")
 	//判断是否存在
 	isExists, err := frame.DB.ExistsDo("exists", "uipDfmtMain"+data.GroupId+data.FmtCode)
 	//异常处理
@@ -39,11 +39,11 @@ func mainAddMehod(data attached.UipDfmtMain) error {
 	return nil
 }
 
-/*
-	主表修改方法
+/**
+*	主表修改方法
 */
 func mainUpdateMethod(data attached.UipDfmtMain) error {
-	fmt.Println("***mainUpdateMehod***")
+	frame.Log.Write("***mainUpdateMehod***")
 	//判断是否存在
 	resultValue, err := frame.DB.RetriveOne("uipDfmtMain" + data.GroupId + data.FmtCode)
 	//异常处理
@@ -76,11 +76,11 @@ func mainUpdateMethod(data attached.UipDfmtMain) error {
 	return nil
 }
 
-/*
-	主表删除方法
+/**
+*	主表删除方法
 */
 func mainDelMethod(data attached.UipDfmtMain) error {
-	fmt.Println("***mainUpdateMehod***")
+	frame.Log.Write("***mainUpdateMehod***")
 	//判断是否存在
 	isExists, err := frame.DB.ExistsDo("exists", "uipDfmtMain"+data.GroupId+data.FmtCode)
 	//异常处理
@@ -105,7 +105,7 @@ func mainDelMethod(data attached.UipDfmtMain) error {
 
 //主表查询方法
 func mainQueryOneMethod(str string) (attached.UipDfmtMain, error) {
-	fmt.Println("***mainQueryOneMehod***")
+	frame.Log.Write("***mainQueryOneMehod***")
 
 	//key
 	key := "uipDfmtMain" + str

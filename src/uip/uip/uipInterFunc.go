@@ -10,13 +10,14 @@ import(
 	"uip/attached"
 )
 
-/*@Author:zengzeen
+/**
 * @param:uipInterFunc struct
 * @return:{code,msg,data}   json
  */
 func UipInterFuncHandlePostRequest( data attached.UipInterFunc) {
+	frame.Log.Write("this is UipInterFunc post!")
+
 	var err error
-	fmt.Println("this is UipInterFunc post!")
 	data.FuncCode ,err = getSnsNew(data.GroupId ,"UIPFUNC1")
 	data.Ctime,err = getSnsNew(data.GroupId ,"dmm00001")
 	//data.ReqFmtCode,err = getSnsNew("reqFmtC")
@@ -57,8 +58,10 @@ func UipInterFuncHandlePostRequest( data attached.UipInterFunc) {
 	return
 }
 
+/**
+*/
 func UipInterFuncsHandlePostRequest(datas []attached.UipInterFunc) {
-	fmt.Println("this is UipInterFunc post!")
+	frame.Log.Write("this is UipInterFunc post!")
 	var insertSucc  bool
 	var err error
 	insertSucc = true
@@ -110,15 +113,13 @@ func UipInterFuncsHandlePostRequest(datas []attached.UipInterFunc) {
 	}
 
 }
-/*
-*	@Author:zengzeen
+/**
 *	@param:groupId          机构标识     定长八位
 *   @param:Sn               序号
 *   @return:{code,msg,data} json
  */
-
 func UipInterFuncvDelRequest( data attached.UipInterFunc) {
-	fmt.Println("this is UipInterFunc Del method")
+	frame.Log.Write("this is UipInterFunc Del method")
 	dataStr, _ := json.Marshal(data)
 	var uip attached.UipInterFunc
 	err := json.Unmarshal([]byte(dataStr), &uip)
@@ -165,15 +166,13 @@ func UipInterFuncvDelRequest( data attached.UipInterFunc) {
 	}
 }
 
-/**
-*	@Author:zengzeen
+/** 
 *	@param:groupId          机构标识     定长八位
 *   @param:Sn               序号
 *   @return:{code,msg,data} json
  */
-
 func UipInterFuncHandlePutRequest( data attached.UipInterFunc) {
-	fmt.Println("this is uipInterFunc Put method")
+	frame.Log.Write("this is uipInterFunc Put method")
 	emptyCheckResponse,isEmpty := UipInterFuncParaFilter(data)
 	if isEmpty == false {
 		response.Code = emptyCheckResponse.Code
@@ -208,14 +207,13 @@ func UipInterFuncHandlePutRequest( data attached.UipInterFunc) {
 	}
 }
 
-/** GET方法 com=SN 根据groupId和sn查询数据
-*	@Author zengzeen
+/** GET方法 com=SN 根据groupId和sn查询数据 
 *	@param  groupId 组织标识
 *	@param  funcCode 前来传过来用于查询的sn，即序列号
 *   @return {code,msg,data} json
  */
 func UipInterFuncGetRequest(r *http.Request ) {
-	fmt.Println("this is uipInterFunc SNGet method")
+	frame.Log.Write("this is uipInterFunc SNGet method")
 	var groupId,funcCode,inteCode string
 
 	groupId = r.Form["groupId"][0]
@@ -265,15 +263,13 @@ func UipInterFuncGetRequest(r *http.Request ) {
 	}
 }
 
-/**
-*	@Author:zengzeen
+/** 
 *	@param:groupId          机构标识     定长八位
 *   @param:Sn               序号
 *   @return:{code,msg,data} json
- */
-
+*/
 func UipInterFuncPseHandlePutRequest( r *http.Request) {
-	fmt.Println("this is uipInterFunc pse method")
+	frame.Log.Write("this is uipInterFunc pse method")
 	var datas []attached.UipInterFunc
 	var keysGet Pse
 	groupId := r.Form["groupId"][0]
@@ -315,15 +311,13 @@ func UipInterFuncPseHandlePutRequest( r *http.Request) {
 	return
 }
 
-/*
-*	@Author:zengzeen
+/**
 *	@param:groupId          机构标识     定长八位
 *   @param:Sn               序号
 *   @return:{code,msg,data} json
- */
-
+*/
 func UipInterFuncvBatchQueryRequest( datas attached.BatchResQuest) {
-	fmt.Println("this is uipInterFunc batchQuery method")
+	frame.Log.Write("this is uipInterFunc batchQuery method")
 	var resDatas []attached.UipInterFunc
 	var querySucc bool
 	groupId := datas.GroupId
@@ -364,15 +358,13 @@ func UipInterFuncvBatchQueryRequest( datas attached.BatchResQuest) {
 }
 
 
-/**
-*	@Author:zengzeen
+/** 
 *	@param:groupId          机构标识     定长八位
 *   @param:Sn               序号
 *   @return:{code,msg,data} json
- */
-
+*/
 func UipInterFuncQuryAlltRequest( r *http.Request) {
-	fmt.Println("this is uipInterFunc queryall  method")
+	frame.Log.Write("this is uipInterFunc queryall  method")
 	var datas []attached.UipInterFunc
 	var uip attached.UipInterFunc
 	groupId := r.Form["groupId"][0]

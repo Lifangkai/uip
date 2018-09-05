@@ -149,7 +149,7 @@
 		},
 		data() {
 			return {
-				groupId: "YYGJUIP1",
+				groupId: "SNS16494",
 				sinteData: {
 					inteName: "",
 					inteType: "",

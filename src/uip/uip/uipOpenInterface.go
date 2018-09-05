@@ -9,11 +9,11 @@ import (
 	"encoding/json"
 )
 
-/*
+/**
 	添加数据方法
 */
 func interfaceOpenInsertMethod(data attached.UipOpenInterface) {
-	fmt.Println("***interfaceOpenInsertMethod***")
+	frame.Log.Write("***interfaceOpenInsertMethod***")
 
 	//校验数据
 	if ok := attached.OpenInterfaceFilter(data); !ok {
@@ -40,11 +40,11 @@ func interfaceOpenInsertMethod(data attached.UipOpenInterface) {
 	response.Msg = common.ErrorOKInsertMsg
 }
 
-/*
+/**
 	修改数据方法
 */
 func interfaceOpenUpdateMethod(data attached.UipOpenInterface) {
-	fmt.Println("***interfaceOpenUpdateMethod***")
+	frame.Log.Write("***interfaceOpenUpdateMethod***")
 
 	//校验数据
 	if ok := attached.OpenInterfaceFilter(data); !ok {
@@ -71,11 +71,11 @@ func interfaceOpenUpdateMethod(data attached.UipOpenInterface) {
 	response.Msg = common.ErrorOKModifyMsg
 }
 
-/*
+/**
 	删除数据方法，同时删除源接口中的对应本条的openlist字段
 */
 func interfaceOpenDeleteMethod(data attached.UipOpenInterface) {
-	fmt.Println("***interfaceOpenDeleteMethod***")
+	frame.Log.Write("***interfaceOpenDeleteMethod***")
 
 	//数据过滤
 	if data.GroupId == "" || data.InteCode == "" || len(data.GroupId) != 8 || len(data.InteCode) > 32 {
@@ -196,11 +196,11 @@ func interfaceOpenDeleteMethod(data attached.UipOpenInterface) {
 	response.Msg = common.ErrorOKDeleteMsg
 }
 
-/*
+/**
 	开放接口查询单条
 */
 func interfaceOpenQueryOneMethod(r *http.Request) {
-	fmt.Println("***interfaceOpenQueryOneMethod***")
+	frame.Log.Write("***interfaceOpenQueryOneMethod***")
 
 	//接受数据并校验
 	if r.Form["groupId"][0] == "" || len(r.Form["groupId"]) != 1 {
@@ -238,11 +238,11 @@ func interfaceOpenQueryOneMethod(r *http.Request) {
 	response.Data = result
 }
 
-/*
+/**
 	查询主表与子表的数据方法
 */
 func interfaceOpenQueryManyMethod(r *http.Request) {
-	fmt.Println("***interfaceOpenQueryManyMethod***")
+	frame.Log.Write("***interfaceOpenQueryManyMethod***")
 
 	//接受数据并校验
 	if r.Form["groupId"][0] == "" || len(r.Form["groupId"]) != 1 {

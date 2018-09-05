@@ -48,7 +48,7 @@ import { sinteSearch, sinteManage } from "../../axios/axios.js";
 export default {
   data() {
     return {
-      groupId: "YYGJUIP1",
+      groupId: "SNS16494",
       searchKey: "",
       tableData: []
     };

@@ -10,11 +10,11 @@ import (
 	"uip/common"
 )
 
-/*
+/**
 	子表添加方法
 */
 func subAddMehod(data attached.UipDfmtSub) error {
-	fmt.Println("***subAddMehod***")
+	frame.Log.Write("***subAddMehod***")
 	//判断是否存在
 	isExists, err := frame.DB.ExistsDo("exists", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode)
 	//异常处理
@@ -39,11 +39,11 @@ func subAddMehod(data attached.UipDfmtSub) error {
 	return nil
 }
 
-/*
+/**
 	子表修改方法
 */
 func subUpdateMehod(data attached.UipDfmtSub) error {
-	fmt.Println("***subUpdateMehod***")
+	frame.Log.Write("***subUpdateMehod***")
 	//判断是否存在
 	resultValue, err := frame.DB.RetriveOne("uipDfmtSub" + data.GroupId + data.FmtCode + data.DtlCode)
 	//异常处理
@@ -76,11 +76,11 @@ func subUpdateMehod(data attached.UipDfmtSub) error {
 	return nil
 }
 
-/*
+/**
 	子表删除方法
 */
 func subDelMethod(data attached.UipDfmtSub) error {
-	fmt.Println("***subDelMethod***")
+	frame.Log.Write("***subDelMethod***")
 	//判断是否存在
 	isExists, err := frame.DB.ExistsDo("exists", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode)
 	//异常处理
@@ -136,7 +136,7 @@ func querySubCount(data attached.UipDfmtSub) (count int, err error) {
 
 //子表查询所有
 func querySubAllCondtion(key string) ([]attached.UipDfmtSub,error) {
-	fmt.Println("***querySubAllCondtion***")
+	frame.Log.Write("***querySubAllCondtion***")
 
 	//返回的实体
 	var subArray []attached.UipDfmtSub

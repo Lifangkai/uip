@@ -8,11 +8,11 @@ import (
 	"uip/common"
 )
 
-/*
-	添加数据方法
+/**
+*	添加数据方法
 */
 func subInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
-	fmt.Println("***mainInsertValueMethod***")
+	frame.Log.Write("***mainInsertValueMethod***")
 
 	//校验数据
 	if ok := attached.SubFilter(data); !ok {
@@ -50,11 +50,11 @@ func subInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 
 }
 
-/*
-	修改数据方法
+/**
+*	修改数据方法
 */
 func subUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
-	fmt.Println("***mainUpdateValueMethod***")
+	frame.Log.Write("***mainUpdateValueMethod***")
 
 	//校验数据
 	if ok := attached.SubFilter(data); !ok {
@@ -81,11 +81,11 @@ func subUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 	response.Msg = common.ErrorOKModifyMsg
 }
 
-/*
-	删除数据方法
+/**
+*	删除数据方法
 */
 func subDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
-	fmt.Println("***mainDeleteValueMethod***")
+	frame.Log.Write("***mainDeleteValueMethod***")
 
 	//数据过滤
 	if data.GroupId == "" || data.FmtCode == "" || data.DtlCode == "" || len(data.GroupId) != 8 || len(data.FmtCode) > 32 || len(data.DtlCode) > 32 {

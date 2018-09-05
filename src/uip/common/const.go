@@ -102,4 +102,13 @@ const (
 
 	ErrorOpenInterDeleteErrId = "200028"
 	ErrorOpenInterDeleteMsg   = "“删除开放接口错误"
+	
+	ErrPsePOSTCode = "200029"
+	ErrPsePOSTMsg   = "pse post error"
+	
+	IOReadErrCode = "200030"
+	IOReadErrMsg = "IO readall error"
+	
+	
+	
 )

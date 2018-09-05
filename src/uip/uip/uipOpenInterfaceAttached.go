@@ -9,11 +9,11 @@ import (
 	"uip/common"
 )
 
-/*
+/**
 	开放接口单条添加方法
 */
 func openInterfaceAddMehod(data attached.UipOpenInterface) error {
-	fmt.Println("***openInterfaceAddMehod***")
+	frame.Log.Write("***openInterfaceAddMehod***")
 
 	//判断是否存在
 	isExists, err := frame.DB.ExistsDo("exists", "uipOpenInterface"+data.GroupId+data.InteCode)
@@ -40,11 +40,11 @@ func openInterfaceAddMehod(data attached.UipOpenInterface) error {
 	return nil
 }
 
-/*
+/**
 	开放接口单条修改方法
 */
 func openInterfaceUpdateMehod(data attached.UipOpenInterface) error {
-	fmt.Println("***openInterfaceUpdateMehod***")
+	frame.Log.Write("***openInterfaceUpdateMehod***")
 
 	//判断是否存在
 	resultValue, err := frame.DB.RetriveOne("uipOpenInterface" + data.GroupId + data.InteCode)
@@ -79,11 +79,11 @@ func openInterfaceUpdateMehod(data attached.UipOpenInterface) error {
 	return nil
 }
 
-/*
+/**
 	开放接口单条删除方法
 */
 func openInterfaceDelMethod(data attached.UipOpenInterface) error {
-	fmt.Println("***openInterfaceDelMethod***")
+	frame.Log.Write("***openInterfaceDelMethod***")
 
 	//判断是否存在
 	isExists, err := frame.DB.ExistsDo("exists", "uipOpenInterface"+data.GroupId+data.InteCode)
@@ -108,11 +108,11 @@ func openInterfaceDelMethod(data attached.UipOpenInterface) error {
 	return nil
 }
 
-/*
+/**
 	开放接口单条查询方法
 */
 func openInterfaceQuery(key string) (attached.UipOpenInterface, error) {
-	fmt.Println("***openInterfaceQuery***")
+	frame.Log.Write("***openInterfaceQuery***")
 
 	//用于返回的值
 	var openInterFace attached.UipOpenInterface
@@ -146,11 +146,11 @@ func openInterfaceQuery(key string) (attached.UipOpenInterface, error) {
 	return openInterFace, nil
 }
 
-/*
+/**
 	开放接口通过搜索引擎(pse)查询前20条方法
 */
 func queryOpenInterfaceAll(groupId, condition string) ([]attached.UipOpenInterface, error) {
-	fmt.Println("***queryOpenInterfaceAll***")
+	frame.Log.Write("***queryOpenInterfaceAll***")
 
 	//返回的实体
 	var openInterfaceArray []attached.UipOpenInterface
@@ -201,12 +201,12 @@ func queryOpenInterfaceAll(groupId, condition string) ([]attached.UipOpenInterfa
 	return openInterfaceArray, nil
 }
 
-/*
+/**
 	查询源接口单条数据方法
 */
 
 func querySrcInterfaceMethod(key string) (attached.UipSrcInterface, error) {
-	fmt.Println("***querySrcInterfaceMethod***")
+	frame.Log.Write("***querySrcInterfaceMethod***")
 
 	//用于返回的值
 	var srcInterFace attached.UipSrcInterface
@@ -240,11 +240,11 @@ func querySrcInterfaceMethod(key string) (attached.UipSrcInterface, error) {
 	return srcInterFace, nil
 }
 
-/*
+/**
 	接口单条数据修改方法
 */
 func updateSrcInterfaceMethod(key string, srcInterface attached.UipSrcInterface) error {
-	fmt.Println("***updateSrcInterfaceMethod***")
+	frame.Log.Write("***updateSrcInterfaceMethod***")
 
 	//条件
 	Key := "uipSrcInterface" + key

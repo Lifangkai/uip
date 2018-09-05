@@ -13,20 +13,19 @@ type responJson struct {
 	Data string `json:"data"`
 }
 
-/*@Author:zhengxianbo
+/**getlistOne()
+*函数通过传入key来查询子表信息
 * @param:keyword 			  传入的字符串
 * @return:responsesChild      responseJson
- */
-//getlistOne()函数通过传入key来查询子表信息
+*
+*/
 func getlistOne(keyword string) (responsesChild responJson) {
 	frame.Log.Write("in getlistOne(): keyword = " + keyword)
 	
-	key := keyword
-	//fmt.Println("key = [", key, "]")
+	key := keyword 
 	//根据key查询所有数据dictCode + itemCode搜索
 	result, err := frame.DB.RetriveOne(key)
-
-	//fmt.Println("result = [", result, "]")
+ 
 	//异常处理
 	if err == nil && result == "" {
 		responsesChild.Code = common.ErrorDataNotExistsErrId

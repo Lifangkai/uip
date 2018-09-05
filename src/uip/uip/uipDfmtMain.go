@@ -8,11 +8,11 @@ import (
 	"uip/common"
 )
 
-/*
-	添加数据方法
+/**
+*	添加数据方法
 */
 func mainInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
-	fmt.Println("***mainInsertValueMethod***")
+	frame.Log.Write("***mainInsertValueMethod***")
 
 	//校验数据
 	if ok := attached.MainFilter(data); !ok {
@@ -51,11 +51,11 @@ func mainInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 	response.Msg = common.ErrorOKInsertMsg
 }
 
-/*
-	修改数据方法
+/**
+*	修改数据方法
 */
 func mainUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
-	fmt.Println("***mainUpdateValueMethod***")
+	frame.Log.Write("***mainUpdateValueMethod***")
 
 	//校验数据
 	if ok := attached.MainFilter(data); !ok {
@@ -82,11 +82,11 @@ func mainUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 	response.Msg = common.ErrorOKModifyMsg
 }
 
-/*
-	删除数据方法
+/**
+*	删除数据方法
 */
 func mainDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
-	fmt.Println("***mainDeleteValueMethod***")
+	frame.Log.Write("***mainDeleteValueMethod***")
 
 	//数据过滤
 	if data.GroupId == "" || data.FmtCode == "" || len(data.GroupId) != 8 || len(data.FmtCode) > 32 {
@@ -113,11 +113,11 @@ func mainDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 	response.Msg = common.ErrorOKDeleteMsg
 }
 
-/*
-	查询主表与子表的数据方法
+/**
+*	查询主表与子表的数据方法
 */
 func mainQueryValueMethod(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("***mainQueryValueMethod***")
+	frame.Log.Write("***mainQueryValueMethod***")
 
 	//接受数据并校验
 	if r.Form["groupId"][0] == "" || len(r.Form["groupId"]) != 1 {
