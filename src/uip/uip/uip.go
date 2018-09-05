@@ -210,8 +210,8 @@ func uipOpenInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 /**
-*	date:180424
-*	describe:源接口管理表格基本方法
+*date:180424
+*describe:源接口管理表格基本方法
 */
 func uipSrcInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 	frame.Log.Write("in uipSrcInterfaceHandler!!!***")
@@ -557,18 +557,23 @@ func main() {
 	
 	//默认路由
 	frame.SetPathHandlerPair("/", defaultHandler)
+
 	//接口数据格式信息总表/主表 uip_dfmt_main
 	frame.SetPathHandlerPair("/fmt/manage/main", dfmtMainHandler)
+
 	//接口数据格式信息子表 uip_dfmt_sub
 	frame.SetPathHandlerPair("/fmt/manage/sub", dfmtSubHandler)
+
 	//uipSrcInteface源接口管理
 	frame.SetPathHandlerPair("/sinte/manage", uipSrcInterfaceHandler)
 	frame.SetPathHandlerPair("/sinte/manage/ftsearch", uipSrcInterfaceFtsearchHandler)
+
 	//uipInterFunc接口功能管理表
 	frame.SetPathHandlerPair("/func/manage", uipInterFuncHandler)
 	frame.SetPathHandlerPair("/func/manage/ftsearch", uipInterFuncFtsearchHandler)
 	frame.SetPathHandlerPair("/func/manage/batchCreate",uipInterFuncBatchCreateHandler)
 	frame.SetPathHandlerPair("/func/manage/bSearch", uipInterFuncBSearchHandler)
+
 	//开放接口管理 uip_open_interface
 	frame.SetPathHandlerPair("/ointe/manage", uipOpenInterfaceHandler)
 
