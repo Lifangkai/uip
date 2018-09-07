@@ -9,10 +9,10 @@ import (
 )
 
 /**
-*	添加数据方法
+*	添加数据格式的方法
 */
 func subInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
-	frame.Log.Write("***mainInsertValueMethod***")
+	common.Frame.Log.Write("in subInsertValueMethod(): data = " + fmt.Sprint(data))
 
 	//校验数据
 	if ok := attached.SubFilter(data); !ok {
@@ -54,7 +54,7 @@ func subInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 *	修改数据方法
 */
 func subUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
-	frame.Log.Write("***mainUpdateValueMethod***")
+	common.Frame.Log.Write("***mainUpdateValueMethod***")
 
 	//校验数据
 	if ok := attached.SubFilter(data); !ok {
@@ -85,7 +85,7 @@ func subUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
 *	删除数据方法
 */
 func subDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtSub) {
-	frame.Log.Write("***mainDeleteValueMethod***")
+	common.Frame.Log.Write("***mainDeleteValueMethod***")
 
 	//数据过滤
 	if data.GroupId == "" || data.FmtCode == "" || data.DtlCode == "" || len(data.GroupId) != 8 || len(data.FmtCode) > 32 || len(data.DtlCode) > 32 {

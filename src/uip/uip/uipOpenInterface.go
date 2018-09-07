@@ -13,7 +13,7 @@ import (
 	添加数据方法
 */
 func interfaceOpenInsertMethod(data attached.UipOpenInterface) {
-	frame.Log.Write("***interfaceOpenInsertMethod***")
+	common.Frame.Log.Write("***interfaceOpenInsertMethod***")
 
 	//校验数据
 	if ok := attached.OpenInterfaceFilter(data); !ok {
@@ -44,7 +44,7 @@ func interfaceOpenInsertMethod(data attached.UipOpenInterface) {
 	修改数据方法
 */
 func interfaceOpenUpdateMethod(data attached.UipOpenInterface) {
-	frame.Log.Write("***interfaceOpenUpdateMethod***")
+	common.Frame.Log.Write("***interfaceOpenUpdateMethod***")
 
 	//校验数据
 	if ok := attached.OpenInterfaceFilter(data); !ok {
@@ -75,7 +75,7 @@ func interfaceOpenUpdateMethod(data attached.UipOpenInterface) {
 	删除数据方法，同时删除源接口中的对应本条的openlist字段
 */
 func interfaceOpenDeleteMethod(data attached.UipOpenInterface) {
-	frame.Log.Write("***interfaceOpenDeleteMethod***")
+	common.Frame.Log.Write("***interfaceOpenDeleteMethod***")
 
 	//数据过滤
 	if data.GroupId == "" || data.InteCode == "" || len(data.GroupId) != 8 || len(data.InteCode) > 32 {
@@ -200,7 +200,7 @@ func interfaceOpenDeleteMethod(data attached.UipOpenInterface) {
 	开放接口查询单条
 */
 func interfaceOpenQueryOneMethod(r *http.Request) {
-	frame.Log.Write("***interfaceOpenQueryOneMethod***")
+	common.Frame.Log.Write("***interfaceOpenQueryOneMethod***")
 
 	//接受数据并校验
 	if r.Form["groupId"][0] == "" || len(r.Form["groupId"]) != 1 {
@@ -242,7 +242,7 @@ func interfaceOpenQueryOneMethod(r *http.Request) {
 	查询主表与子表的数据方法
 */
 func interfaceOpenQueryManyMethod(r *http.Request) {
-	frame.Log.Write("***interfaceOpenQueryManyMethod***")
+	common.Frame.Log.Write("***interfaceOpenQueryManyMethod***")
 
 	//接受数据并校验
 	if r.Form["groupId"][0] == "" || len(r.Form["groupId"]) != 1 {

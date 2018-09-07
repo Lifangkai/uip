@@ -53,32 +53,31 @@ export default {
         path: "/equipAdd"
       });
     },
+    
     //查询-全文检索
     queryAllEquip() {
       let _this = this;
       axios.defaults.baseURL = "http://172.16.0.13:31425";
-      axios
-        .get("/terminal/manage/ftsearch", {
-          params: {
-            groupId: "12345678",
-            fttext: this.input
-          }
-        })
-        .then(function(response) {
+      axios.get("/terminal/manage/ftsearch", {
+        params: {
+         groupId: "12345678",
+         fttext: this.input
+               }
+      }).then(function(response) {
           console.log(response);
           if (response.data.code === "200000") {
             _this.tableData = response.data.data;
           } else {
             _this.tableData = [];
             alert(response.data.msg);
-          }
-        })
-        .catch(function(error) {
+            }
+      }).catch(function(error) {
           console.log(error);
           _this.tableData = [];
-        });
+            });
     },
-    //删除终端
+    
+    	//删除终端
     handleDelete(index, row) {
       console.log(index);
       console.log(row);
@@ -109,6 +108,7 @@ export default {
   }
 };
 </script>
+
 <style>
 .equip_blcok {
   height: 550px;

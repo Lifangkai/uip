@@ -12,11 +12,11 @@ import (
 
 //调用sns服务获取序列号
 func getSnsNew(groupId string, snsType string) (string, error) {
-	frame.Log.Write("in getSnsNew(): groupid = " + groupId + "snstype = " + snsType)
+	common.Frame.Log.Write("in getSnsNew(): groupid = " + groupId + "snstype = " + snsType)
 	
 	//请求sns的路径(网址)
 	url := "http://"+common.AExt.SNSIP + ":" + common.AExt.SNSPORT + "/snList?com=LIST&groupId="+ groupId +"&snId=" + snsType + "&operatorId=12000&bs=1"
-	frame.Log.Write("url = " + url)
+	common.Frame.Log.Write("url = " + url)
 	
 	//进行http请求 获取请求数据
 	resp, err := http.Get(url)
@@ -44,7 +44,7 @@ func getSnsNew(groupId string, snsType string) (string, error) {
 	//解析响应数据
 	err = json.Unmarshal(respBody, &snsInfo)
 	if err != nil {
-		frame.Log.Write("json.Unmarshal error: " + err.Error())
+		common.Frame.Log.Write("json.Unmarshal error: " + err.Error())
 		//错误处理
 		return "", err
 	}

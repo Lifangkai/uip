@@ -58,21 +58,23 @@
 			</el-form>
 		</div>
 		<div class="page-content-box">
+		
 			<div class="addCon" v-if="addCon">
 				<i class="iconfont icon-zengjia" @click="sinteSns()"></i>
 			</div>
 			<div class="addCon1" v-if="!addCon">
 				<i class="iconfont icon-zengjia" @click="sinteSns()"></i>
 			</div>
+			
 			<div v-for="(item,index) in childList" :key="index">
 				<el-collapse accordion v-if="addCon" @change="changeColl(item,index)">
 					<el-collapse-item>
 						<template slot="title">
 							<span class="span">{{item.funcName}}</span>
 						</template>
+						
 						<div class="coll-con">
-							<div class="con-left">请求参数
-							</div>
+							<div class="con-left">请求参数</div>
 							<div class="con-right">
 								<div class="right-content">
 									{{item.reqExample}}
@@ -97,13 +99,11 @@
 								</div>
 							</div>
 						</div>
+						
 						<div class="coll-con">
-							<div class="con-left">返回参数
-							</div>
+							<div class="con-left">返回参数</div>
 							<div class="con-right">
-								<div class="right-content">
-									{{item.resExample}}
-								</div>
+								<div class="right-content">	{{item.resExample}}	</div>
 								<div class="page-table1">
 									<template>
 										<el-table :data="tableRes" style="width: 100%" stripe>
@@ -121,6 +121,7 @@
 											</el-table-column>
 										</el-table>
 									</template>
+									
 								</div>
 							</div>
 						</div>
@@ -133,6 +134,7 @@
 		<dialogAdd v-bind:inte='inteCode' v-bind:inteSns='snsCode' v-on:funcCon="list" @changeDialog="changeDialog" :dialogStatus='dialogStatus'></dialogAdd>
 	</div>
 </template>
+
 <script>
 	import {
 		funcManage,
@@ -141,15 +143,18 @@
 		fmtManageSub,
 		fmtSubAll
 	} from "../../axios/axios.js";
+	
 	import dialogAdd from "./dialogAdd.vue";
 	import { mapState } from "vuex";
+	import global_ from '../Global.vue';
+	
 	export default {
 		components: {
 			dialogAdd
 		},
 		data() {
 			return {
-				groupId: "SNS16494",
+				groupId: global_.GroupId , //"SNS16494",
 				sinteData: {
 					inteName: "",
 					inteType: "",
@@ -157,11 +162,13 @@
 					cmt: "",
 					funcList: "[]"
 				},
+				
 				ConfData: {
 					ip: "",
 					port: "",
 					path: ""
 				},
+				
 				tableRes: [],
 				tableReq: [],
 				inteCode: "",
@@ -172,16 +179,19 @@
 				snsCode: ""
 			};
 		},
+		
 		methods: {
 			// 切换弹框显示
 			changeDialog() {
 				this.dialogStatus = false;
 			},
+			
 			returnReginter() {
 				this.$router.push({
 					path: "/reginter"
 				});
 			},
+			
 			// 接口登记保存
 			sinteManage() {
 				this.sinteData.groupId = this.groupId;
@@ -196,18 +206,19 @@
 					if(res.code == 200000) {
 						this.inteCode = res.data.inteCode;
 						this.$message({
-							message: "新增成功",
+							message: "新增接口保存成功",
 							type: "success"
 						});
 					} else {
 						console.log(res.msg);
 						this.$message({
-							message: "新增失败",
+							message: "新增接口保存失败",
 							type: "error"
 						});
 					}
 				});
 			},
+			
 			// 点击产生sns
 			sinteSns() {
 				let params = {
@@ -227,6 +238,7 @@
 					}
 				});
 			},
+			
 			// 渲染数据格式
 			changeColl(item, index) {
 				let that = this;
@@ -258,6 +270,7 @@
 					});
 				});
 			},
+			
 			list: function(somedata) {
 				this.childList = somedata;
 				console.log(this.childList);
@@ -270,6 +283,7 @@
 		}
 	};
 </script>
+
 <style scoped>
 	.pagetable-top {
 		margin-left: 8px;

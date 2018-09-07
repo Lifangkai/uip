@@ -12,16 +12,14 @@
         </div>
       </div>
       <div class="page-table-box">
+       
         <!-- 固定列表格 -->
         <div class="page-table">
           <template>
             <el-table :data="tableData" style="width: 100%" stripe>
-              <el-table-column prop="inteCode" align="center" label="接口ID">
-              </el-table-column>
-              <el-table-column prop="inteName" align="center" label="操作名称">
-              </el-table-column>
-              <el-table-column prop="cmt" align="center" label="接口说明">
-              </el-table-column>
+              <el-table-column prop="inteCode" align="center" label="接口ID"> </el-table-column>
+              <el-table-column prop="inteName" align="center" label="操作名称"> </el-table-column>
+              <el-table-column prop="cmt" align="center" label="接口说明"> </el-table-column>
               <el-table-column prop="inteCode" label="操作" align="center">
                 <template slot-scope="scope">
                   <el-button type="text" size="small" @click="editReginter(scope.$index, scope.row)">编辑 |</el-button>
@@ -43,28 +41,35 @@
     </div>
   </div>
 </template>
+
 <script>
 import { sinteSearch, sinteManage } from "../../axios/axios.js";
+import global_ from '../Global.vue';
+
 export default {
   data() {
     return {
-      groupId: "SNS16494",
+      groupId: global_.GroupId, //"SNS16494",
       searchKey: "",
       tableData: []
     };
   },
+  
   methods: {
     addReginter() {
       this.$router.push({
         path: "/reginterAdd"
       });
     },
+
+    //编辑接口信息
     editReginter(index, rows) {
       this.$router.push({
         name: "接口登记管理-编辑",
         params: rows
       });
     },
+    
     // 查询信息
     regSearch() {
       let params = {
@@ -72,6 +77,7 @@ export default {
         groupId: this.groupId,
         fettext: this.searchKey
       };
+
       sinteSearch(params).then(res => {
         console.log(res);
         if (res.code == 200000) {
@@ -87,6 +93,7 @@ export default {
         }
       });
     },
+    
     // 删除
     delsinte(index, rows) {
       console.log(rows);
@@ -97,6 +104,7 @@ export default {
           inteCode: rows.inteCode
         }
       });
+
       console.log(params);
       sinteManage(params).then(res => {
         console.log(res);
@@ -123,6 +131,7 @@ export default {
   }
 };
 </script>
+
 <style scoped>
 .pagetable-top {
   margin-left: 8px;

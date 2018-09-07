@@ -13,7 +13,7 @@ import (
 
 var (
 	//定义全局变量指针Rsf
-	frame *rsf.Rsf
+	//Frame *rsf.Rsf
 	//定义响应结构体
 	response *attached.Response
 )
@@ -24,7 +24,7 @@ var (
 	describe:接口数据格式信息总表/主表
 */
 func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
-	frame.Log.Write("***in dfmtMainHandler!!!***")
+	common.Frame.Log.Write("***in dfmtMainHandler!!!***")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -95,7 +95,7 @@ func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
 	describe:接口数据格式信息子表
 */
 func dfmtSubHandler(w http.ResponseWriter, r *http.Request) {
-	frame.Log.Write("in dfmtSubHandler!!!***")
+	common.Frame.Log.Write("in dfmtSubHandler!!!***")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -140,7 +140,7 @@ func dfmtSubHandler(w http.ResponseWriter, r *http.Request) {
 	describe:接口开放管理
 */
 func uipOpenInterfaceHandler(w http.ResponseWriter, r *http.Request) {
-	frame.Log.Write("***in uipOpenInterfaceHandler!!!***")
+	common.Frame.Log.Write("***in uipOpenInterfaceHandler!!!***")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -214,7 +214,7 @@ func uipOpenInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 *describe:源接口管理表格基本方法
 */
 func uipSrcInterfaceHandler(w http.ResponseWriter, r *http.Request) {
-	frame.Log.Write("in uipSrcInterfaceHandler!!!***")
+	common.Frame.Log.Write("in uipSrcInterfaceHandler!!!***")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -285,7 +285,7 @@ func uipSrcInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 	describe:源接口管理全文搜索方法
 */
 func uipSrcInterfaceFtsearchHandler(w http.ResponseWriter, r *http.Request) {
-	frame.Log.Write("***in uipSrcInterfaceFtsearchHandler!!!***")
+	common.Frame.Log.Write("***in uipSrcInterfaceFtsearchHandler!!!***")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -328,7 +328,7 @@ func uipSrcInterfaceFtsearchHandler(w http.ResponseWriter, r *http.Request) {
 	describe:接口功能表格基本方法
 */
 func uipInterFuncHandler(w http.ResponseWriter, r *http.Request) {
-	frame.Log.Write("***in uipInterFuncHandler!!!***")
+	common.Frame.Log.Write("in uipInterFuncHandler（）")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -401,7 +401,7 @@ func uipInterFuncHandler(w http.ResponseWriter, r *http.Request) {
 	describe:接口功能管理全文搜索方法
 */
 func uipInterFuncFtsearchHandler(w http.ResponseWriter, r *http.Request) {
-	frame.Log.Write("***in uipInterFuncFtsearchHandler!!!***")
+	common.Frame.Log.Write("***in uipInterFuncFtsearchHandler!!!***")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -444,7 +444,7 @@ func uipInterFuncFtsearchHandler(w http.ResponseWriter, r *http.Request) {
 	describe:接口功能管理批量增加方法
 */
 func uipInterFuncBatchCreateHandler(w http.ResponseWriter, r *http.Request) {
-	frame.Log.Write("***in uipInterFuncBatchCreateHandler!!!***")
+	common.Frame.Log.Write("***in uipInterFuncBatchCreateHandler!!!***")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -474,7 +474,7 @@ func uipInterFuncBatchCreateHandler(w http.ResponseWriter, r *http.Request) {
 *	describe:接口功能管理批量搜索方法
 */
 func uipInterFuncBSearchHandler(w http.ResponseWriter, r *http.Request) {
-	frame.Log.Write("***in uipInterFuncFtsearchHandler!!!***")
+	common.Frame.Log.Write("***in uipInterFuncFtsearchHandler!!!***")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -503,7 +503,7 @@ func uipInterFuncBSearchHandler(w http.ResponseWriter, r *http.Request) {
 * Default Request Handler
  */
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
-	frame.Log.Write("in defaultHandler()")
+	common.Frame.Log.Write("in defaultHandler()")
 	w.Write([]byte("in defaultHandler()"))
 }
 
@@ -545,38 +545,38 @@ func main() {
 	http.Handle("/js/", http.FileServer(http.Dir("./webRoot")))
 
 	//dynamic route
-	frame = rsf.NewRsf()
+	common.Frame = rsf.NewRsf()
 	
 	//common.AExt = aYljg
 
-  err := json.Unmarshal([]byte( frame.Ext), &common.AExt)
+  err := json.Unmarshal([]byte( common.Frame.Ext), &common.AExt)
   if err != nil {
-    frame.Log.Write("get ext parameter object err=[" + err.Error() + "], ext = [" + frame.Ext +"]")
+    common.Frame.Log.Write("get ext parameter object err=[" + err.Error() + "], ext = [" + common.Frame.Ext +"]")
     return
     }
 	
 	//默认路由
-	frame.SetPathHandlerPair("/", defaultHandler)
+	common.Frame.SetPathHandlerPair("/", defaultHandler)
 
 	//接口数据格式信息总表/主表 uip_dfmt_main
-	frame.SetPathHandlerPair("/fmt/manage/main", dfmtMainHandler)
+	common.Frame.SetPathHandlerPair("/fmt/manage/main", dfmtMainHandler)
 
 	//接口数据格式信息子表 uip_dfmt_sub
-	frame.SetPathHandlerPair("/fmt/manage/sub", dfmtSubHandler)
+	common.Frame.SetPathHandlerPair("/fmt/manage/sub", dfmtSubHandler)
 
 	//uipSrcInteface源接口管理
-	frame.SetPathHandlerPair("/sinte/manage", uipSrcInterfaceHandler)
-	frame.SetPathHandlerPair("/sinte/manage/ftsearch", uipSrcInterfaceFtsearchHandler)
+	common.Frame.SetPathHandlerPair("/sinte/manage", uipSrcInterfaceHandler)
+	common.Frame.SetPathHandlerPair("/sinte/manage/ftsearch", uipSrcInterfaceFtsearchHandler)
 
 	//uipInterFunc接口功能管理表
-	frame.SetPathHandlerPair("/func/manage", uipInterFuncHandler)
-	frame.SetPathHandlerPair("/func/manage/ftsearch", uipInterFuncFtsearchHandler)
-	frame.SetPathHandlerPair("/func/manage/batchCreate",uipInterFuncBatchCreateHandler)
-	frame.SetPathHandlerPair("/func/manage/bSearch", uipInterFuncBSearchHandler)
+	common.Frame.SetPathHandlerPair("/func/manage", uipInterFuncHandler)
+	common.Frame.SetPathHandlerPair("/func/manage/ftsearch", uipInterFuncFtsearchHandler)
+	common.Frame.SetPathHandlerPair("/func/manage/batchCreate",uipInterFuncBatchCreateHandler)
+	common.Frame.SetPathHandlerPair("/func/manage/bSearch", uipInterFuncBSearchHandler)
 
 	//开放接口管理 uip_open_interface
-	frame.SetPathHandlerPair("/ointe/manage", uipOpenInterfaceHandler)
+	common.Frame.SetPathHandlerPair("/ointe/manage", uipOpenInterfaceHandler)
 
-	frame.Run()
+	common.Frame.Run()
 
 }

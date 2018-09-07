@@ -1,9 +1,7 @@
 <template>
 	<el-dialog :visible.sync="dialogFormVisible" @close="close">
 		<template slot="title">
-			<div class="dialog-top">
-				功能格式配置
-			</div>
+			<div class="dialog-top"> 功能格式配置 </div>
 		</template>
 		<div class="dialog-con">
 			<!-- 选项卡切换 -->
@@ -34,12 +32,11 @@
 					<el-input type="textarea" style='height: 90px;margin-bottom:6px' v-model="funcData.resExample"></el-input>
 				</el-form-item>
 			</el-form>
+			
 			<!-- 内层弹框 -->
 			<el-dialog :visible.sync="innerVisible" append-to-body>
 				<template slot="title">
-					<div class="dialog-top">
-						参数配置
-					</div>
+					<div class="dialog-top">参数配置</div>
 				</template>
 				<div class="dialog-con">
 					<el-form label-width="80px">
@@ -122,6 +119,7 @@
 		</div>
 	</el-dialog>
 </template>
+
 <script>
 	import {
 		funcManage,
@@ -130,11 +128,15 @@
 		fmtManageMain,
 		fmtSubAll
 	} from "../../axios/axios.js";
+	
+	import global_ from '../Global.vue';
+	
 	export default {
 		props: ["func", "dialogStat"],
+		
 		data() {
 			return {
-				groupId: "YYGJUIP1",
+				groupId: global_.GroupId,
 				operCode: "8542",
 				funcData: {
 					funcName: "",
@@ -154,37 +156,44 @@
 				fmtType: ""
 			};
 		},
+
 		methods: {
 			// 关闭弹框
 			close() {
 				this.$emit("chgeDialog", false);
 				this.$refs["funcData"].resetFields();
 			},
+			
 			//  请求参数编辑
 			editReq(index, rows) {
 				rows[index].xgSave = true;
 			},
+			
 			//  请求参数取消
 			cancelReq(index, rows) {
 				this.tableReq.splice(index, 1);
 			},
+			
 			// 请求参数id
 			resFmtcode() {
 				this.fmtCode = this.funcData.reqFmtCode;
 				this.innerVisible = true;
 				this.funcAllsnb();
 			},
+			
 			// 返回参数id
 			reqFmtcode() {
 				this.fmtCode = this.funcData.resFmtCode;
 				this.innerVisible = true;
 				this.funcAllsnb();
 			},
+			
 			returnReginter() {
 				this.$router.push({
 					path: "/reginter"
 				});
 			},
+			
 			// 弹框保存
 			dialogSave() {
 				let params = JSON.stringify({
@@ -210,6 +219,7 @@
 					}
 				});
 			},
+			
 			// 增加请求参数
 			dialogRequest() {
 				var data = {
@@ -218,8 +228,10 @@
 				this.tableReq.push(data);
 				console.log(this.resCode);
 			},
+			
 			// 参数保存每一行
 			reqSave(index, rows) {
+			  console.log("in reqSave() groupId = " + this.groupId);
 				let params = JSON.stringify({
 					com: "POST",
 					data: {
@@ -234,6 +246,7 @@
 						cmt: rows[index].cmt
 					}
 				});
+
 				fmtManageSub(params).then(res => {
 					console.log(res);
 					if(res.code == 200000) {
@@ -247,6 +260,7 @@
 					}
 				});
 			},
+			
 			// 参数修改每一行
 			reqRevise(index, rows) {
 				let params = JSON.stringify({
@@ -276,6 +290,7 @@
 					}
 				});
 			},
+			
 			// 参数删除每一行
 			reqDelete(index, rows) {
 				console.log(rows);
@@ -296,7 +311,8 @@
 					}
 				});
 			},
-			// 数据格式主表保存
+			
+			// 数据格式主表修改后保存到数据库
 			mainSave() {
 				let params = {
 					com: "POST",
@@ -312,18 +328,19 @@
 					console.log(res);
 					if(res.code == 200000) {
 						this.$message({
-							message: "新增成功",
+							message: "修改保存成功",
 							type: "success"
 						});
 					} else {
 						console.log(res.msg);
 						this.$message({
-							message: "新增失败",
+							message: "修改保存失败",
 							type: "error"
 						});
 					}
 				});
 			},
+			
 			// 渲染功能里的数据格式列表
 			funcAllsnb() {
 				let params = {
@@ -347,6 +364,7 @@
 				});
 			},
 		},
+		
 		// 监听弹框显示隐藏
 		watch: {
 			dialogStat() {
@@ -356,6 +374,7 @@
 		},
 	};
 </script>
+
 <style scoped>
 	.saveCss {
 		position: absolute;

@@ -2,10 +2,9 @@
 	<div class="page-box">
 		<div style="margin:0px 10px" class="reginter-con">
 			<div style="margin-bottom: 6px;" v-if='!publishCon'>
-				<el-button size="small" @click='pubBut'>
-				    新增
-				</el-button>
+				<el-button size="small" @click='pubBut'>新增</el-button>
 		  </div>
+		  
 			<el-tabs v-if='publishCon' v-model="activeName" type="card" editable  @tab-add="handleTabsEdit">
 				<el-tab-pane name="first" >
 				  <span slot="label">{{formInline.region}}</span>
@@ -57,6 +56,7 @@
 						<el-button type="primary" size="small">保存</el-button>
 						<el-button type="danger" size="small">删除</el-button>
 					</div>
+					
 					<div class="page-content-box">
 						<div class="addCon" v-if="!addCon">
 									<i class="iconfont icon-zengjia" @click="dialogStatus = true"></i>
@@ -80,9 +80,7 @@
 										</div>
 									</div>
 									<div class="con-right">
-										<div class="right-content">
-											请求参数
-										</div>
+										<div class="right-content">请求参数	</div>
 										<div class="page-table1">
 											<template>
 												<el-table :data="tableData" style="width: 100%" stripe>
@@ -100,6 +98,7 @@
 													</el-table-column>
 												</el-table>
 											</template>
+											
 										</div>
 									</div>
 								</div>
@@ -110,9 +109,7 @@
 										</div>
 									</div>
 									<div class="con-right">
-										<div class="right-content">
-											返回参数
-										</div>
+										<div class="right-content">返回参数	</div>
 										<div class="page-table1">
 											<template>
 												<el-table :data="tableData" style="width: 100%" stripe>
@@ -130,6 +127,7 @@
 													</el-table-column>
 												</el-table>
 											</template>
+											
 										</div>
 									</div>
 								</div>
@@ -139,13 +137,13 @@
 				</el-tab-pane>
 			</el-tabs>
 		</div>
+		
 		<!-- 新增开放协议 -->
 		<el-dialog :visible.sync="dialogFormVisible" width="400px">
         <template slot="title">
-          <div class="dialog-top">
-            新增开放协议
-          </div>
+          <div class="dialog-top">新增开放协议</div>
         </template>
+        
         <div class="dialog-info">
            <el-form :model="formInline">
 							<el-form-item label="开放协议">
@@ -156,41 +154,46 @@
 							</el-form-item>
 					</el-form>
         </div>
+        
 				<div slot="footer" class="dialog-footer">
 					<el-button type="primary" size='small' @click="dialogSelect">保存</el-button>
 					<el-button @click="dialogFormVisible = false;" size='small'>取消</el-button>
 				</div>
+				
       </el-dialog>
 	</div>
 </template>
+
 <script>
 import dialogAdd from "./dialogAdd.vue";
 import { mapState } from "vuex";
 export default {
   components: {
     dialogAdd
+},
+
+data() {
+ return {
+  tableData: [],
+  ConfData: {
+    ip: "",
+    port: "",
+    path: ""
   },
-  data() {
-    return {
-      tableData: [],
-      ConfData: {
-        ip: "",
-        port: "",
-        path: ""
-      },
-      dialogStatus: "",
-      dialogFormVisible: false,
-      activeName: "first",
-      addCon: false,
-			publishCon:false,
-			formInline: {
-          user: '',
-          region: ''
-      }
-    };
-  },
-  methods: {
-    returnReginter() {
+  dialogStatus: "",
+  dialogFormVisible: false,
+  activeName: "first",
+  addCon: false,
+	publishCon:false,
+	formInline: {
+	  user: '',
+	  region: ''
+  }
+  };
+},
+
+methods: {
+  returnReginter() {
       this.$router.push({
         path: "/reginter"
       });
@@ -199,17 +202,20 @@ export default {
 		pubBut(){
       this.dialogFormVisible = true;
 		},
+		
 		handleTabsEdit(){
      this.dialogFormVisible = true;
 		},
+		
 		// 点击保存 标签页显示
 		dialogSelect(){
      this.publishCon = true;
 		 this.dialogFormVisible = false;
 		}
-  }
+}
 };
 </script>
+
 <style scoped>
 .pagetable-top {
   margin-left: 8px;

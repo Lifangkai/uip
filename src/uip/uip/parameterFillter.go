@@ -29,8 +29,8 @@ func UipSrcInterfaceParaFilter(data attached.UipSrcInterface) (emptyCheckRespons
 	return emptyCheckResponse, isEmpty
 }
 
-/**
-*
+/**UipInterFuncParaFilter（）
+* 检查功能配置的输入参数的有效性
 */
 func UipInterFuncParaFilter(data attached.UipInterFunc) (emptyCheckResponse responseJson, isEmpty bool) {
 	isEmpty = true

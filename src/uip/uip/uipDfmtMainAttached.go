@@ -14,9 +14,9 @@ import (
 *	主表添加方法
 */
 func mainAddMehod(data attached.UipDfmtMain) error {
-	frame.Log.Write("***mainAddMehod***")
+	common.Frame.Log.Write("***mainAddMehod***")
 	//判断是否存在
-	isExists, err := frame.DB.ExistsDo("exists", "uipDfmtMain"+data.GroupId+data.FmtCode)
+	isExists, err := common.Frame.DB.ExistsDo("exists", "uipDfmtMain"+data.GroupId+data.FmtCode)
 	//异常处理
 	if err != nil {
 		return errors.New("判断是否存在出错:" + err.Error())
@@ -33,7 +33,7 @@ func mainAddMehod(data attached.UipDfmtMain) error {
 	convertJsonData, _ := json.Marshal(data)
 	fmt.Println("converdata:", string(convertJsonData))
 	//向数据库插入数据
-	if err := frame.DB.Create("uipDfmtMain", "uipDfmtMain"+data.GroupId+data.FmtCode, string(convertJsonData)); err != nil {
+	if err := common.Frame.DB.Create("uipDfmtMain", "uipDfmtMain"+data.GroupId+data.FmtCode, string(convertJsonData)); err != nil {
 		return errors.New("添加错误:" + err.Error())
 	}
 	return nil
@@ -43,9 +43,9 @@ func mainAddMehod(data attached.UipDfmtMain) error {
 *	主表修改方法
 */
 func mainUpdateMethod(data attached.UipDfmtMain) error {
-	frame.Log.Write("***mainUpdateMehod***")
+	common.Frame.Log.Write("***mainUpdateMehod***")
 	//判断是否存在
-	resultValue, err := frame.DB.RetriveOne("uipDfmtMain" + data.GroupId + data.FmtCode)
+	resultValue, err := common.Frame.DB.RetriveOne("uipDfmtMain" + data.GroupId + data.FmtCode)
 	//异常处理
 	if err != nil {
 		return errors.New("判断是否存在出错:" + err.Error())
@@ -65,7 +65,7 @@ func mainUpdateMethod(data attached.UipDfmtMain) error {
 		fmt.Println("converdata:", string(convertJsonData))
 
 		//向数据库插入数据
-		if err := frame.DB.Update("uipDfmtMain", "uipDfmtMain"+data.GroupId+data.FmtCode, string(convertJsonData)); err != nil {
+		if err := common.Frame.DB.Update("uipDfmtMain", "uipDfmtMain"+data.GroupId+data.FmtCode, string(convertJsonData)); err != nil {
 			return errors.New("修改错误:" + err.Error())
 		}
 		return nil
@@ -80,9 +80,9 @@ func mainUpdateMethod(data attached.UipDfmtMain) error {
 *	主表删除方法
 */
 func mainDelMethod(data attached.UipDfmtMain) error {
-	frame.Log.Write("***mainUpdateMehod***")
+	common.Frame.Log.Write("***mainUpdateMehod***")
 	//判断是否存在
-	isExists, err := frame.DB.ExistsDo("exists", "uipDfmtMain"+data.GroupId+data.FmtCode)
+	isExists, err := common.Frame.DB.ExistsDo("exists", "uipDfmtMain"+data.GroupId+data.FmtCode)
 	//异常处理
 	if err != nil {
 		return errors.New("判断是否存在出错:" + err.Error())
@@ -92,7 +92,7 @@ func mainDelMethod(data attached.UipDfmtMain) error {
 		convertJsonData, _ := json.Marshal(data)
 		fmt.Println("converdata:", string(convertJsonData))
 		//向数据库插入数据
-		if err := frame.DB.Delete("uipDfmtMain", "uipDfmtMain"+data.GroupId+data.FmtCode); err != nil {
+		if err := common.Frame.DB.Delete("uipDfmtMain", "uipDfmtMain"+data.GroupId+data.FmtCode); err != nil {
 			return errors.New("删除错误:" + err.Error())
 		}
 		return nil
@@ -105,7 +105,7 @@ func mainDelMethod(data attached.UipDfmtMain) error {
 
 //主表查询方法
 func mainQueryOneMethod(str string) (attached.UipDfmtMain, error) {
-	frame.Log.Write("***mainQueryOneMehod***")
+	common.Frame.Log.Write("***mainQueryOneMehod***")
 
 	//key
 	key := "uipDfmtMain" + str
@@ -114,7 +114,7 @@ func mainQueryOneMethod(str string) (attached.UipDfmtMain, error) {
 	var mainFmt attached.UipDfmtMain
 
 	//判断是否存在
-	resultValue, err := frame.DB.RetriveOne(key)
+	resultValue, err := common.Frame.DB.RetriveOne(key)
 
 	//异常处理
 	if err != nil {

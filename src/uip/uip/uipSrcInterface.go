@@ -38,7 +38,7 @@ type simpleFunc struct {
 * @return:{code,msg,data}   json
  */
 func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
-	frame.Log.Write("this is UipSrcInterface post!")
+	common.Frame.Log.Write("this is UipSrcInterface post!")
 	var err error
 	var funcs []attached.UipInterFunc
 	var  funcs2 []simpleFunc
@@ -75,7 +75,7 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 			insertSucc = false
 			break
 		}
-		isExists, errI := frame.DB.ExistsDo("exists", "uipInterFunc"+row.GroupId+row.FuncCode)
+		isExists, errI := common.Frame.DB.ExistsDo("exists", "uipInterFunc"+row.GroupId+row.FuncCode)
 		if errI != nil {
 			insertSucc = false
 			break
@@ -86,7 +86,7 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 		}
 		//向数据库插入新数据
 		dataStr2, _ := json.Marshal(row)
-		err =frame.DB.Create("uipInterFunc"+row.GroupId, "uipInterFunc"+row.GroupId+row.FuncCode, string(dataStr2))
+		err =common.Frame.DB.Create("uipInterFunc"+row.GroupId, "uipInterFunc"+row.GroupId+row.FuncCode, string(dataStr2))
 		//截取func对象的funcCode和funcName字段，避免冗余
 		a.FuncCode = row.FuncCode
 		a.FuncName = row.FuncName
@@ -105,7 +105,7 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 	}
 
 	//判断是否已经存在数据
-	isExists, errI := frame.DB.ExistsDo("exists", "uipSrcInterface"+data.GroupId+data.InteCode)
+	isExists, errI := common.Frame.DB.ExistsDo("exists", "uipSrcInterface"+data.GroupId+data.InteCode)
 	//异常处理
 	if errI != nil {
 		response.Code = common.ErrorSystemErrId
@@ -124,7 +124,7 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 	data.FuncList = string(funcStr)
 	fmt.Println("the funcList is:",data.FuncList)
 	dataStr, _ := json.Marshal(data)
-	err =frame.DB.Create("uipSrcInterface"+data.GroupId, "uipSrcInterface"+data.GroupId+data.InteCode, string(dataStr))
+	err =common.Frame.DB.Create("uipSrcInterface"+data.GroupId, "uipSrcInterface"+data.GroupId+data.InteCode, string(dataStr))
 	
 	//异常处理
 	if err != nil {
@@ -147,7 +147,7 @@ func UipSrcInterfaceHandlePostRequest( data attached.UipSrcInterface) {
 *   @return:{code,msg,data} json
 */
 func UipSrcInterfaceDelRequest( data attached.UipSrcInterface) {
-	frame.Log.Write("this is UipSrcInterface Del method")
+	common.Frame.Log.Write("this is UipSrcInterface Del method")
 	var uip attached.UipSrcInterface
 	var opens []attached.UipOpenInterface
 	var errCode string
@@ -159,7 +159,7 @@ func UipSrcInterfaceDelRequest( data attached.UipSrcInterface) {
 		return
 	}
 	
-	OldData, err := frame.DB.RetriveOne("uipSrcInterface" + data.GroupId + data.InteCode)
+	OldData, err := common.Frame.DB.RetriveOne("uipSrcInterface" + data.GroupId + data.InteCode)
 	err = json.Unmarshal([]byte(OldData), &uip)
 	if err != nil {
 		response.Code = common.ErrorJsonFmtErrId
@@ -183,7 +183,7 @@ func UipSrcInterfaceDelRequest( data attached.UipSrcInterface) {
 	
 	deleteSucc = true
 	for _,aOpen := range opens{
-		err :=frame.DB.Delete("uipOpenInterface","uipSrcInterface" + aOpen.GroupId+data.InteCode)
+		err :=common.Frame.DB.Delete("uipOpenInterface","uipSrcInterface" + aOpen.GroupId+data.InteCode)
 		//异常处理
 		if err != nil {
 			errCode = aOpen.InteCode
@@ -211,7 +211,7 @@ func UipSrcInterfaceDelRequest( data attached.UipSrcInterface) {
 		response.Msg = common.ErrorSystemErrMsg
 		return
 	} else {
-		 err :=frame.DB.Delete("uipSrcInterface","uipSrcInterface" + data.GroupId+data.InteCode)
+		 err :=common.Frame.DB.Delete("uipSrcInterface","uipSrcInterface" + data.GroupId+data.InteCode)
 		//异常处理
 		if err != nil {
 			response.Code = common.ErrorSystemErrId
@@ -231,7 +231,7 @@ func UipSrcInterfaceDelRequest( data attached.UipSrcInterface) {
 *   @return:{code,msg,data} json
 */
 func UipSrcInterfaceHandlePutRequest(data attached.UipSrcInterface) {
-	frame.Log.Write("this is UipSrcInterface Put method")
+	common.Frame.Log.Write("this is UipSrcInterface Put method")
 	emptyCheckResponse, isEmpty := UipSrcInterfaceParaFilter(data)
 	if isEmpty == false {
 		response.Code = emptyCheckResponse.Code
@@ -240,7 +240,7 @@ func UipSrcInterfaceHandlePutRequest(data attached.UipSrcInterface) {
 	}
 	
 	//判断是否已经存在数据
-	OldData, err := frame.DB.RetriveOne("uipSrcInterface" + data.GroupId + data.InteCode)
+	OldData, err := common.Frame.DB.RetriveOne("uipSrcInterface" + data.GroupId + data.InteCode)
 	if err == nil && OldData == "" {
 		response.Code = common.ErrorDataNotExistsErrId
 		response.Msg = common.ErrorDataNotExistsMsg
@@ -254,7 +254,7 @@ func UipSrcInterfaceHandlePutRequest(data attached.UipSrcInterface) {
 	} else {
 		//向数据库插入新数据
 		dataStr, _ := json.Marshal(data)
-		err := frame.DB.Update("uipSrcInterface","uipSrcInterface"+data.GroupId+data.InteCode, string(dataStr))
+		err := common.Frame.DB.Update("uipSrcInterface","uipSrcInterface"+data.GroupId+data.InteCode, string(dataStr))
 		//异常处理
 		if err != nil {
 			response.Code = common.ErrorSystemErrId
@@ -274,7 +274,7 @@ func UipSrcInterfaceHandlePutRequest(data attached.UipSrcInterface) {
 *   @return {code,msg,data} json
 */
 func UipSrcInterfaceGetRequest( r *http.Request ) {
-	frame.Log.Write("this is UipSrcInterface SNGet method")
+	common.Frame.Log.Write("this is UipSrcInterface SNGet method")
 	var groupId,inteCode string
 	
 	groupId = r.Form["groupId"][0]
@@ -295,7 +295,7 @@ func UipSrcInterfaceGetRequest( r *http.Request ) {
 	}
 
 	//根据主键搜索
-	result, err :=frame.DB.RetriveOne("uipSrcInterface"+groupId+inteCode)
+	result, err :=common.Frame.DB.RetriveOne("uipSrcInterface"+groupId+inteCode)
 	//fmt.Println("result.(type): ", reflect.TypeOf(result))
 	if err == nil && result == "" {
 		response.Code = common.ErrorDataNotExistsErrId
@@ -331,7 +331,7 @@ func UipSrcInterfaceGetRequest( r *http.Request ) {
 */
 
 func UipSrcInterfacePseHandlePutRequest( r *http.Request) {
-	frame.Log.Write("this is UipSrcInterfacePseHandlePutRequest method")
+	common.Frame.Log.Write("this is UipSrcInterfacePseHandlePutRequest method")
 	var keysGet Pse
 	var resopnseData responseJsonForUipSrcInterfacesGet
 
@@ -341,11 +341,11 @@ func UipSrcInterfacePseHandlePutRequest( r *http.Request) {
 	requestStr := "  {\"com\":\"search\",\"data\":{\"tableName\":\"uipSrcInterface"+groupId + "\",\"keyWords\":\"" + fettext + "\"}}"
 	var valstr = []byte(requestStr)
 	
-	resp, err := http.Post("http://" + frame.PseIp + ":" + frame.PsePort + "/pse",
+	resp, err := http.Post("http://" + common.Frame.PseIp + ":" + common.Frame.PsePort + "/pse",
 		"application/json;charset=utf-8", bytes.NewBuffer(valstr))
 	defer resp.Body.Close()
 	if err != nil {
-		frame.Log.Write("err:" + err.Error())
+		common.Frame.Log.Write("err:" + err.Error())
 		response.Code = common.ErrPsePOSTCode
 		response.Msg = common.ErrPsePOSTMsg
 		return
@@ -353,16 +353,16 @@ func UipSrcInterfacePseHandlePutRequest( r *http.Request) {
 	
 	data2, err2 := ioutil.ReadAll(resp.Body)
 	if err2 != nil {
-		frame.Log.Write("the err when we read the respons's body is :" + err2.Error())
+		common.Frame.Log.Write("the err when we read the respons's body is :" + err2.Error())
 		response.Code = common.IOReadErrCode
 		response.Msg = common.IOReadErrMsg
 		return
 	 }
-	frame.Log.Write("the keys is :" + string(data2))
+	common.Frame.Log.Write("the keys is :" + string(data2))
 	 
 	err = json.Unmarshal([]byte(data2), &keysGet)
 	if err != nil{
-		frame.Log.Write("the json umarshal to keys[] is faild, the err is:" + err.Error())
+		common.Frame.Log.Write("the json umarshal to keys[] is faild, the err is:" + err.Error())
 		response.Code = common.ErrorJsonErrId
 		response.Msg = common.ErrorJsonErrMsg
 		return
@@ -372,13 +372,13 @@ func UipSrcInterfacePseHandlePutRequest( r *http.Request) {
 	for _, keyword := range keys {
 		var res attached.UipSrcInterface
 		childRes := getlistOne(keyword)
-		frame.Log.Write(childRes.Data)
+		common.Frame.Log.Write(childRes.Data)
 
 		if len(childRes.Data) != 0 {
 			err := json.Unmarshal([]byte(childRes.Data), &res)
 			//异常处理
 			if err != nil || res.GroupId != groupId{
-				frame.Log.Write("in pse method, some err occured:" + err.Error())
+				common.Frame.Log.Write("in pse method, some err occured:" + err.Error())
 				continue
 			}
 			

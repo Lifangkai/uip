@@ -20,11 +20,11 @@ type responJson struct {
 *
 */
 func getlistOne(keyword string) (responsesChild responJson) {
-	frame.Log.Write("in getlistOne(): keyword = " + keyword)
+	common.Frame.Log.Write("in getlistOne(): keyword = " + keyword)
 	
 	key := keyword 
 	//根据key查询所有数据dictCode + itemCode搜索
-	result, err := frame.DB.RetriveOne(key)
+	result, err := common.Frame.DB.RetriveOne(key)
  
 	//异常处理
 	if err == nil && result == "" {

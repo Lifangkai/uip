@@ -43,6 +43,7 @@
 		</div>
 	</div>
 </template>
+
 <script>
 	export default {
 		data() {
@@ -58,18 +59,21 @@
 						address: "上海市普陀区金沙江路 1517 弄"
 					}
 				],
+				
 				formInline: {
 					user: "",
 					region: ""
 				}
 			};
 		},
+		
 		methods: {
 			addOpeninter() {
 				this.$router.push({
 					path: "/reginterAdd"
 				});
 			},
+			
 			editOpeninter() {
 				this.$router.push({
 					path: "/reginterEditor"
@@ -78,6 +82,7 @@
 		}
 	};
 </script>
+
 <style scoped>
 	.pagetable-top {
 		margin-left: 8px;

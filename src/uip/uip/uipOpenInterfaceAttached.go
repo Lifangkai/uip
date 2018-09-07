@@ -13,10 +13,10 @@ import (
 	开放接口单条添加方法
 */
 func openInterfaceAddMehod(data attached.UipOpenInterface) error {
-	frame.Log.Write("***openInterfaceAddMehod***")
+	common.Frame.Log.Write("***openInterfaceAddMehod***")
 
 	//判断是否存在
-	isExists, err := frame.DB.ExistsDo("exists", "uipOpenInterface"+data.GroupId+data.InteCode)
+	isExists, err := common.Frame.DB.ExistsDo("exists", "uipOpenInterface"+data.GroupId+data.InteCode)
 	//异常处理
 	if err != nil {
 		return errors.New("判断是否存在出错:" + err.Error())
@@ -34,7 +34,7 @@ func openInterfaceAddMehod(data attached.UipOpenInterface) error {
 	fmt.Println("converdata:", string(convertJsonData))
 
 	//向数据库插入数据
-	if err := frame.DB.Create("uipOpenInterface", "uipOpenInterface"+data.GroupId+data.InteCode, string(convertJsonData)); err != nil {
+	if err := common.Frame.DB.Create("uipOpenInterface", "uipOpenInterface"+data.GroupId+data.InteCode, string(convertJsonData)); err != nil {
 		return errors.New("添加错误:" + err.Error())
 	}
 	return nil
@@ -44,10 +44,10 @@ func openInterfaceAddMehod(data attached.UipOpenInterface) error {
 	开放接口单条修改方法
 */
 func openInterfaceUpdateMehod(data attached.UipOpenInterface) error {
-	frame.Log.Write("***openInterfaceUpdateMehod***")
+	common.Frame.Log.Write("***openInterfaceUpdateMehod***")
 
 	//判断是否存在
-	resultValue, err := frame.DB.RetriveOne("uipOpenInterface" + data.GroupId + data.InteCode)
+	resultValue, err := common.Frame.DB.RetriveOne("uipOpenInterface" + data.GroupId + data.InteCode)
 	//异常处理
 	if err != nil {
 		return errors.New("判断是否存在出错:" + err.Error())
@@ -68,7 +68,7 @@ func openInterfaceUpdateMehod(data attached.UipOpenInterface) error {
 		fmt.Println("converdata:", string(convertJsonData))
 
 		//向数据库插入数据
-		if err := frame.DB.Update("uipOpenInterface", "uipOpenInterface"+data.GroupId+data.InteCode, string(convertJsonData)); err != nil {
+		if err := common.Frame.DB.Update("uipOpenInterface", "uipOpenInterface"+data.GroupId+data.InteCode, string(convertJsonData)); err != nil {
 			return errors.New("修改错误:" + err.Error())
 		}
 		return nil
@@ -83,10 +83,10 @@ func openInterfaceUpdateMehod(data attached.UipOpenInterface) error {
 	开放接口单条删除方法
 */
 func openInterfaceDelMethod(data attached.UipOpenInterface) error {
-	frame.Log.Write("***openInterfaceDelMethod***")
+	common.Frame.Log.Write("***openInterfaceDelMethod***")
 
 	//判断是否存在
-	isExists, err := frame.DB.ExistsDo("exists", "uipOpenInterface"+data.GroupId+data.InteCode)
+	isExists, err := common.Frame.DB.ExistsDo("exists", "uipOpenInterface"+data.GroupId+data.InteCode)
 	//异常处理
 	if err != nil {
 		return errors.New("判断是否存在出错:" + err.Error())
@@ -97,7 +97,7 @@ func openInterfaceDelMethod(data attached.UipOpenInterface) error {
 		convertJsonData, _ := json.Marshal(data)
 		fmt.Println("converdata:", string(convertJsonData))
 		//向数据库插入数据
-		if err := frame.DB.Delete("uipOpenInterface", "uipOpenInterface"+data.GroupId+data.InteCode); err != nil {
+		if err := common.Frame.DB.Delete("uipOpenInterface", "uipOpenInterface"+data.GroupId+data.InteCode); err != nil {
 			return errors.New("删除错误")
 		}
 		return nil
@@ -112,7 +112,7 @@ func openInterfaceDelMethod(data attached.UipOpenInterface) error {
 	开放接口单条查询方法
 */
 func openInterfaceQuery(key string) (attached.UipOpenInterface, error) {
-	frame.Log.Write("***openInterfaceQuery***")
+	common.Frame.Log.Write("***openInterfaceQuery***")
 
 	//用于返回的值
 	var openInterFace attached.UipOpenInterface
@@ -121,7 +121,7 @@ func openInterfaceQuery(key string) (attached.UipOpenInterface, error) {
 	//Key := "uipOpenInterface" + key
 
 	//查询
-	result, err := frame.DB.RetriveOne(key)
+	result, err := common.Frame.DB.RetriveOne(key)
 
 	//异常处理
 	if err != nil {
@@ -150,7 +150,7 @@ func openInterfaceQuery(key string) (attached.UipOpenInterface, error) {
 	开放接口通过搜索引擎(pse)查询前20条方法
 */
 func queryOpenInterfaceAll(groupId, condition string) ([]attached.UipOpenInterface, error) {
-	frame.Log.Write("***queryOpenInterfaceAll***")
+	common.Frame.Log.Write("***queryOpenInterfaceAll***")
 
 	//返回的实体
 	var openInterfaceArray []attached.UipOpenInterface
@@ -206,7 +206,7 @@ func queryOpenInterfaceAll(groupId, condition string) ([]attached.UipOpenInterfa
 */
 
 func querySrcInterfaceMethod(key string) (attached.UipSrcInterface, error) {
-	frame.Log.Write("***querySrcInterfaceMethod***")
+	common.Frame.Log.Write("***querySrcInterfaceMethod***")
 
 	//用于返回的值
 	var srcInterFace attached.UipSrcInterface
@@ -215,7 +215,7 @@ func querySrcInterfaceMethod(key string) (attached.UipSrcInterface, error) {
 	Key := "uipSrcInterface" + key
 
 	//查询
-	result, err := frame.DB.RetriveOne(Key)
+	result, err := common.Frame.DB.RetriveOne(Key)
 
 	//异常处理
 	if err != nil {
@@ -244,7 +244,7 @@ func querySrcInterfaceMethod(key string) (attached.UipSrcInterface, error) {
 	接口单条数据修改方法
 */
 func updateSrcInterfaceMethod(key string, srcInterface attached.UipSrcInterface) error {
-	frame.Log.Write("***updateSrcInterfaceMethod***")
+	common.Frame.Log.Write("***updateSrcInterfaceMethod***")
 
 	//条件
 	Key := "uipSrcInterface" + key
@@ -253,7 +253,7 @@ func updateSrcInterfaceMethod(key string, srcInterface attached.UipSrcInterface)
 	convertData, _ := json.Marshal(srcInterface)
 
 	//修改
-	if err := frame.DB.Update("uipSrcInterface", Key, string(convertData)); err != nil {
+	if err := common.Frame.DB.Update("uipSrcInterface", Key, string(convertData)); err != nil {
 		response.Code = common.ErrorSystemErrId
 		response.Msg = common.ErrorSystemErrMsg
 		return errors.New("修改错误:" + err.Error())

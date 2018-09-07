@@ -14,9 +14,9 @@ import (
 	子表添加方法
 */
 func subAddMehod(data attached.UipDfmtSub) error {
-	frame.Log.Write("***subAddMehod***")
+	common.Frame.Log.Write("***subAddMehod***")
 	//判断是否存在
-	isExists, err := frame.DB.ExistsDo("exists", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode)
+	isExists, err := common.Frame.DB.ExistsDo("exists", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode)
 	//异常处理
 	if err != nil {
 		return errors.New("判断是否存在出错:" + err.Error())
@@ -33,7 +33,7 @@ func subAddMehod(data attached.UipDfmtSub) error {
 	convertJsonData, _ := json.Marshal(data)
 	fmt.Println("converdata:", string(convertJsonData))
 	//向数据库插入数据
-	if err := frame.DB.Create("uipDfmtSub", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode, string(convertJsonData)); err != nil {
+	if err := common.Frame.DB.Create("uipDfmtSub", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode, string(convertJsonData)); err != nil {
 		return errors.New("添加错误:" + err.Error())
 	}
 	return nil
@@ -43,9 +43,9 @@ func subAddMehod(data attached.UipDfmtSub) error {
 	子表修改方法
 */
 func subUpdateMehod(data attached.UipDfmtSub) error {
-	frame.Log.Write("***subUpdateMehod***")
+	common.Frame.Log.Write("***subUpdateMehod***")
 	//判断是否存在
-	resultValue, err := frame.DB.RetriveOne("uipDfmtSub" + data.GroupId + data.FmtCode + data.DtlCode)
+	resultValue, err := common.Frame.DB.RetriveOne("uipDfmtSub" + data.GroupId + data.FmtCode + data.DtlCode)
 	//异常处理
 	if err != nil {
 		return errors.New("判断是否存在出错:" + err.Error())
@@ -65,7 +65,7 @@ func subUpdateMehod(data attached.UipDfmtSub) error {
 		fmt.Println("converdata:", string(convertJsonData))
 
 		//向数据库插入数据
-		if err := frame.DB.Update("uipDfmtSub", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode, string(convertJsonData)); err != nil {
+		if err := common.Frame.DB.Update("uipDfmtSub", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode, string(convertJsonData)); err != nil {
 			return errors.New("修改错误:" + err.Error())
 		}
 		return nil
@@ -80,9 +80,9 @@ func subUpdateMehod(data attached.UipDfmtSub) error {
 	子表删除方法
 */
 func subDelMethod(data attached.UipDfmtSub) error {
-	frame.Log.Write("***subDelMethod***")
+	common.Frame.Log.Write("***subDelMethod***")
 	//判断是否存在
-	isExists, err := frame.DB.ExistsDo("exists", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode)
+	isExists, err := common.Frame.DB.ExistsDo("exists", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode)
 	//异常处理
 	if err != nil {
 		return errors.New("判断是否存在出错:" + err.Error())
@@ -92,7 +92,7 @@ func subDelMethod(data attached.UipDfmtSub) error {
 		convertJsonData, _ := json.Marshal(data)
 		fmt.Println("converdata:", string(convertJsonData))
 		//向数据库插入数据
-		if err := frame.DB.Delete("uipDfmtSub", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode); err != nil {
+		if err := common.Frame.DB.Delete("uipDfmtSub", "uipDfmtSub"+data.GroupId+data.FmtCode+data.DtlCode); err != nil {
 			return errors.New("删除错误")
 		}
 		return nil
@@ -110,7 +110,7 @@ func querySubCount(data attached.UipDfmtSub) (count int, err error) {
 	key := "uipDfmtSub" + data.GroupId + data.FmtCode
 
 	//查询所有
-	results, err := frame.DB.Retrive("scan", key+"0", key+"~", 999999999)
+	results, err := common.Frame.DB.Retrive("scan", key+"0", key+"~", 999999999)
 	//异常处理
 	if err != nil {
 		response.Code = common.ErrorSystemErrId
@@ -136,7 +136,7 @@ func querySubCount(data attached.UipDfmtSub) (count int, err error) {
 
 //子表查询所有
 func querySubAllCondtion(key string) ([]attached.UipDfmtSub,error) {
-	frame.Log.Write("***querySubAllCondtion***")
+	common.Frame.Log.Write("***querySubAllCondtion***")
 
 	//返回的实体
 	var subArray []attached.UipDfmtSub
@@ -145,7 +145,7 @@ func querySubAllCondtion(key string) ([]attached.UipDfmtSub,error) {
 	Key := "uipDfmtSub" + key
 
 	//查询所有
-	results, err := frame.DB.Retrive("scan", Key+"0", Key+"~", 999999999)
+	results, err := common.Frame.DB.Retrive("scan", Key+"0", Key+"~", 999999999)
 	//异常处理
 	if err != nil {
 		response.Code = common.ErrorSystemErrId

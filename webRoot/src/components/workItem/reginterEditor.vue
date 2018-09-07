@@ -62,6 +62,7 @@
 									</el-row>
 								</el-form>
 							</div>
+							
 							<div class="page-content-box">
 								<div class="addCon" v-if="!addCon">
 									<i class="iconfont icon-zengjia" @click="funcSns()"></i>
@@ -69,6 +70,7 @@
 								<div class="addCon1" v-if="addCon">
 									<i class="iconfont icon-zengjia" @click="funcSns()"></i>
 								</div>
+								
 								<div v-for="(item,index) in funcManage" :key="index">
 									<el-collapse accordion v-if="!addCon" @change="changeColl(item,index)">
 										<el-collapse-item name='1'>
@@ -80,8 +82,7 @@
 												</div>
 											</template>
 											<div class="coll-con">
-												<div class="con-left">请求参数
-												</div>
+												<div class="con-left">请求参数</div>
 												<div class="con-right">
 													<div class="right-content">
 														{{item.reqExample}}
@@ -107,8 +108,7 @@
 												</div>
 											</div>
 											<div class="coll-con">
-												<div class="con-left">返回参数
-												</div>
+												<div class="con-left">返回参数</div>
 												<div class="con-right">
 													<div class="right-content">
 														{{item.resExample}}
@@ -139,32 +139,38 @@
 							</div>
 						</div>
 					</el-tab-pane>
+					
 					<el-tab-pane label="发布信息" name="second">
 						<!-- 发布信息页面 -->
 						<releaseInfo></releaseInfo>
 					</el-tab-pane>
+					
 				</el-tabs>
 			</template>
 		</div>
     
 		<!-- 新增弹框 -->
 		<dialogAdd @changeDialog="changeDialog" v-on:funcCon="list" :dialogStatus='dialogStatus' v-bind:inteSns='snsCode' v-bind:inte='inteCode'></dialogAdd>
-	  <!-- 编辑弹框 -->
+	    <!-- 编辑弹框 -->
     <dialogEditor :dialogStat='dialogStat' @chgeDialog="chgeDialog"  v-bind:func='func'></dialogEditor>
   </div>
 </template>
+
 <script>
 	import { sinteManage, funcManageAll, fmtSubAll, funcManage, sinteSns } from "../../axios/axios.js";
 	import releaseInfo from "./releaseInfo.vue";
 	import dialogAdd from "./dialogAdd.vue";
   import dialogEditor from "./dialogEditor.vue";
 	import { mapState } from "vuex";
+	import global_ from '../Global.vue';
+	
 	export default {
 		components: {
 			releaseInfo,
 			dialogAdd,
       dialogEditor
 		},
+		
 		data() {
 			return {
 				groupId: "",
@@ -184,27 +190,32 @@
         func:''
 			};
 		},
+		
 		methods: {
 			// 切换弹框显示
 			changeDialog() {
 				this.dialogStatus = false;
 			},
+			
       chgeDialog() {
 				this.dialogStat = false;
 			},
+			
 			returnReginter() {
 				this.$router.push({
 					path: "/reginter"
 				});
 			},
+			
 			funcSns() {
 				let params = {
 					com: "LIST",
-					groupId: "SNS16494",
+					groupId: global_.GroupId , //"SNS16494",
 					snId: "UIPFMT01",
 					operatorId: "12000",
 					bs: "2"
 				};
+
 				sinteSns(params).then(res => {
 					console.log(res);
 					if(res.Code == 200000) {
@@ -215,6 +226,7 @@
 					}
 				});
 			},
+			
 			// 修改登记页面
 			sinteEditor() {
 				this.sinteData.connConf = JSON.stringify(this.ConfData);
@@ -239,6 +251,7 @@
 					}
 				});
 			},
+			
 			// 渲染功能列表
 			funcAll() {
 				let params = {
@@ -266,6 +279,7 @@
 					}
 				});
 			},
+			
 			// 渲染数据格式
 			changeColl(item, index) {
 				let that = this;
@@ -297,11 +311,13 @@
 					});
 				});
 			},
+			
       // func编辑
       funcBj(item, index){
         this.func = item;
   	    this.dialogStat = true;
-      },
+     		},
+     		
 			// func表删除
 			funcDel(item, index) {
 				console.log(item);
@@ -322,6 +338,7 @@
 					}
 				});
 			},
+			
 			list: function(somedata) {
 				this.funcManage = somedata;
 				if(this.funcManage == null) {
@@ -331,6 +348,7 @@
 				}
 			}
 		},
+		
 		// 页面刚进来就加载
 		mounted() {
 			this.$nextTick(function() {
@@ -343,6 +361,7 @@
 		}
 	};
 </script>
+
 <style scoped>
 	.pagetable-top {
 		margin-left: 8px;
