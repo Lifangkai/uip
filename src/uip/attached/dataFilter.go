@@ -80,11 +80,11 @@ func SubFilter(uipSub UipDfmtSub) bool {
 		return boo
 	}
 
-	if uipSub.ExtInfo == ""{
+/*	if uipSub.ExtInfo == ""{
     common.Frame.Log.Write("ExtInfo is null")
 		boo = false
 		return boo
-	}
+	} */
 
 	if uipSub.OperCode == "" {
     common.Frame.Log.Write("OperCode is null")
