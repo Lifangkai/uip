@@ -9,10 +9,10 @@ import (
 )
 
 /**
-*	添加数据方法
+* 添加数据方法
 */
 func mainInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
-	common.Frame.Log.Write("***mainInsertValueMethod***")
+	common.Frame.Log.Write("in mainInsertValueMethod()")
 
 	//校验数据
 	if ok := attached.MainFilter(data); !ok {
@@ -52,10 +52,10 @@ func mainInsertValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 }
 
 /**
-*	修改数据方法
+* 修改数据方法
 */
 func mainUpdateValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
-	common.Frame.Log.Write("***mainUpdateValueMethod***")
+	common.Frame.Log.Write("in mainUpdateValueMethod()")
 
 	//校验数据
 	if ok := attached.MainFilter(data); !ok {
@@ -114,10 +114,10 @@ func mainDeleteValueMethod(w http.ResponseWriter, data attached.UipDfmtMain) {
 }
 
 /**
-*	查询主表与子表的数据方法
+* 查询主表与子表的数据方法
 */
 func mainQueryValueMethod(w http.ResponseWriter, r *http.Request) {
-	common.Frame.Log.Write("***mainQueryValueMethod***")
+	common.Frame.Log.Write("in mainQueryValueMethod()")
 
 	//接受数据并校验
 	if r.Form["groupId"][0] == "" || len(r.Form["groupId"]) != 1 {
@@ -138,12 +138,12 @@ func mainQueryValueMethod(w http.ResponseWriter, r *http.Request) {
 	//查询主表
 	resultUipDfmtMain, err := mainQueryOneMethod(key)
 	if err != nil {
-		fmt.Println(err.Error())
 		if err.Error()=="数据不存在"{
 			response.Code = common.ErrorDataNotExistsErrId
 			response.Msg = common.ErrorDataNotExistsMsg
 			return
 		}
+
 		response.Code = common.ErrorQueryErrId
 		response.Msg = common.ErrorQueryErrMsg
 		return

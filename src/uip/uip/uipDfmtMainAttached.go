@@ -11,10 +11,11 @@ import (
 )
 
 /**
-*	主表添加方法
+* 主表添加方法
 */
 func mainAddMehod(data attached.UipDfmtMain) error {
-	common.Frame.Log.Write("***mainAddMehod***")
+	common.Frame.Log.Write("in mainAddMehod()")
+
 	//判断是否存在
 	isExists, err := common.Frame.DB.ExistsDo("exists", "uipDfmtMain"+data.GroupId+data.FmtCode)
 	//异常处理
@@ -103,9 +104,12 @@ func mainDelMethod(data attached.UipDfmtMain) error {
 	return nil
 }
 
-//主表查询方法
+/**
+* 主表查询方法
+*
+*/
 func mainQueryOneMethod(str string) (attached.UipDfmtMain, error) {
-	common.Frame.Log.Write("***mainQueryOneMehod***")
+	common.Frame.Log.Write("in mainQueryOneMehod()")
 
 	//key
 	key := "uipDfmtMain" + str

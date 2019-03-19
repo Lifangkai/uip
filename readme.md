@@ -2,6 +2,8 @@
 
 包括前端和后端
 
+go build uip/uip
+
 
 SNID:
 UIPFMT01

@@ -1,0 +1,3 @@
+in NewRsf(): serviceport: 7011
+in NewFileLog(): ../logsin createInstance(): 
+http.ListenAndServe error = [listen tcp :7011: bind: address already in use]

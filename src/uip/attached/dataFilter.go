@@ -1,35 +1,76 @@
 package attached
 
 import (
-	"fmt"
+  "fmt"
   "uip/common"
 )
 
 /*
-	主表数据过滤方法
+* 主表数据过滤方法
 */
 func MainFilter(uipMain UipDfmtMain) bool {
   common.Frame.Log.Write("in MainFilter(): uipMain = " + fmt.Sprint(uipMain))
-	var boo bool = true
+  var boo bool = true
 
-	//为空判断
-	if uipMain.GroupId == "" || uipMain.FmtType == ""  || uipMain.OperCode == "" {
+  //为空判断
+  if uipMain.GroupId == "" {
+	boo = false
+	common.Frame.Log.Write("字段为空！")
+	return boo
+  }
+
+  if uipMain.FmtType == ""  {
+	boo = false
+	common.Frame.Log.Write("字段为空！")
+	return boo
+  }
+/*
+  if uipMain.OperCode == "" {
+	boo = false
+	common.Frame.Log.Write("字段为空！")
+	return boo
+  } */
+
+	//长度判断
+	if len(uipMain.GroupId) != 8 {
 		boo = false
-		common.Frame.Log.Write("有字段为空！")
+		common.Frame.Log.Write("长度不符合要求！")
+		return boo
+	}
+	if len(uipMain.FmtName) > 64 {
+		boo = false
+		common.Frame.Log.Write("长度不符合要求！")
 		return boo
 	}
 
-	//长度判断
-	if len(uipMain.GroupId) != 8 || len(uipMain.FmtName) > 64 || len(uipMain.FmtType) > 16 || len(uipMain.ExtInfo) > 256 || len(uipMain.OperCode) > 64 || len(uipMain.Cmt) > 256 {
+	if len(uipMain.FmtType) > 16 {
 		boo = false
-		common.Frame.Log.Write("长度不符合！")
+		common.Frame.Log.Write("长度不符合要求！")
+		return boo
+	}
+
+	if len(uipMain.ExtInfo) > 256 {
+		boo = false
+		common.Frame.Log.Write("长度不符合要求！")
+		return boo
+	}
+
+	if len(uipMain.OperCode) > 64 {
+		boo = false
+		common.Frame.Log.Write("长度不符合要求！")
+		return boo
+	}
+
+	if len(uipMain.Cmt) > 256 {
+		boo = false
+		common.Frame.Log.Write("长度不符合要求！")
 		return boo
 	}
 
 	//默认值判断
 	if uipMain.FmtType != "json-json" && uipMain.FmtType != "file-file" && uipMain.FmtType != "ws-web" && uipMain.FmtType != "service" {
 		boo = false
-		common.Frame.Log.Write("默认值不合法！")
+		common.Frame.Log.Write("接口格式类型默认值不合法！")
 		return boo
 	}
 
@@ -74,11 +115,11 @@ func SubFilter(uipSub UipDfmtSub) bool {
 		return boo
 	}
 
-	if uipSub.Constrain == "" {
+/*	if uipSub.Constrain == "" {
     common.Frame.Log.Write("Constrain is null")
 		boo = false
 		return boo
-	}
+	}*/
 
 /*	if uipSub.ExtInfo == ""{
     common.Frame.Log.Write("ExtInfo is null")
@@ -86,11 +127,11 @@ func SubFilter(uipSub UipDfmtSub) bool {
 		return boo
 	} */
 
-	if uipSub.OperCode == "" {
+/*	if uipSub.OperCode == "" {
     common.Frame.Log.Write("OperCode is null")
 		boo = false
 		return boo
-	}
+	}*/
 
 	//长度判断
 	if len(uipSub.GroupId) != 8 {
@@ -157,33 +198,117 @@ func SubFilter(uipSub UipDfmtSub) bool {
 }
 
 /**
-*	接口开放过滤方法
+* 接口开放过滤方法
 */
 func OpenInterfaceFilter(data UipOpenInterface) bool {
-	common.Frame.Log.Write("in OpenInterfaceFilter(): data = " + fmt.Sprint(data))
+  common.Frame.Log.Write("in OpenInterfaceFilter(): data = " + fmt.Sprint(data))
 
-	var boo bool = true
+  var boo bool = true
 
-	//为空判断
-	if data.GroupId == "" || data.InteCode == "" || data.InteType == "" || data.ConnConf == "" || data.SinteCode == "" || data.OperCode == "" {
-		boo = false
-		fmt.Println("有字段为空！")
-		return boo
-	}
+  //为空判断
+  if data.GroupId == "" {
+    boo = false
+    common.Frame.Log.Write("字段为空！")
+    return boo
+  }
 
-	//长度判断
-	if len(data.GroupId) != 8 || len(data.InteName) > 64 || len(data.InteCode) > 16 || len(data.ConnConf) > 14 || len(data.FuncList) > 1024 || len(data.BeforeCode) > 32 || len(data.SinteCode) > 32 || len(data.AfterCode) > 32 || len(data.OperCode) > 64 || len(data.Cmt) > 256 {
-		boo = false
-		fmt.Println("长度不符合！")
-		return boo
-	}
+  if data.InteCode == "" {
+    boo = false
+    common.Frame.Log.Write("字段为空！")
+    return boo
+  }
 
-	//默认值判断
-	if data.InteType != "Oracle" && data.InteType != "http" && data.InteType != "SQLServer" {
-		boo = false
-		fmt.Println("默认值不合法！")
-		return boo
-	}
+  if data.InteType == "" {
+    boo = false
+    common.Frame.Log.Write("字段为空！")
+    return boo
+  }
 
-	return boo
+  if data.ConnConf == "" {
+    boo = false
+    common.Frame.Log.Write("字段为空！")
+    return boo
+  }
+
+  if data.SinteCode == "" {
+    boo = false
+    common.Frame.Log.Write("字段为空！")
+    return boo
+  }
+
+/*  if data.OperCode == "" {
+    boo = false
+    common.Frame.Log.Write("字段为空！")
+    return boo
+  } */
+
+  //长度判断
+  if len(data.GroupId) != 8 {
+    boo = false
+    common.Frame.Log.Write("长度不符合要求！")
+    return boo
+  }
+
+  if len(data.InteName) > 64 {
+    boo = false
+    common.Frame.Log.Write("长度不符合要求！")
+    return boo
+  }
+
+  if len(data.InteCode) > 16 {
+    boo = false
+    common.Frame.Log.Write("长度不符合要求！")
+    return boo
+  }
+
+  if len(data.ConnConf) > 14 {
+    boo = false
+    common.Frame.Log.Write("长度不符合要求！")
+    return boo
+  }
+
+  if len(data.FuncList) > 1024 {
+    boo = false
+    common.Frame.Log.Write("长度不符合要求！")
+    return boo
+  }
+
+  if len(data.BeforeCode) > 32{
+    boo = false
+    common.Frame.Log.Write("长度不符合要求！")
+    return boo
+  }
+
+  if len(data.SinteCode) > 32 {
+    boo = false
+    common.Frame.Log.Write("长度不符合要求！")
+    return boo
+  }
+
+  if len(data.AfterCode) > 32 {
+    boo = false
+    common.Frame.Log.Write("长度不符合要求！")
+    return boo
+  }
+
+  if len(data.OperCode) > 64 {
+    boo = false
+    common.Frame.Log.Write("长度不符合要求！")
+    return boo
+  }
+
+  if len(data.Cmt) > 256 {
+    boo = false
+    common.Frame.Log.Write("长度不符合要求！")
+    return boo
+  }
+
+  //默认值判断
+  if data.InteType != "Oracle" && data.InteType != "http" && data.InteType != "SQLServer" {
+    boo = false
+    fmt.Println("接口类型默认值不合法！")
+    return boo
+  }
+
+  return boo
 }

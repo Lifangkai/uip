@@ -19,12 +19,10 @@ var (
 )
 
 /*
-	author:jcx
-	date:180424
-	describe:接口数据格式信息总表/主表
+* describe:接口数据格式信息总表/主表
 */
 func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
-	common.Frame.Log.Write("***in dfmtMainHandler!!!***")
+	common.Frame.Log.Write("in dfmtMainHandler()")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -61,6 +59,7 @@ func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
 	//GET逻辑
 	if r.Method == "GET" {
 		//解析
@@ -90,12 +89,10 @@ func dfmtMainHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-	author:jcx
-	date:180424
-	describe:接口数据格式信息子表
+* describe:接口数据格式信息子表
 */
 func dfmtSubHandler(w http.ResponseWriter, r *http.Request) {
-	common.Frame.Log.Write("in dfmtSubHandler!!!***")
+	common.Frame.Log.Write("in dfmtSubHandler()")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -135,12 +132,10 @@ func dfmtSubHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-	author:jcx
-	date:180426
-	describe:接口开放管理
+* describe:接口开放管理
 */
 func uipOpenInterfaceHandler(w http.ResponseWriter, r *http.Request) {
-	common.Frame.Log.Write("***in uipOpenInterfaceHandler!!!***")
+	common.Frame.Log.Write("in uipOpenInterfaceHandler()")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -210,11 +205,10 @@ func uipOpenInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 /**
-*date:180424
-*describe:源接口管理表格基本方法
+* describe:源接口管理表格基本方法
 */
 func uipSrcInterfaceHandler(w http.ResponseWriter, r *http.Request) {
-	common.Frame.Log.Write("in uipSrcInterfaceHandler!!!***")
+	common.Frame.Log.Write("in uipSrcInterfaceHandler()")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -281,11 +275,10 @@ func uipSrcInterfaceHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 /**
-	date:180424
-	describe:源接口管理全文搜索方法
+* describe:源接口管理全文搜索方法
 */
 func uipSrcInterfaceFtsearchHandler(w http.ResponseWriter, r *http.Request) {
-	common.Frame.Log.Write("***in uipSrcInterfaceFtsearchHandler!!!***")
+	common.Frame.Log.Write("in uipSrcInterfaceFtsearchHandler()")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -324,8 +317,7 @@ func uipSrcInterfaceFtsearchHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 /**
-	date:180424
-	describe:接口功能表格基本方法
+* describe:接口功能表格基本方法
 */
 func uipInterFuncHandler(w http.ResponseWriter, r *http.Request) {
 	common.Frame.Log.Write("in uipInterFuncHandler（）")
@@ -397,11 +389,10 @@ func uipInterFuncHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 /**
-	date:180424
-	describe:接口功能管理全文搜索方法
+* describe:接口功能管理全文搜索方法
 */
 func uipInterFuncFtsearchHandler(w http.ResponseWriter, r *http.Request) {
-	common.Frame.Log.Write("***in uipInterFuncFtsearchHandler!!!***")
+	common.Frame.Log.Write("in uipInterFuncFtsearchHandler()")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -440,11 +431,10 @@ func uipInterFuncFtsearchHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 /**
-	date:180424
-	describe:接口功能管理批量增加方法
+* describe:接口功能管理批量增加方法
 */
 func uipInterFuncBatchCreateHandler(w http.ResponseWriter, r *http.Request) {
-	common.Frame.Log.Write("***in uipInterFuncBatchCreateHandler!!!***")
+	common.Frame.Log.Write("in uipInterFuncBatchCreateHandler()")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -470,11 +460,10 @@ func uipInterFuncBatchCreateHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 /**
-*	date:180424
-*	describe:接口功能管理批量搜索方法
+* describe:接口功能管理批量搜索方法
 */
 func uipInterFuncBSearchHandler(w http.ResponseWriter, r *http.Request) {
-	common.Frame.Log.Write("***in uipInterFuncFtsearchHandler!!!***")
+	common.Frame.Log.Write("in uipInterFuncFtsearchHandler()")
 
 	//实例化给前段的状态的对象
 	response = attached.NewResponse()
@@ -501,7 +490,7 @@ func uipInterFuncBSearchHandler(w http.ResponseWriter, r *http.Request) {
 
 /**defaultHandler()
 * Default Request Handler
- */
+*/
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
 	common.Frame.Log.Write("in defaultHandler()")
 	w.Write([]byte("in defaultHandler()"))
@@ -523,7 +512,7 @@ func GetDataString(req *http.Request) string {
 }
 
 /**
-*	请求头
+* 请求头
 */
 func setHeader(w http.ResponseWriter) {
 	w.Header().Add("Access-Control-Allow-Origin", "*")

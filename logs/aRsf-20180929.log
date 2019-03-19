@@ -1,0 +1,133 @@
+20180929 131730.756 /home/ygz/ygz/uip/src/uip/uip/uip.go 217 in uipSrcInterfaceHandler!!!***
+20180929 131730.773 /home/ygz/ygz/uip/src/uip/uip/uip.go 217 in uipSrcInterfaceHandler!!!***
+20180929 131730.784 /home/ygz/ygz/uip/src/uip/uip/uipSrcInterface.go 41 this is UipSrcInterface post!
+20180929 131730.784 /home/ygz/ygz/uip/src/uip/uip/getSns.go 15 in getSnsNew(): groupid = SNS16494snstype = UIPSRC1
+20180929 131730.784 /home/ygz/ygz/uip/src/uip/uip/getSns.go 19 url = http://172.16.0.13:7501/snList?com=LIST&groupId=SNS16494&snId=UIPSRC1&operatorId=12000&bs=1
+20180929 131730.880 /home/ygz/ygz/uip/src/uip/uip/getSns.go 15 in getSnsNew(): groupid = SNS16494snstype = dmm00001
+20180929 131730.880 /home/ygz/ygz/uip/src/uip/uip/getSns.go 19 url = http://172.16.0.13:7501/snList?com=LIST&groupId=SNS16494&snId=dmm00001&operatorId=12000&bs=1
+20180929 132444.059 /home/ygz/ygz/uip/src/uip/uip/uip.go 331 in uipInterFuncHandler（）
+20180929 132444.111 /home/ygz/ygz/uip/src/uip/uip/uip.go 331 in uipInterFuncHandler（）
+20180929 132444.111 /home/ygz/ygz/uip/src/uip/uip/uipInterFunc.go 18 in UipInterFuncHandlePostRequest（）
+20180929 132444.111 /home/ygz/ygz/uip/src/uip/uip/getSns.go 15 in getSnsNew(): groupid = SNS16494snstype = UIPFUNC1
+20180929 132444.111 /home/ygz/ygz/uip/src/uip/uip/getSns.go 19 url = http://172.16.0.13:7501/snList?com=LIST&groupId=SNS16494&snId=UIPFUNC1&operatorId=12000&bs=1
+20180929 132444.112 /home/ygz/ygz/uip/src/uip/uip/getSns.go 15 in getSnsNew(): groupid = SNS16494snstype = dmm00001
+20180929 132444.112 /home/ygz/ygz/uip/src/uip/uip/getSns.go 19 url = http://172.16.0.13:7501/snList?com=LIST&groupId=SNS16494&snId=dmm00001&operatorId=12000&bs=1
+20180929 132444.276 /home/ygz/ygz/uip/src/uip/uip/uip.go 331 in uipInterFuncHandler（）
+20180929 132444.276 /home/ygz/ygz/uip/src/uip/uip/uipInterFunc.go 391 this is uipInterFunc queryall  method
+20180929 132515.857 /home/ygz/ygz/uip/src/uip/uip/uip.go 27 ***in dfmtMainHandler!!!***
+20180929 132515.857 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMain.go 120 ***mainQueryValueMethod***
+20180929 132515.857 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMainAttached.go 108 ***mainQueryOneMehod***
+20180929 132517.417 /home/ygz/ygz/uip/src/uip/uip/uip.go 27 ***in dfmtMainHandler!!!***
+20180929 132517.417 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMain.go 120 ***mainQueryValueMethod***
+20180929 132517.417 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMainAttached.go 108 ***mainQueryOneMehod***
+20180929 132556.486 /home/ygz/ygz/uip/src/uip/uip/uip.go 27 ***in dfmtMainHandler!!!***
+20180929 132556.486 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMain.go 120 ***mainQueryValueMethod***
+20180929 132556.486 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMainAttached.go 108 ***mainQueryOneMehod***
+20180929 132557.328 /home/ygz/ygz/uip/src/uip/uip/uip.go 27 ***in dfmtMainHandler!!!***
+20180929 132557.328 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMain.go 120 ***mainQueryValueMethod***
+20180929 132557.329 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMainAttached.go 108 ***mainQueryOneMehod***
+20180929 132623.090 /home/ygz/ygz/uip/src/uip/uip/uip.go 288 ***in uipSrcInterfaceFtsearchHandler!!!***
+20180929 132623.090 /home/ygz/ygz/uip/src/uip/uip/uipSrcInterface.go 334 this is UipSrcInterfacePseHandlePutRequest method
+20180929 132623.125 /home/ygz/ygz/uip/src/uip/uip/uipSrcInterface.go 361 the keys is :{"code":"200000","msg":"查询成功: 本次搜索总共消耗17.955139ms","data":["uipSrcInterfaceSNS164944"]}
+20180929 132623.125 /home/ygz/ygz/uip/src/uip/uip/getOne.go 23 in getlistOne(): keyword = uipSrcInterfaceSNS164944
+20180929 132623.126 /home/ygz/ygz/uip/src/uip/uip/uipSrcInterface.go 375 {"cmt":"对源接口进行CRUD操作","ctime":"7","userCode":"UIP","funcList":"null","openList":"","connConf":"{\"ip\":\"172.16.0.13\",\"port\":\"7001\",\"path\":\"/sinte/manage\"}","inteType":"http","inteCode":"4","inteName":"源接口管理","groupId":"SNS16494"}
+20180929 132628.835 /home/ygz/ygz/uip/src/uip/uip/uip.go 331 in uipInterFuncHandler（）
+20180929 132628.835 /home/ygz/ygz/uip/src/uip/uip/uipInterFunc.go 391 this is uipInterFunc queryall  method
+20180929 132638.373 /home/ygz/ygz/uip/src/uip/uip/uip.go 27 ***in dfmtMainHandler!!!***
+20180929 132638.373 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMain.go 120 ***mainQueryValueMethod***
+20180929 132638.373 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMainAttached.go 108 ***mainQueryOneMehod***
+20180929 132639.899 /home/ygz/ygz/uip/src/uip/uip/uip.go 27 ***in dfmtMainHandler!!!***
+20180929 132639.899 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMain.go 120 ***mainQueryValueMethod***
+20180929 132639.899 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMainAttached.go 108 ***mainQueryOneMehod***
+20180929 133219.567 /home/ygz/ygz/uip/src/uip/uip/uip.go 27 ***in dfmtMainHandler!!!***
+20180929 133219.567 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMain.go 120 ***mainQueryValueMethod***
+20180929 133219.567 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMainAttached.go 108 ***mainQueryOneMehod***
+20180929 133551.260 /home/ygz/ygz/uip/src/uip/uip/uip.go 98 in dfmtSubHandler!!!***
+20180929 133551.318 /home/ygz/ygz/uip/src/uip/uip/uip.go 98 in dfmtSubHandler!!!***
+20180929 133551.318 /home/ygz/ygz/uip/src/uip/uip/uipDfmtSub.go 15 in subInsertValueMethod(): data = {机构ID 8542    8 string grouIp  16 SNS16494}
+20180929 133551.318 /home/ygz/ygz/uip/src/uip/attached/dataFilter.go 43 in SubFilter() uipSub = {机构ID 8542    8 string grouIp  16 SNS16494}
+20180929 133551.318 /home/ygz/ygz/uip/src/uip/attached/dataFilter.go 78 Constrain is null
+20180929 143553.384 /home/ygz/ygz/uip/src/uip/uip/uip.go 543 get ext parameter object err=[invalid character 's' looking for beginning of object key string], ext = [{svcaddr:cl,]
+20180929 143841.385 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /
+20180929 143841.385 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /fmt/manage/main
+20180929 143841.385 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /fmt/manage/sub
+20180929 143841.385 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /sinte/manage
+20180929 143841.385 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /sinte/manage/ftsearch
+20180929 143841.385 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage
+20180929 143841.385 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage/ftsearch
+20180929 143841.385 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage/batchCreate
+20180929 143841.385 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage/bSearch
+20180929 143841.385 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /ointe/manage
+20180929 143841.392 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 188 rsf service is beginning ...
+ server port = [7001] database = [172.16.0.13:7000]
+20180929 143841.392 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 193 in Run() db connected.
+
+20180929 143841.392 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage
+20180929 143841.392 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage/batchCreate
+20180929 143841.392 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /sinte/manage
+20180929 143841.393 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /sinte/manage/ftsearch
+20180929 143841.393 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage/ftsearch
+20180929 143841.393 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage/bSearch
+20180929 143841.393 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /ointe/manage
+20180929 143841.393 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /
+20180929 143841.393 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /fmt/manage/main
+20180929 143841.393 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /fmt/manage/sub
+20180929 143910.559 /home/ygz/ygz/uip/src/uip/uip/uip.go 95 in dfmtSubHandler()
+20180929 143910.582 /home/ygz/ygz/uip/src/uip/uip/uip.go 95 in dfmtSubHandler()
+20180929 143910.582 /home/ygz/ygz/uip/src/uip/uip/uipDfmtSub.go 15 in subInsertValueMethod(): data = {机构ID 8542    8 string grouIp  16 SNS16494}
+20180929 143910.582 /home/ygz/ygz/uip/src/uip/attached/dataFilter.go 84 in SubFilter() uipSub = {机构ID 8542    8 string grouIp  16 SNS16494}
+20180929 143910.582 /home/ygz/ygz/uip/src/uip/uip/getSns.go 15 in getSnsNew(): groupid = SNS16494snstype = fmtCode
+20180929 143910.582 /home/ygz/ygz/uip/src/uip/uip/getSns.go 19 url = http://172.16.0.13:7501/snList?com=LIST&groupId=SNS16494&snId=fmtCode&operatorId=12000&bs=1
+20180929 143910.584 /home/ygz/ygz/uip/src/uip/uip/uipDfmtSubAttached.go 17 ***subAddMehod***
+20180929 143910.629 /home/ygz/ygz/uip/src/uip/uip/uip.go 25 in dfmtMainHandler()
+20180929 143910.629 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMain.go 120 in mainQueryValueMethod()
+20180929 143910.629 /home/ygz/ygz/uip/src/uip/uip/uipDfmtMainAttached.go 112 in mainQueryOneMehod()
+20180929 145450.054 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /
+20180929 145450.054 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /fmt/manage/main
+20180929 145450.054 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /fmt/manage/sub
+20180929 145450.054 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /sinte/manage
+20180929 145450.054 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /sinte/manage/ftsearch
+20180929 145450.054 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage
+20180929 145450.054 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage/ftsearch
+20180929 145450.054 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage/batchCreate
+20180929 145450.054 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage/bSearch
+20180929 145450.054 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /ointe/manage
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 188 rsf service is beginning ...
+ server port = [7011] database = [172.16.0.13:7000]
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 193 in Run() db connected.
+
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage/ftsearch
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage/bSearch
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /ointe/manage
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /fmt/manage/sub
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /sinte/manage
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /sinte/manage/ftsearch
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage/batchCreate
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /
+20180929 145450.057 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /fmt/manage/main
+20180929 152513.062 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /
+20180929 152513.062 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /fmt/manage/main
+20180929 152513.062 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /fmt/manage/sub
+20180929 152513.062 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /sinte/manage
+20180929 152513.062 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /sinte/manage/ftsearch
+20180929 152513.062 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage
+20180929 152513.062 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage/ftsearch
+20180929 152513.062 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage/batchCreate
+20180929 152513.062 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /func/manage/bSearch
+20180929 152513.062 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 127 in SetPathHandlerPair(): /ointe/manage
+20180929 152513.066 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 188 rsf service is beginning ...
+ server port = [7011] database = [172.16.0.13:7000]
+20180929 152513.066 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 193 in Run() db connected.
+
+20180929 152513.066 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /
+20180929 152513.067 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /sinte/manage
+20180929 152513.067 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /sinte/manage/ftsearch
+20180929 152513.067 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage
+20180929 152513.067 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage/ftsearch
+20180929 152513.067 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage/batchCreate
+20180929 152513.067 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /fmt/manage/main
+20180929 152513.067 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /fmt/manage/sub
+20180929 152513.067 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /func/manage/bSearch
+20180929 152513.067 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 213 in Run(): /ointe/manage
+20180929 152513.067 /home/ygz/ygz/uip/src/rsf/rsf/rsf.go 239 http.ListenAndServe error = [listen tcp :7011: bind: address already in use]
